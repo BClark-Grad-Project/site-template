@@ -1,0 +1,67 @@
+include ../mixins/navigation.jade
+
+nav.navbar.navbar-default(role='navigation')
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed.btn-xs(type='button', data-toggle='collapse', data-target='#navigation')
+        span.sr-only Toggle navigation
+        span.glyphicon.glyphicon-th-list
+      a.navbar-brand(href='/') 
+        font(color='#cd610a')
+          b Template
+        font(color='black')
+          b Base
+    #navigation.collapse.navbar-collapse
+      ul.nav.navbar-nav.navbar-left    
+        block nav
+      ul.nav.navbar-nav.navbar-right
+        li.dropdown
+          a.dropdown-toggle(data-toggle='dropdown') 
+            | #{user.detail.first} #{user.detail.last} &nbsp;
+            span.glyphicon.glyphicon-user 
+            span.caret
+          ul.dropdown-menu(role='menu')
+            if(user.type == 'admin')
+              +adminNav()
+            else if (user.type == 'user')
+              +generalUserNav()
+            else
+              li 
+                +signIn()
+              li.divider
+              +guestNav()
+            if user.type != 'guest'       
+              li.divider       
+              +navItem('/authentication/logout','Sign Out')
+              
+div(class='modal fade', id='login-form', tabindex='-1', role='dialog', aria-labelledby='loginLabel', aria-hidden='true')
+  div(class='modal-dialog modal-sm')
+    div(class='modal-content')
+      form(role='form', method='POST', action='/authentication', id='loginForm')
+        div(class='modal-header')
+          button(type='button', class='close', data-dismiss='modal')
+            span(aria-hidden='true') &times;
+            span(class='sr-only') Close
+          h4(class='modal-title', id='registerLabel') Sign In
+        div(class='modal-body')
+          div(class='input-group')
+            div(class='input-group-addon') User Email
+            input.form-control(name='user', type='email', required, autofocus)
+          br
+          div(class='input-group')
+            div(class='input-group-addon') Password &nbsp;
+            input.form-control(name='password', type='password', required)
+          if (error) 
+            div(class='alert alert-warning alert-dismissible' role='alert')
+              button(type='button', class='close', data-dismiss='alert')
+                span(aria-hidden='true') &times;
+                span(class='sr-only') Close
+              strong Warning!
+              p Invalid user email or password! You Need to get this sorted out!
+          .input-group
+            div(class='checkbox', style='margin-left: 22px; margin-bottom: 0px;')
+              input(type='checkbox', name='remember')
+              | Remember me
+        div(class='modal-footer')
+          button(type='submit', class='btn btn-lg btn-block') Submit
+

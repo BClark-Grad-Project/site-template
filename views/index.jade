@@ -1,0 +1,27 @@
+// Begin Jade template.
+extends layout
+
+//-CSS is inserted in the HEAD tag.
+block css
+  
+//-JavaScript will be inserted in the header tag.
+block js-top
+
+//-JavaScript will be inserted at the end of the BODY tag.
+block js-bottom
+  
+//-Add navigation item to general navigation set.
+block nav
+  
+//-Add navigation item to existing Administrator navigation set.
+block navAdmin
+    
+//-HTML content to display.
+block content
+  section#main.container
+    .row
+      //-Columns in a row must equal 12. 
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        h1 #{title}
+
+// End Jade Template

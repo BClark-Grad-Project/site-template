@@ -1,0 +1,10 @@
+doctype html
+html
+  head
+    title= title
+    include ./css/index.jade
+    include ./js/top.jade
+  body(data-target='nav')
+    include ./components/navbar.jade
+    block content
+    include ./js/bottom.jade
