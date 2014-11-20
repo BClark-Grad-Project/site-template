@@ -24,7 +24,7 @@ module.exports = function (data) {
 	
 	//For session handling.
 	app.use(data.session());
-	app.use(data.registerUser);
+	app.use(data.registerSession);
 	
 	// Force HTTPS connections
 	function ensure(req, res, next){

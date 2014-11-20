@@ -34,34 +34,97 @@ nav.navbar.navbar-default(role='navigation')
               li.divider       
               +navItem('/authentication/logout','Sign Out')
               
-div(class='modal fade', id='login-form', tabindex='-1', role='dialog', aria-labelledby='loginLabel', aria-hidden='true')
-  div(class='modal-dialog modal-sm')
-    div(class='modal-content')
-      form(role='form', method='POST', action='/authentication', id='loginForm')
-        div(class='modal-header')
-          button(type='button', class='close', data-dismiss='modal')
-            span(aria-hidden='true') &times;
-            span(class='sr-only') Close
-          h4(class='modal-title', id='registerLabel') Sign In
-        div(class='modal-body')
-          div(class='input-group')
-            div(class='input-group-addon') User Email
-            input.form-control(name='user', type='email', required, autofocus)
-          br
-          div(class='input-group')
-            div(class='input-group-addon') Password &nbsp;
-            input.form-control(name='password', type='password', required)
-          if (error) 
-            div(class='alert alert-warning alert-dismissible' role='alert')
-              button(type='button', class='close', data-dismiss='alert')
+if user.type == 'guest'
+  div(class='modal fade', id='login-form', tabindex='-1', role='dialog', aria-labelledby='loginLabel', aria-hidden='true')
+    div(class='modal-dialog modal-sm')
+      div(class='modal-content')
+        form(role='form', method='POST', action='/authentication', id='loginForm')
+          div(class='modal-header')
+            button(type='button', class='close', data-dismiss='modal')
+              span(aria-hidden='true') &times;
+              span(class='sr-only') Close
+            h4(class='modal-title', id='loginLabel') Sign In
+          div(class='modal-body')
+            div(class='input-group')
+              div(class='input-group-addon') User Log-In
+              input.form-control(name='user', type='input', required, autofocus)
+            br  
+            div(class='input-group')
+              div(class='input-group-addon') Password &nbsp;
+              input.form-control(name='password', type='password', required)
+            if (error) 
+              div(class='alert alert-warning alert-dismissible' role='alert')
+                button(type='button', class='close', data-dismiss='alert')
+                  span(aria-hidden='true') &times;
+                  span(class='sr-only') Close
+                strong Warning!
+                p Invalid user email or password! You Need to get this sorted out!
+            .input-group
+              div(class='checkbox', style='margin-left: 22px; margin-bottom: 0px;')
+                input(type='checkbox', name='remember')
+                | Remember me
+          div(class='modal-footer')
+            button(type='submit', class='btn btn-lg btn-block') Submit
+            
+  div(class='modal fade', id='register-form', tabindex='-1', role='dialog', aria-labelledby='registerLabel', aria-hidden='true')
+    div(class='modal-dialog')
+      div(class='modal-content')
+        form(role='form', method='POST', action='/authentication/register', id='register-form')
+          div(class='modal-header')
+            button(type='button', class='close', data-dismiss='modal')
+              span(aria-hidden='true') &times;
+              span(class='sr-only') Close
+            h4(class='modal-title', id='registerLabel') Register Account
+          div(class='modal-body')
+            div(class='input-group')
+              div(class='input-group-addon') User Name
+              input.form-control(name='name', type='input', required)
+            br
+            div(class='input-group')
+              div(class='input-group-addon') User Email
+              input.form-control(name='email', type='email', required)
+            br
+            div(class='input-group')
+              div(class='input-group-addon') Password &nbsp;
+              input.form-control(name='password', type='password', required)
+            br
+            p One more time ...
+            div(class='input-group')
+              div(class='input-group-addon') Password
+              input.form-control(name='password-again', type='password', required)
+            div(class='alert alert-warning alert-dismissible', role='alert', id='fail-pass', hidden='hidden')
+              button(type='button', class='close', data-hide='alert')
                 span(aria-hidden='true') &times;
                 span(class='sr-only') Close
               strong Warning!
-              p Invalid user email or password! You Need to get this sorted out!
-          .input-group
-            div(class='checkbox', style='margin-left: 22px; margin-bottom: 0px;')
-              input(type='checkbox', name='remember')
-              | Remember me
-        div(class='modal-footer')
-          button(type='submit', class='btn btn-lg btn-block') Submit
-
+              |  Invalid. The password did not match.
+            br
+            div(class='input-group')
+              div(class='input-group-addon') First Name
+              input.form-control(name='first', type='input')
+            br
+            div(class='input-group')
+              div(class='input-group-addon') Middle Name(s)
+              input.form-control(name='middle', type='input')
+            br
+            div(class='input-group')
+              div(class='input-group-addon') Last Name
+              input.form-control(name='last', type='input')
+            br
+          div(class='modal-footer')
+            div(class='checkbox', style='margin-left: 22px; margin-bottom: 0px; float:left;')
+              input(type='checkbox', name='agree', value='I agree.')
+              | I 
+              u agree
+              |  to 
+              a(href='#') Terms. 
+            button(type='button', class='btn btn-lg btn-default', data-dismiss='modal') Cancel
+            button(type='submit', class='btn btn-lg btn-primary') Register
+            div(class='alert alert-warning alert-dismissible', role='alert', id='fail-agree', hidden='hidden')
+              button(type='button', class='close', data-hide='alert')
+                span(aria-hidden='true') &times;
+                span(class='sr-only') Close
+              strong Warning!
+              |  You have not 
+              u agreed
+              |  to the Terms.

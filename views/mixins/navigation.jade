@@ -18,7 +18,11 @@ mixin generalUserNav()
 
 mixin guestNav()
   li.dropdown-header Guest User Menu
-  +navItem('#register', 'Register Account')
+  li
+    +register()
 
 mixin signIn()
   a(role='menuitem', tabindex='-1', data-toggle='modal', data-target='#login-form') Sign In
+  
+mixin register()
+  a(role='menuitem', tabindex='-1', data-toggle='modal', data-target='#register-form') Register Account
