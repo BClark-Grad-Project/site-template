@@ -1,0 +1,71 @@
+@CHARSET "UTF-8";
+.nav-button{
+	top:0;
+	height: auto;
+	width:auto;
+	padding: 10px;
+}
+
+#navigation.collapse.navbar-collapse{
+	padding: 0px;
+	margin: 0px;
+	text-align:right;
+}
+
+.nav-profile-icon img {	
+	margin-top:-5px;
+    max-height:30px;
+    width:auto;
+}
+
+.nav-profile-name, .nav-profile-name h6, .nav-profile-name small {
+	text-align:right;
+    margin: 0px;
+    padding: 0px;
+}
+
+.nav-user {
+	font-weight: bold;
+	margin: -5px;
+	padding: 0px;
+	font-size: small;
+}
+
+ul.nav.navbar-nav.navbar-right li {
+	text-align:right;
+}
+
+.nav-profile-name {
+	margin-top:-8px;
+}
+
+.agree-check {
+	margin-right:10px;
+}
+
+
+#register-form .tab-content{
+  height:250px;
+}
+
+@media (max-width: 768px) {
+	#register-form .no-padding{
+	  padding:0px;
+	}
+	#register-form .no-padding-left{
+	  padding-left:0px;
+	}
+	#register-form .tab-content{
+	  height:350px;
+	}
+}
+
+.profile-option{
+	margin:0px 15px 0px 0px;
+}
+
+@media (max-width: 600px) {
+	.profile-option{
+		margin:0px -10px 0px -10px;
+	}
+}

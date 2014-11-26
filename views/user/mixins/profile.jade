@@ -1,0 +1,133 @@
+mixin userHeader()
+  .row
+    .media
+      .media-left.profile-image.col-xs-4.col-sm-4.col-md-12.col-lg-12
+        +userIcon()
+        a.profile-image-btn(data-target='#profile-image-change', data-toggle='modal')
+          img(src='/images/user/profile-image-btn.png')
+      .media-body.col-xs-8.col-sm-8.col-md-12.col-lg-12(style='padding-left: 25px;padding-right:25px;')
+        br
+        h3.media-heading #{user.name.charAt(0).toUpperCase() + user.name.slice(1)} 
+        if user.type == 'admin'
+          h5 Administrator
+        else if user.type == 'user'
+          h5 Standard User
+        hr
+        br        
+        i Please do not falsify information if you choose to provide it.
+  block
+        
+mixin userName()
+  .row
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      hr(style="margin-top:0px;")
+      .col-xs-12.col-sm-6.col-md-6.col-lg-4
+        .input-group
+          .input-group-addon First  &nbsp; &nbsp;
+          input.form-control(name='first', type='input', value=user.detail.first)
+        br
+      .col-xs-12.col-sm-6.col-md-6.col-lg-4
+        .input-group
+          .input-group-addon Middle
+          input.form-control(name='middle', type='input', value=user.detail.middle)
+        br
+      .col-xs-12.col-sm-12.col-md-12.col-lg-4
+        .input-group
+          .input-group-addon Last  &nbsp; &nbsp;
+          input.form-control(name='last', type='input', value=user.detail.last)
+  block
+
+mixin userDetail()
+  .row
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      hr(style="margin-top:0px;")
+      .col-xs-12.col-sm-6.col-md-6.col-lg-6
+        .input-group
+          .input-group-addon Born &nbsp; &nbsp;
+          input.form-control(name='birth', type='date', value=user.detail.birth.toISOString().substr( 0, 10 ))
+        br
+      .col-xs-12.col-sm-6.col-md-6.col-lg-6
+        .input-group
+          .input-group-addon Gender
+          input.form-control(name='gender', type='input', value=user.detail.gender)
+  block
+
+mixin contactPhone(i)
+  .col-xs-12.col-sm-8.col-md-7.col-lg-7
+    .input-group
+      .input-group-addon Phone &nbsp;&nbsp;
+      input.form-control(name='phone', type='tel', value=i.phone)  
+  br
+  block
+        
+mixin contactAddress(i)
+  br
+  .col-xs-6.col-sm-6.col-md-6.col-lg-6
+    h6 Mailing
+  .col-xs-6.col-sm-6.col-md-6.col-lg-6
+    // Remove button
+  br
+  br
+  .col-xs-12.col-sm-6.col-md-6.col-lg-6
+    .input-group
+      .input-group-addon Address
+      input.form-control(name='addr', type='input', value=i.addr)
+    br
+    .input-group
+      .input-group-addon Address
+      input.form-control(name='addr_2', type='input', value=i.addr_2)
+    br
+  .col-xs-12.col-sm-6.col-md-6.col-lg-6
+    .input-group
+      .input-group-addon City &nbsp; &nbsp; &nbsp;&nbsp;
+      input.form-control(name='city', type='input', value=i.city)
+    br
+  .col-xs-12.col-sm-6.col-md-6.col-lg-6
+    .col-xs-5.col-sm-5.col-md-5.col-lg-5(style="padding-left:0px;padding-right:0px;")
+      .input-group
+        .input-group-addon State &nbsp;&nbsp;&nbsp;&nbsp;
+        input.form-control(name='state', type='input', value=i.state)
+      br
+    .col-xs-7.col-sm-7.col-md-7.col-lg-7(style="padding-right:0px;")
+      .input-group
+        .input-group-addon Zip 
+        input.form-control(name='zip', type='input', value=i.zip)
+      br
+  block
+  
+mixin userContact()
+  .row
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      hr(style="margin-top:0px;")
+    if user.detail.contact
+      for i in user.detail.contact
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          .col-xs-6.col-sm-6.col-md-6.col-lg-6
+            h4(style="margin-top:0px;") #{i.type}
+          .col-xs-6.col-sm-6.col-md-6.col-lg-6
+            // Remove button
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          if i.type == 'Home'
+            +contactPhone(i)
+            +contactAddress(i)
+          else if i.type == 'Mobile'
+            +contactPhone(i)
+          else if i.type == 'Office'
+            +contactPhone(i)
+            +contactAddress(i)
+    else
+      p None
+  block  
+  
+mixin selectProfilePhoto()
+  .btn.btn-primary.btn-file.btn-lg.pull-right
+    p(style='margin:0px;') Select 
+    input.form-control(type='file', value=user.img)
+  button.btn.btn-default.btn-lg.disabled.pull-left(type='reset', disabled='disabled', style='margin-right: 10px;') Cancel
+  
+mixin saveEdits()
+  br
+  hr
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    button.btn.btn-primary.btn-lg.disabled.pull-right(type='submit', disabled='disabled') Save 
+    button.btn.btn-default.btn-lg.disabled.pull-right(type='reset', disabled='disabled', style='margin-right: 10px;') Undo 

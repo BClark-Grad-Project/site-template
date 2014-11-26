@@ -1,0 +1,58 @@
+mixin checkbox(name, title)
+  .checkbox
+    label
+      input(name=name, type='checkbox') 
+      | #{title}
+
+mixin checkboxHidden(name, title)
+  .checkbox.hide
+    label
+      input(name=name, type='checkbox') 
+      | #{title}
+
+mixin saveContentSetting()
+  button.btn.btn-primary.btn-lg.disabled.pull-right(type='submit', disabled='disabled') Save
+  button.btn.btn-default.btn-lg.disabled.pull-right(type='reset', disabled='disabled', style='margin-right: 10px;') Reset
+  
+mixin saveContentSetting2()
+  .col-xs-6.col-sm-6.col-md-6.col-lg-6(style:'padding:0px;')
+    button.btn.btn-default.btn-lg.disabled.pull-right(type='reset', disabled='disabled', style='margin-right: 10px;') Reset
+  .col-xs-6.col-sm-6.col-md-6.col-lg-6(style:'padding:0px;')
+    button.btn.btn-primary.btn-lg.disabled.pull-right(type='submit', disabled='disabled') Save
+
+mixin contentModules()
+  .panel.panel-default
+    .panel-body
+      form(role='form', method='POST', action='/content', id='content-module-form')
+        h5 
+          b Active Modules
+        p Choose which modules are active. 
+        .col-xs-12.col-sm-6.col-md-4.col-lg-4
+          h6 Marketing
+          +checkbox('jumbotron', 'Jumbotron')
+        .col-xs-12.col-sm-6.col-md-4.col-lg-4
+          h6 Content Modules
+          +checkbox('about', 'About') 
+          +checkbox('blog', 'Blog')
+          +checkbox('projects', 'Projects')  
+        .col-xs-12.col-sm-12.col-md-4.col-lg-4
+          h6 Other
+          +checkbox('users', 'User Management')
+          +checkbox('documents', 'Documents')  
+          +checkbox('contact', 'Contact')  
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12(style:'margin-top:20px;')
+          +saveContentSetting()
+          
+mixin frontPageDisplay()
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    h5
+      b Front Page Display
+    hr
+    form(role='form', method='POST', action='/content', id='front-content-form')
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        +checkboxHidden('front_about', 'About') 
+        +checkboxHidden('front_blog', 'Blog')
+        +checkboxHidden('front_projects', 'Projects')  
+        +checkboxHidden('front_documents', 'Documents')  
+        +checkboxHidden('front_contact', 'Contact')  
+      +saveContentSetting2()

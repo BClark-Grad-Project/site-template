@@ -1,28 +1,216 @@
 mixin navItem(target, title)
   li
-    a(href=target) #{title}
+    a(href=target) #{title}  &nbsp; 
+      block
 
 mixin adminNav()
+  block
   li.dropdown-header Administrator Menu  
   li.divider  
-  +navItem('/credentials/manage', 'Manage Users')
-  li.divider  
+  +navItem('/authentication/admin', 'Manage Users')
+  +navItem('/content', 'Manage Content')
   block adminNav
 
 mixin generalUserNav()
+  block
   li.dropdown-header User Menu
   li.divider  
-  +navItem('/catalog/schedule', 'My Profile')
-  li.divider  
+  +navItem('/account', 'My Profile')
   block generalUserNav
 
 mixin guestNav()
+  block
   li.dropdown-header Guest User Menu
   li
     +register()
 
 mixin signIn()
-  a(role='menuitem', tabindex='-1', data-toggle='modal', data-target='#login-form') Sign In
+  a(role='menuitem', tabindex='-1', data-toggle='modal', data-target='#login-form-modal') Sign In
   
 mixin register()
-  a(role='menuitem', tabindex='-1', data-toggle='modal', data-target='#register-form') Register Account
+  a(role='menuitem', tabindex='-1', data-toggle='modal', data-target='#register-form-modal') Register Account
+  
+mixin userIcon()
+  if user.img
+    //-TODO File server requirement
+  else
+    if user.detail.gender == 'Male'
+      img.media-object.img-responsive.img-rounded(src='/images/user/default-male.png')
+    else if user.detail.gender == 'Female'
+      img.media-object.img-responsive.img-rounded(src='/images/user/default-female.png')
+    else
+      img.media-object.img-responsive.img-rounded(src='/images/user/default-profile.png')
+  block
+  
+mixin loginFields()
+  .input-group
+    .input-group-addon User &nbsp; &nbsp; &nbsp; &nbsp;
+    input.form-control(name='user', type='input', data-toggle='tooltip', data-placement='bottom', title='', required, autofocus)
+  br  
+  .input-group
+    .input-group-addon Password
+    input.form-control(name='password', type='password', data-toggle='tooltip', data-placement='bottom', title='', required)
+  br
+    
+mixin userCredentialFields()
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    h5
+      b User Credentials
+  .col-xs-12.col-sm-6.col-md-6.col-lg-6
+    .input-group
+      .input-group-addon Email &nbsp; &nbsp; &nbsp;
+      input.form-control(name='email', type='email', data-toggle='tooltip', data-placement='bottom', title='', required)
+    br
+  .col-xs-12.col-sm-6.col-md-6.col-lg-6
+    .input-group
+      .input-group-addon User &nbsp; &nbsp; &nbsp; &nbsp;
+      input.form-control(name='user', type='input', data-toggle='tooltip', data-placement='bottom', title='', required, autofocus)
+    br  
+  .col-xs-12.col-sm-6.col-md-6.col-lg-6
+    .input-group
+      .input-group-addon Password
+      input.form-control(name='password', type='password', data-toggle='tooltip', data-placement='bottom', title='', required)
+    br
+  .retype-pass.col-xs-12.col-sm-6.col-md-6.col-lg-6
+    .input-group
+      .input-group-addon Re-Type &nbsp;
+      input.form-control(name='password_2', type='password', data-toggle='tooltip', data-placement='bottom', title='', required)
+    br
+
+mixin userNameFields()
+  #user-name.col-xs-12.col-sm-12.col-md-12.col-lg-12.collapse(style='margin:0px;padding:0px;')
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      h5
+        b Real Name
+    .col-xs-12.col-sm-12.col-md-6.col-lg-6
+      .input-group
+        .input-group-addon First &nbsp; &nbsp;
+        input.form-control(name='first', type='input')
+      br
+    .col-xs-12.col-sm-12.col-md-6.col-lg-6
+      .input-group
+        .input-group-addon Middle
+        input.form-control(name='middle', type='input')
+      br
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      .input-group
+        .input-group-addon Last &nbsp; &nbsp;
+        input.form-control(name='last', type='input')
+      br
+    
+mixin userDetail()
+  #user-detail.col-xs-12.col-sm-12.col-md-12.col-lg-12.collapse(style='margin:0px;padding:0px;')
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      h5
+        b Personal Details
+    .col-xs-12.col-sm-6.col-md-6.col-lg-6
+      .input-group
+        .input-group-addon Born &nbsp; &nbsp;
+        input.form-control(name='birth', type='date')
+      br
+    .col-xs-12.col-sm-6.col-md-6.col-lg-6
+      .input-group
+        .input-group-addon Gender
+        input.form-control(name='gender', type='input')
+      br
+
+mixin contactPhone(type)
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding:0px;')
+    if type != 'home' && type != 'mobile'
+      .col-xs-8.col-sm-8.col-md-9.col-lg-9(style='padding-left:0px;')
+        .input-group
+          .input-group-addon Phone &nbsp;&nbsp;
+          input.form-control(name=type + 'phone', type='tel')  
+        br
+    else
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-left:0px;padding-right:0px;')
+        .input-group
+          .input-group-addon Phone &nbsp;&nbsp;
+          input.form-control(name=type + 'phone', type='tel')  
+        br
+    if type != 'home' && type != 'mobile'
+      .col-xs-4.col-sm-4.col-md-3.col-lg-3(style='padding-right:0px;')
+        .input-group
+          .input-group-addon Ext.
+          input.form-control(name='ext', type='input')  
+        br
+        
+mixin contactAddress(type)
+  .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='padding:0px;')
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding(style='padding-left:0px;')
+      .input-group
+        .input-group-addon Address
+        input.form-control(name=type + 'addr', type='input')
+      br
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding(style='padding-left:0px;')
+      .input-group
+        .input-group-addon Address
+        input.form-control(name=type + 'addr_2', type='input')
+      br
+  .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='padding:0px;')
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding(style='padding-right:0px;')
+      .input-group
+        .input-group-addon City &nbsp; &nbsp; &nbsp;&nbsp;
+        input.form-control(name=type + 'city', type='input')
+      br
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding-left(style='padding-right:0px;')
+      .col-xs-6.col-sm-5.col-md-5.col-lg-5(style='padding-left:0px;')
+        .input-group
+          .input-group-addon State 
+          input.form-control(name=type + 'state', type='input')
+        br
+      .col-xs-6.col-sm-7.col-md-7.col-lg-7(style='padding-right:0px;')
+        .input-group
+          .input-group-addon Zip 
+          input.form-control(name=type + 'zip', type='input')
+        br
+  
+mixin contactMobile()
+  .col-xs-6.col-sm-7.col-md-7.col-lg-7(style='padding:0px;')
+    .input-group
+      .input-group-addon Carrier 
+      input.form-control(name=type + 'carrier', type='input')
+    br
+  +contactPhone('mobile')
+
+mixin userContact()
+  #user-contact.col-xs-12.col-sm-12.col-md-12.col-lg-12.collapse(role='tablist')
+    h5
+      b Contacts 
+    ul.nav.nav-tabs
+      li.active(role='presentation')
+        a(href='#contact-home', aria-controls='Home Contact', role='tab', data-toggle='tab') Home
+      li(role='presentation')
+        a(href='#contact-office', aria-controls='Office Contact', role='tab', data-toggle='tab') Office
+      li(role='presentation')
+        a(href='#contact-mobile', aria-controls='Mobile Contact', role='tab', data-toggle='tab') Mobile
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12.tab-content(style='padding-top:10px;')
+      #contact-home.tab-pane.fade.in.active(role='tabpanel')
+        h6 Mailing
+        +contactAddress('home')
+        h6 Telephone
+        +contactPhone('home')
+      #contact-office.tab-pane.fade(role='tabpanel')
+        h6 Mailing
+        +contactAddress('office')
+        h6 Telephone
+        +contactPhone('office')
+      #contact-mobile.tab-pane.fade(role='tabpanel')
+        h6 Mobile Information
+        +contactMobile('')
+  
+mixin registerAcceptButtons()
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    .col-xs-5.col-sm-6.col-md-8.col-lg-8
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        .checkbox.pull-left
+          input(type='checkbox', name='agree')
+          | I 
+          u agree
+          |  to 
+          a(href='#') Terms.
+    .col-xs-7.col-sm-6.col-md-4.col-lg-4(style='padding:0px;')
+      .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='padding:0px 10px 0px 0px;')
+        button.btn.btn-lg.btn-default.pull-right(type='button', data-dismiss='modal', style='width:100%;') Cancel
+      .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='padding:0px 0px 0px 10px;')
+        button.btn.btn-lg.btn-primary.disabled.pull-right(type='submit', style='width:100%;') Register

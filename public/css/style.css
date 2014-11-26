@@ -35,21 +35,14 @@ body h6 {
 	color: #492406;
 }
 
-.agree-check {
-	margin-right:10px;
-}
-
-.left-list {
-	height: 475px;
-}
-
-.right-list {
-	height: 475px;
-}
-
 .middle {
 	text-align: center;
 	verticle-align:middle;
 	margin: 0px auto;
 	padding: 5px;
+}
+
+.row {
+	padding-top: 10px;
+	padding-bottom: 10px;
 }

@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+
+.user-stat-item {
+	padding: 20px;
+	text-align:center;
+	white-space:nowrap;
+}
+.user-stat-item h6 {
+	padding: 30px 30px 0px 30px;
+}
+.user-stat-number {
+	padding: 0px 20px 20px 20px;
+	margin: 0px;
+	font-weight: bolder;
+	font-size: xx-large;
+}
