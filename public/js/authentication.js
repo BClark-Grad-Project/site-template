@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	$('#register-form input[name=password_2]').parent().hide();
-	
+	$('[data-toggle="tooltip"]').tooltip();
 	// REgister profile detail options. 
 	$('.profile-option-group > a').on('click', function(e){
 		var $this = $(this);
@@ -49,7 +49,7 @@ $(document).ready(function() {
 		  return false;
 		});
 	
-	$('input[name=user]').keypress(function(e){
+	$('input[name=name], input[name=user]').keypress(function(e){
 		  var ew = e.which;
 		  if(ew == 46)
 			  // period
@@ -79,14 +79,17 @@ $(document).ready(function() {
 	
 	// Login Form Validation
 	var validateLoginFields = {
-			user: function(name){
+			user: function(){
 				var empty_user = isFieldEmpty('#login-form', 'user');
-				
+				return empty_user;
 			},
 			password: function(){
-				var empty_pass = isFieldEmpty('#login-form', 'password');		
-		
-				
+				var $pass = $('#login-form input[name=password]');				
+				var empty_pass = isFieldEmpty('#login-form', 'password');
+				if(!empty_pass || $pass.val().length < 5){
+					return false;
+				}
+				return true;					
 			},
 			remember: function(){
 				
@@ -95,15 +98,27 @@ $(document).ready(function() {
 	
 	// Register Form Validation
 	var validateRegisterFields = {
-			user: function(){
-				var empty_user   = isFieldEmpty('#register-form', 'user');
-				if(!empty_user){return false;}
+			name: function(){
+				var empty_name   = isFieldEmpty('#register-form', 'name');
+				if(!empty_name){return false;}
 
 				return true;
 			},
 			email: function(){
+				// Is a email? HTML 5 require parameter sucks for this.
+				var $email = $('#register-form input[name=email]');
+				var isValid = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($email.val());
+				if(!isValid){
+					$email.next().hide();
+					return false;
+				}
+				$email.next().show();
+				
+				// Is empty?
 				var empty_email  = isFieldEmpty('#register-form', 'email');
-				if(!empty_email){return false;}
+				if(!empty_email){
+					return false;
+				}
 				
 				return true;
 			},
@@ -111,14 +126,22 @@ $(document).ready(function() {
 				var empty_pass   = isFieldEmpty('#register-form', 'password');	
 				var $pass = $('#register-form input[name=password]');
 				var $pass_2 = $('#register-form input[name=password_2]');
+
 				
-				if(!empty_pass){return false;}
-				else if ($pass.val().length >= 5){
+				if(!empty_pass || $pass.val().length < 5){
+					$pass.next().hide(); 
+					$pass_2.val('').parent().hide();
+					return false;
+				} else if($pass.val().length >= 5) {
 					$pass_2.parent().show();
+					$pass.next().show();
 				}
-				console.log($pass.val(), $pass_2.val());
-				if($pass.val() != $pass_2.val()){return false;}
-				this.agree();
+				if($pass.val() != $pass_2.val()){
+					$pass_2.next().hide();
+					return false;
+				} else {
+					$pass_2.next().show();
+				}
 
 				return true;
 			},
@@ -145,43 +168,37 @@ $(document).ready(function() {
 			},
 			agree: function(){
 				var empty_agree  = $('#register-form input[name=agree]').is(':checked');
-				toggleSubmit('#register-form', !empty_agree);
+				return empty_agree;
 			}
 	};
 	
-	
 	// Start Validation Event Listeners
-	function isRequiredFieldEmpty(){
-		var empty_user   = isFieldEmpty('#register-form', 'user');
-		var empty_email  = isFieldEmpty('#register-form', 'email');
-		var empty_pass   = isFieldEmpty('#register-form', 'password');	
-		var empty_pass_2 = isFieldEmpty('#register-form', 'password_2');	
-		var empty_agree  = $('#register-form input[name=agree]').is(':checked');
+	function requiredRegisterFields(){
+		var name  = validateRegisterFields.name();
+		var email = validateRegisterFields.email();
+		var pass  = validateRegisterFields.password();
+		var accept= validateRegisterFields.agree();
 		
-		var isEmpty = (empty_user && empty_email &&	empty_pass && empty_pass_2 && empty_agree);
-		console.log(isEmpty);
-		
-		if(!isEmpty){
+		if(name && email && pass && accept){
+			toggleSubmit('#register-form', false);
+		} else {
 			toggleSubmit('#register-form', true);
 		}
 	}
-	function requiredRegisterFields(){
-		isRequiredFieldEmpty();
-		var user  = validateRegisterFields.user();
-		if(!user){return false;}
-		var email = validateRegisterFields.email();
-		if(!email){return false;}
-		var pass  = validateRegisterFields.password();
-		if(!pass){return false;}
-	}
-	$('#login-form :input').keyup(function(e){
-		validateLoginFields.user();
-		validateLoginFields.password();
+	$('#login-form :input').on('keyup change', function(){
+		var user = validateLoginFields.user();
+		var pass = validateLoginFields.password();
 		
+		console.log(user, pass);
+		if(user && pass){
+			toggleSubmit('#login-form', false);
+		} else {
+			toggleSubmit('#login-form', true);
+		}
 		
 		validateLoginFields.remember();
 	});
-	$('#register-form :input').keyup(function(e){
+	$('#register-form :input').on('keyup change', function(){
 		requiredRegisterFields();
 		
 		
@@ -194,18 +211,5 @@ $(document).ready(function() {
 	});
 	$('#register-form :input').click(function(){
 		requiredRegisterFields();
-	});
-	
-	$('#register-form :input').submit(function (e) {
-		  e.preventDefault();
-		  var fd = new FormData($(this)[0]);
-		  $.ajax({
-		    data: fd,
-		    processData: false,
-		    contentType: false,
-		    type: 'POST', 
-		    success: function(data){
-		    }
-		  });
 	});
 });

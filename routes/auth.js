@@ -40,26 +40,66 @@ module.exports = function (data) {
 		    gender:	gender
 		};
 	};
-	var getContactsObj = function(req){
-	    var type    = req.body.type    ? req.body.type    : undefined;
-	    var phone   = req.body.phone   ? req.body.phone   : undefined;
-	    var addr    = req.body.addr    ? req.body.addr    : undefined;
-	    var addr_2  = req.body.addr_2  ? req.body.addr_2  : undefined;
-	    var city    = req.body.city    ? req.body.city    : undefined;
-	    var state   = req.body.state   ? req.body.state   : undefined;
-	    var zip     = req.body.zip     ? req.body.zip     : undefined;
-	    var country = req.body.country ? req.body.country : undefined;
+	var getMobileContactObj = function(req){
+	    var carrier = req.body.carriermobile ? req.body.carriermobile  : undefined;
+	    var phone   = req.body.phonemobile   ? req.body.phonemobile    : undefined;
+	    var ext     = req.body.extmobile     ? req.body.extmobile      : undefined;
 	    
 		return {
-		    type:     type,
+			type:     'mobile',
+		    carrier:  carrier,
+		    phone:    phone,
+		    ext:      ext
+		};
+	};
+
+	var getHomeContactObj = function(req){
+	    var phone   = req.body.phonehome   ? req.body.phonehome    : undefined;
+	    var addr    = req.body.addrhome    ? req.body.addrhome     : undefined;
+	    var addr_2  = req.body.addr_2home  ? req.body.addr_2home   : undefined;
+	    var city    = req.body.cityhome    ? req.body.cityhome     : undefined;
+	    var state   = req.body.statehome   ? req.body.statehome    : undefined;
+	    var zip     = req.body.ziphome     ? req.body.ziphome      : undefined;
+	    
+		return {
+			type:     'home',
 		    phone:    phone,
 		    addr:     addr,
 		    addr_2:   addr_2,
 		    city:     city,
 		    state:    state,
-		    zip:      zip,
-		    country:  country
+		    zip:      zip
 		};
+	};
+
+	var getOfficeContactObj = function(req){
+	    var phone   = req.body.phoneoffice   ? req.body.phoneoffice    : undefined;
+	    var ext     = req.body.extoffice     ? req.body.extoffice      : undefined;
+	    var addr    = req.body.addroffice    ? req.body.addroffice     : undefined;
+	    var addr_2  = req.body.addr_2office  ? req.body.addr_2office   : undefined;
+	    var city    = req.body.cityoffice    ? req.body.cityoffice     : undefined;
+	    var state   = req.body.stateoffice   ? req.body.stateoffice    : undefined;
+	    var zip     = req.body.zipoffice     ? req.body.zipoffice      : undefined;
+	    
+		return {
+			type:     'office',
+		    phone:    phone,
+		    ext:      ext,
+		    addr:     addr,
+		    addr_2:   addr_2,
+		    city:     city,
+		    state:    state,
+		    zip:      zip
+		};
+	};
+	var getContactsObj = function(req){
+		var contacts = [];
+		
+		contacts.push(getHomeContactObj(req));
+		contacts.push(getOfficeContactObj(req));
+		contacts.push(getMobileContactObj(req));
+		
+		return contacts;
 	};
 	var getRegistrationObj = function(req){
 		var registration = {};
@@ -94,6 +134,7 @@ module.exports = function (data) {
 	/* Register */
 	router.post('/register', function(req, res, next) {
 		var authorization = getRegistrationObj(req);
+		console.log(authorization);
 		data.register(req.session, authorization,function(err, user){
 			if(err){console.log('error : ', err, user);}
 			res.redirect('/');
