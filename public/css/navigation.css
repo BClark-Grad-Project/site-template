@@ -43,7 +43,6 @@ ul.nav.navbar-nav.navbar-right li {
 	margin-right:10px;
 }
 
-
 #register-form .tab-content{
   height:250px;
 }
@@ -60,12 +59,12 @@ ul.nav.navbar-nav.navbar-right li {
 	}
 }
 
-.profile-option{
+#register-form .profile-option{
 	margin:0px 15px 0px 0px;
 }
 
 @media (max-width: 600px) {
-	.profile-option{
+	#register-form .profile-option{
 		margin:0px -10px 0px -10px;
 	}
 }

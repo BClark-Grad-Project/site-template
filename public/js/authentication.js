@@ -1,7 +1,15 @@
 $(document).ready(function() {
-	$('#register-form input[name=password_2]').parent().hide();
-	$('[data-toggle="tooltip"]').tooltip();
-	// REgister profile detail options. 
+	$('#register-form input[name=password_2]').parent().hide(); // If js disabled, show verification field anyway.
+	$('.collapse').collapse('hide');// Because we want to use these as normal methods in other views.
+
+	function toggleSubmit(form, toggle){
+		$(form + ' button[type=submit]').disable(toggle);
+	}	
+	function isFieldEmpty(form, name){
+		var field = $(form + ' input[name=' + name + ']').notEmpty();
+		return field;
+	}	
+	// Register profile detail options. 
 	$('.profile-option-group > a').on('click', function(e){
 		var $this = $(this);
 		if($this.text().charAt(0) == '+'){
@@ -10,72 +18,6 @@ $(document).ready(function() {
 			$this.html($this.html().replace('- ','+'));
 		}
 	});
-	
-	// Extend jQuery functions for .disable class toggle (IE compatibility trick)
-	jQuery.fn.extend({
-	    disable: function(state) {
-	        return this.each(function() {
-	            var $this = $(this);
-	            $this.toggleClass('disabled', state);
-	        });
-	    }
-	});	
-	jQuery.fn.notEmpty = function() {
-        var $this = $(this);
-        if($this.val() != '')
-			return true;
-		return false;
-	};	
-	function toggleSubmit(form, toggle){
-		$(form + ' button[type=submit]').disable(toggle);
-	}	
-	function isFieldEmpty(form, name){
-		var field = $(form + ' input[name=' + name + ']').notEmpty();
-		return field;
-	}	
-
-	// Character input control for form elements.
-	$('input[name=first], input[name=last], input[name=middle]').keypress(function(e){
-		  var ew = e.which;
-		  if(ew == 32)
-		    // Spacebar
-		    return true;
-		  if(65 <= ew && ew <= 90)
-		    // a-z
-		    return true;
-		  if(97 <= ew && ew <= 122)
-		    // a-z
-		    return true;
-		  return false;
-		});
-	
-	$('input[name=name], input[name=user]').keypress(function(e){
-		  var ew = e.which;
-		  if(ew == 46)
-			  // period
-			  return true;
-		  if(ew == 64)
-			  // @
-			  return true;
-		  if(48 <= ew && ew <= 57)
-			  // 0-9
-		      return true;
-		  if(65 <= ew && ew <= 90)
-			  // A-Z
-			  return true;
-		  if(97 <= ew && ew <= 122)
-			  // a-z
-			  return true;
-		  return false;
-		});
-
-	$('input[name=password]').keypress(function(e){
-		  var ew = e.which;
-		  if(ew == 32)
-			 // Spacebar
-			 return false;
-		  return true;
-		});
 	
 	// Login Form Validation
 	var validateLoginFields = {
@@ -146,25 +88,25 @@ $(document).ready(function() {
 				return true;
 			},
 			realname: function(){
-				
+				// TODO realname: function()
 			},
 			phone:function(){
-				
+				// TODO phone:function()
 			},
 			addrLine: function(){
-				
+				//TODO addrLine: function()
 			},
 			country: function(){
-				
+				//TODO country: function()
 			},
 			city: function(){
-				
+				//TODO city: function()
 			},
 			state: function(){
-				
+				//TODO state: function()
 			},
 			zip: function(){
-				
+				//TODO zip: function()
 			},
 			agree: function(){
 				var empty_agree  = $('#register-form input[name=agree]').is(':checked');
@@ -173,18 +115,6 @@ $(document).ready(function() {
 	};
 	
 	// Start Validation Event Listeners
-	function requiredRegisterFields(){
-		var name  = validateRegisterFields.name();
-		var email = validateRegisterFields.email();
-		var pass  = validateRegisterFields.password();
-		var accept= validateRegisterFields.agree();
-		
-		if(name && email && pass && accept){
-			toggleSubmit('#register-form', false);
-		} else {
-			toggleSubmit('#register-form', true);
-		}
-	}
 	$('#login-form :input').on('keyup change', function(){
 		var user = validateLoginFields.user();
 		var pass = validateLoginFields.password();
@@ -198,6 +128,18 @@ $(document).ready(function() {
 		
 		validateLoginFields.remember();
 	});
+	function requiredRegisterFields(){
+		// When minimum requirements are met for creating a account enable submit button. Else disable.
+		var name  = validateRegisterFields.name();
+		var email = validateRegisterFields.email();
+		var pass  = validateRegisterFields.password();
+		var accept= validateRegisterFields.agree();		
+		if(name && email && pass && accept){
+			toggleSubmit('#register-form', false);
+		} else {
+			toggleSubmit('#register-form', true);
+		}
+	}
 	$('#register-form :input').on('keyup change', function(){
 		requiredRegisterFields();
 		

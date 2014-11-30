@@ -1,3 +1,22 @@
+mixin userHeader()
+  .row
+    .media
+      .media-left.profile-image.col-xs-4.col-sm-4.col-md-12.col-lg-12
+        +userIcon()
+        a.profile-image-btn(data-target='#profile-image-change', data-toggle='modal')
+          img(src='/images/user/profile-image-btn.png')
+      .media-body.col-xs-8.col-sm-8.col-md-12.col-lg-12(style='padding-left: 25px;padding-right:25px;')
+        br
+        h3.media-heading #{user.name.charAt(0).toUpperCase() + user.name.slice(1)} 
+        if user.type == 'admin'
+          h5 Administrator
+        else if user.type == 'user'
+          h5 Standard User
+        hr
+        br        
+        i Please do not falsify information if you choose to provide it.
+  block
+  
 mixin navItem(target, title)
   li
     a(href=target) #{title}  &nbsp; 
@@ -42,6 +61,10 @@ mixin userIcon()
       img.media-object.img-responsive.img-rounded(src='/images/user/default-profile.png')
   block
   
+mixin idField(name, id)
+  if id != undefined
+    input.form-control(name=name + 'Id', type='hidden', value=id)
+  
 mixin loginFields()
   .input-group
     .input-group-addon User &nbsp; &nbsp; &nbsp; &nbsp;
@@ -81,104 +104,131 @@ mixin userCredentialFields()
       span.form-control-feedback.glyphicon.glyphicon-ok-sign(style='display:none;', aria-hidden='true', data-toggle='tooltip', data-placement='bottom', title='Match! Good job, you have a 3 second memory.')
     br
 
-mixin userNameFields()
-  #user-name.col-xs-12.col-sm-12.col-md-12.col-lg-12.collapse(style='margin:0px;padding:0px;')
+mixin userNameFields(data)
+  - data = data ? data : {first: '', middle: '', last: ''};
+  #user-name.col-xs-12.col-sm-12.col-md-12.col-lg-12.collapse.fade.in.active(style='margin:0px;padding:0px;')
+    +idField('detail', data.id)
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
       h5
         b Real Name
     .col-xs-12.col-sm-12.col-md-6.col-lg-6
       .input-group
         .input-group-addon First &nbsp; &nbsp;
-        input.form-control(name='first', type='input')
+        input.form-control(name='first', type='input', value=data.first)
       br
     .col-xs-12.col-sm-12.col-md-6.col-lg-6
       .input-group
         .input-group-addon Middle
-        input.form-control(name='middle', type='input')
+        input.form-control(name='middle', type='input', value=data.middle)
       br
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
       .input-group
         .input-group-addon Last &nbsp; &nbsp;
-        input.form-control(name='last', type='input')
+        input.form-control(name='last', type='input', value=data.last)
       br
     
-mixin userDetail()
-  #user-detail.col-xs-12.col-sm-12.col-md-12.col-lg-12.collapse(style='margin:0px;padding:0px;')
+mixin userDetail(data)
+  - data = data ? data : {birth: new Date(), gender: ''}; 
+  #user-detail.col-xs-12.col-sm-12.col-md-12.col-lg-12.collapse.fade.in.active(style='margin:0px;padding:0px;')
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
       h5
         b Personal Details
     .col-xs-12.col-sm-6.col-md-6.col-lg-6
       .input-group
         .input-group-addon Born &nbsp; &nbsp;
-        input.form-control(name='birth', type='date')
+        input.form-control(name='birth', type='date', value=data.birth.toISOString().substr( 0, 10 ))
       br
     .col-xs-12.col-sm-6.col-md-6.col-lg-6
       .input-group
         .input-group-addon Gender
-        input.form-control(name='gender', type='input')
+        input.form-control(name='gender', type='input', value=data.gender)
       br
 
-mixin contactPhone(type)
+mixin contactPhone(data)
   .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding:0px;')
-    if type != 'home' && type != 'mobile'
+    if data.type != 'home' && data.type != 'mobile'
       .col-xs-8.col-sm-8.col-md-9.col-lg-9(style='padding-left:0px;')
         .input-group
           .input-group-addon Phone &nbsp;&nbsp;
-          input.form-control(name='phone' + type, type='tel')  
+          input.form-control(name='phone' + data.type, type='tel', value=data.phone)  
         br
     else
       .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-left:0px;padding-right:0px;')
         .input-group
           .input-group-addon Phone &nbsp;&nbsp;
-          input.form-control(name='phone' + type, type='tel')  
+          input.form-control(name='phone' + data.type, type='tel', value=data.phone)  
         br
-    if type != 'home' && type != 'mobile'
+    if data.type != 'home' && data.type != 'mobile'
       .col-xs-4.col-sm-4.col-md-3.col-lg-3(style='padding-right:0px;')
-        .input-group
+        .input-group 
           .input-group-addon Ext.
-          input.form-control(name='ext' + type, type='input')  
+          input.form-control(name='ext' + data.type, type='input', value=data.ext)  
         br
         
-mixin contactAddress(type)
+mixin contactAddress(data)
   .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='padding:0px;')
     .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding(style='padding-left:0px;')
       .input-group
         .input-group-addon Address 1
-        input.form-control(name='addr' + type, type='input')
+        input.form-control(name='addr' + data.type, type='input', value=data.addr)
       br
     .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding(style='padding-left:0px;')
       .input-group
         .input-group-addon Address 2
-        input.form-control(name='addr_2' + type, type='input')
+        input.form-control(name='addr_2' + data.type, type='input', value=data.addr_2)
       br
   .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='padding:0px;')
     .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding(style='padding-right:0px;')
       .input-group
         .input-group-addon City &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; 
-        input.form-control(name='city' + type, type='input')
+        input.form-control(name='city' + data.type, type='input', value=data.city)
       br
     .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding-left(style='padding-right:0px;')
       .col-xs-6.col-sm-5.col-md-5.col-lg-5(style='padding-left:0px;')
         .input-group
           .input-group-addon State 
-          input.form-control(name='state' + type, type='input')
+          input.form-control(name='state' + data.type, type='input', value=data.state)
         br
       .col-xs-6.col-sm-7.col-md-7.col-lg-7(style='padding-right:0px;')
         .input-group
           .input-group-addon Zip 
-          input.form-control(name='zip' + type, type='input')
+          input.form-control(name='zip' + data.type, type='input', value=data.zip)
         br
   
-mixin contactMobile(type)
+mixin contactMobile(data)
   .col-xs-6.col-sm-7.col-md-7.col-lg-7(style='padding:0px;')
     .input-group
       .input-group-addon Carrier  &nbsp; 
-      input.form-control(name='carrier' + type, type='input')
+      input.form-control(name='carrier' + data.type, type='input', value=data.carrier)
     br
-  +contactPhone('mobile')
+  +contactPhone(data)
 
-mixin userContact()
-  #user-contact.col-xs-12.col-sm-12.col-md-12.col-lg-12.collapse(role='tablist')
+mixin homeContactFields(data)
+  #contact-home.tab-pane.fade.in.active(role='tabpanel')
+    +idField(data.type, data.id)
+    h6 Mailing
+    +contactAddress(data)
+    h6 Telephone
+    +contactPhone(data)
+
+mixin officeContactFields(data)
+  #contact-office.tab-pane.fade(role='tabpanel')
+    +idField(data.type, data.id)
+    h6 Mailing
+    +contactAddress(data)
+    h6 Telephone
+    +contactPhone(data)
+    
+mixin mobileContactFields(data)
+  #contact-mobile.tab-pane.fade(role='tabpanel')
+    +idField(data.type, data.id)
+    h6 Mobile Information
+    +contactMobile(data)
+
+mixin userContact(data)
+  - var contactObj = function(type){return {type:type, addr:'', addr_2:'', city:'', state:'', zip:'', phone:'', carrier:'', ext:''};};
+  - data = data ? data : [contactObj('home'), contactObj('office'), contactObj('mobile')];
+  #user-contact.col-xs-12.col-sm-12.col-md-12.col-lg-12.collapse.fade.in.active(role='tablist')
     h5
       b Contacts 
     ul.nav.nav-tabs
@@ -189,19 +239,13 @@ mixin userContact()
       li(role='presentation')
         a(href='#contact-mobile', aria-controls='Mobile Contact', role='tab', data-toggle='tab') Mobile
     .col-xs-12.col-sm-12.col-md-12.col-lg-12.tab-content(style='padding-top:10px;')
-      #contact-home.tab-pane.fade.in.active(role='tabpanel')
-        h6 Mailing
-        +contactAddress('home')
-        h6 Telephone
-        +contactPhone('home')
-      #contact-office.tab-pane.fade(role='tabpanel')
-        h6 Mailing
-        +contactAddress('office')
-        h6 Telephone
-        +contactPhone('office')
-      #contact-mobile.tab-pane.fade(role='tabpanel')
-        h6 Mobile Information
-        +contactMobile('mobile')
+      for i in data
+        if i.type == 'home'
+          +homeContactFields(i)        
+        if i.type == 'office'
+          +officeContactFields(i)
+        if i.type == 'mobile'
+          +mobileContactFields(i)
   
 mixin registerAcceptButtons()
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
@@ -218,3 +262,16 @@ mixin registerAcceptButtons()
         button.btn.btn-lg.btn-default.pull-right(type='button', data-dismiss='modal', style='width:100%;') Cancel
       .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='padding:0px 0px 0px 10px;')
         button.btn.btn-lg.btn-primary.disabled.pull-right(type='submit', style='width:100%;') Register
+        
+mixin selectProfilePhoto()
+  .btn.btn-primary.btn-file.btn-lg.pull-right
+    p(style='margin:0px;') Select 
+    input.form-control(type='file', value=user.img)
+  button.btn.btn-default.btn-lg.pull-left(type='button', data-dismiss='modal') Cancel
+  
+mixin saveEdits()
+  br
+  hr
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    button.btn.btn-primary.btn-lg.pull-right(type='submit') Save 
+    button.btn.btn-default.btn-lg.pull-right(type='reset', style='margin-right: 10px;') Undo 
