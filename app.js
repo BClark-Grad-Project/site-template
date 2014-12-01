@@ -9,7 +9,7 @@ module.exports = function (data) {
 	var routeHome = require('./routes')(data);
 	var routeAuth = require('./routes/auth')(data);
 	var routeAcct = require('./routes/account')(data);
-	var routeContent = require('./routes/content')(data);
+	var routeManager = require('./routes/manager')(data);
 	
 	var app = express();
 	
@@ -44,7 +44,7 @@ module.exports = function (data) {
 	app.use('/', routeHome);
 	app.use('/authentication', routeAuth);
 	app.use('/account', routeAcct);
-	app.use('/content', routeContent);
+	app.use('/manager', routeManager);
 	
 	app.all('*', function(req, res, next){
 		res.redirect('/');

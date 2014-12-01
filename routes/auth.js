@@ -30,9 +30,5 @@ module.exports = function (data) {
 		});
 	});
 	
-	router.get('/admin', function(req, res, next){
-		res.render('admin/user/users', {title:"coming soon", user: req.session.user });
-	});
-	
 	return router;
 };
