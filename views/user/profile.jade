@@ -3,7 +3,12 @@ extends ../layout
 
 block css
   link(rel='stylesheet', href='/css/profile.css')
-
+    
+block js-bottom
+  script(src='/js/profile.js')
+  script(type='text/javascript').
+    var data = !{JSON.stringify(user)}
+    
 //-HTML content to display.
 block content
   section#main.container
@@ -16,6 +21,6 @@ block content
           h3(style="margin-top:0px;") Edit Profile
           +userNameFields(user.detail)
           +userDetail(user.detail)
-          +userContact(user.detail.contact)
+          +userContact(user.contact)
           +saveEdits()
 // End Jade Template

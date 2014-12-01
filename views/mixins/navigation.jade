@@ -7,7 +7,7 @@ mixin userHeader()
           img(src='/images/user/profile-image-btn.png')
       .media-body.col-xs-8.col-sm-8.col-md-12.col-lg-12(style='padding-left: 25px;padding-right:25px;')
         br
-        h3.media-heading #{user.name.charAt(0).toUpperCase() + user.name.slice(1)} 
+        h3.media-heading #{user.user.name.charAt(0).toUpperCase() + user.user.name.slice(1)} 
         if user.type == 'admin'
           h5 Administrator
         else if user.type == 'user'
@@ -33,13 +33,10 @@ mixin adminNav()
 mixin generalUserNav()
   block
   li.dropdown-header User Menu
-  li.divider  
-  +navItem('/account', 'My Profile')
   block generalUserNav
 
 mixin guestNav()
   block
-  li.dropdown-header Guest User Menu
   li
     +register()
 
@@ -141,7 +138,12 @@ mixin userDetail(data)
     .col-xs-12.col-sm-6.col-md-6.col-lg-6
       .input-group
         .input-group-addon Gender
-        input.form-control(name='gender', type='input', value=data.gender)
+        select.form-control(name='gender')
+          option(value='decline') Decline
+          option(value='male') Male
+          option(value='female') Female
+          option(value='trans') Transgender
+          option(value='uni') Unisex
       br
 
 mixin contactPhone(data)
@@ -184,12 +186,63 @@ mixin contactAddress(data)
         input.form-control(name='city' + data.type, type='input', value=data.city)
       br
     .col-xs-12.col-sm-12.col-md-12.col-lg-12.no-padding-left(style='padding-right:0px;')
-      .col-xs-6.col-sm-5.col-md-5.col-lg-5(style='padding-left:0px;')
+      .col-xs-6.col-sm-6.col-md-6.col-lg-5(style='padding-left:0px;')
         .input-group
           .input-group-addon State 
-          input.form-control(name='state' + data.type, type='input', value=data.state)
+          select.form-control(name='state' + data.type)
+            option(value='AL') AL
+            option(value='AK') AK
+            option(value='AZ') AZ
+            option(value='AR') AR
+            option(value='CA') CA
+            option(value='CO') CO
+            option(value='CT') CT
+            option(value='DE') DE
+            option(value='DC') DC
+            option(value='FL') FL
+            option(value='GA') GA
+            option(value='HI') HI
+            option(value='ID') ID
+            option(value='IL') IL
+            option(value='IN') IN
+            option(value='IA') IA
+            option(value='KS') KS
+            option(value='KY') KY
+            option(value='LA') LA
+            option(value='ME') ME
+            option(value='MD') MD
+            option(value='MA') MA
+            option(value='MI') MI
+            option(value='MN') MN
+            option(value='MS') MS
+            option(value='MO') MO
+            option(value='MT') MT
+            option(value='NE') NE
+            option(value='NV') NV
+            option(value='NH') NH
+            option(value='NJ') NJ
+            option(value='NM') NM
+            option(value='NY') NY
+            option(value='NC') NC
+            option(value='ND') ND
+            option(value='OH') OH
+            option(value='OK') OK
+            option(value='OR') OR
+            option(value='PA') PA
+            option(value='RI') RI
+            option(value='SC') SC
+            option(value='SD') SD
+            option(value='TN') TN
+            option(value='TX') TX
+            option(value='UT') UT
+            option(value='VT') VT
+            option(value='VA') VA
+            option(value='WA') WA
+            option(value='WV') WV
+            option(value='WI') WI
+            option(value='WY') WY
         br
-      .col-xs-6.col-sm-7.col-md-7.col-lg-7(style='padding-right:0px;')
+      .col-xs-6.col-sm-6.col-md-6.col-lg-7(style='padding-right:0px;')
         .input-group
           .input-group-addon Zip 
           input.form-control(name='zip' + data.type, type='input', value=data.zip)
@@ -261,12 +314,12 @@ mixin registerAcceptButtons()
       .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='padding:0px 10px 0px 0px;')
         button.btn.btn-lg.btn-default.pull-right(type='button', data-dismiss='modal', style='width:100%;') Cancel
       .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='padding:0px 0px 0px 10px;')
-        button.btn.btn-lg.btn-primary.disabled.pull-right(type='submit', style='width:100%;') Register
+        button.btn.btn-lg.btn-primary.pull-right(type='submit', style='width:100%;') Register
         
 mixin selectProfilePhoto()
   .btn.btn-primary.btn-file.btn-lg.pull-right
     p(style='margin:0px;') Select 
-    input.form-control(type='file', value=user.img)
+    input.form-control(type='file', value=user.user.img)
   button.btn.btn-default.btn-lg.pull-left(type='button', data-dismiss='modal') Cancel
   
 mixin saveEdits()

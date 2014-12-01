@@ -151,7 +151,7 @@ var getContactsObj = function(req){
 module.exports.getAuthenticationObj = function(req){		
 	var user     = req.body.user     ? req.body.user     : undefined;
 	var password = req.body.password ? req.body.password : undefined;
-	var remember = req.body.remember ? req.body.remember : undefined;
+	var remember = req.body.remember ? true : false;
 	
 	return {
 			user:     user,

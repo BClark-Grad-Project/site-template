@@ -1,7 +1,4 @@
 $(document).ready(function() {
-	$('#register-form input[name=password_2]').parent().hide(); // If js disabled, show verification field anyway.
-	$('.collapse').collapse('hide');// Because we want to use these as normal methods in other views.
-
 	function toggleSubmit(form, toggle){
 		$(form + ' button[type=submit]').disable(toggle);
 	}	
@@ -18,7 +15,11 @@ $(document).ready(function() {
 			$this.html($this.html().replace('- ','+'));
 		}
 	});
-	
+	toggleSubmit('#login-form', true);
+	toggleSubmit('#register-form', true);
+	$('#register-form input[name=password_2]').parent().hide(); // If js disabled, show verification field anyway.
+	$('.collapse').collapse('hide');// Because we want to use these as normal methods in other views.
+
 	// Login Form Validation
 	var validateLoginFields = {
 			user: function(){

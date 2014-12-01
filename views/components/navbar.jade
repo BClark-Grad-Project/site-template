@@ -18,31 +18,31 @@ nav.navbar.navbar-default(role='navigation')
         li.dropdown
           a.nav-button.dropdown-toggle(data-toggle='dropdown')
             .nav-profile-name.pull-left
-              if user.type != 'guest'
+              if user.user.type != 'guest'
                 small Signed in as: 
-                .nav-user #{user.name} &nbsp;  
+                .nav-user #{user.user.name} &nbsp;  
               else
                 img(src='/images/user/loginregister.png', style='height:40px;')
             | &nbsp;  
             .nav-profile-icon.pull-right
               +userIcon() 
           ul.dropdown-menu(role='menu')
-            if(user.type == 'admin')
+            if user.user.type == 'admin' 
               +adminNav()
-            else if (user.type == 'user')
+            else if user.user.type == 'user'
               +generalUserNav()
             else
               li
                 +signIn()
               li.divider
               +guestNav()
-            if user.type != 'guest'
+            if user.user.type != 'guest'
               li.divider  
               +navItem('/account', 'My Profile')
               +navItem('/authentication/logout','Sign Out')
                 span.glyphicon.glyphicon-log-out
                 
-if user.type == 'guest' || user.type == 'admin'
+if user.user.type == 'guest'
   #login-form-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='loginLabel', aria-hidden='true')
     .modal-dialog.modal-sm
       .modal-content
@@ -59,7 +59,7 @@ if user.type == 'guest' || user.type == 'admin'
                 input(type='checkbox', name='remember')
                 | Remember me
           .modal-footer
-            button.btn.btn-lg.btn-block.disabled(type='submit') Submit
+            button.btn.btn-lg.btn-blocks(type='submit') Submit
             
   #register-form-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='registerLabel', aria-hidden='true')
     .modal-dialog.modal-lg

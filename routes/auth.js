@@ -8,8 +8,8 @@ module.exports = function (data) {
 	router.post('/', function(req, res, next) {
 		var authorization = createObj.getAuthenticationObj(req);
 		data.login(req.session, authorization, function(err, user){
-			if(err){console.log(err, user);}
-			res.render('index', {title:"coming soon", user: req.session.user });			
+			if(err){console.log(err);}
+			res.redirect('/');			
 		});
 	});
 
