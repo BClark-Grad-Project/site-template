@@ -183,3 +183,47 @@ module.exports.getUserObj = function(req){
 	
 	return user;
 };
+
+
+module.exports.getNewAuthObj = function(req){
+	var auth = {};
+    var id      = req.body.userId;
+    var type    = req.body.auth_type;	
+    var active  = req.body.auth_active ? true : false;	
+    auth.id		= id;
+    auth.type   = type;
+    auth.active = active;
+    
+	return auth;
+};
+
+module.exports.getSeachObj = function(req){
+	var user   = {};
+    var id     = req.body.userId ? req.body.userId : undefined;
+    var type   = req.body.name   ? req.body.name   : undefined;
+    var email  = req.body.email  ? req.body.email  : undefined;	
+    var first  = req.body.first  ? req.body.first  : undefined;
+    var middle = req.body.middle ? req.body.middle : undefined;
+    var last   = req.body.last   ? req.body.last   : undefined;	
+
+    if(id){
+      user.user.id = id;
+    }
+    if(type){
+      user.user.type = type;
+    }
+    if(email){
+      user.user.email = email;
+    }
+    if(first){
+      user.detail.first = first;
+    }
+    if(middle){
+      user.detail.middle = middle;
+    }
+    if(last){
+      user.detail.last = last;
+    }
+    
+	return user;
+};

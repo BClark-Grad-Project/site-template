@@ -21,12 +21,12 @@ mixin userAuthFields()
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     .input-group
       .input-group-addon Id &nbsp; &nbsp; &nbsp; 
-      input.form-control(name='id', type='input')
+      input.form-control(name='userId', type='input')
     br
   .col-xs-12.col-sm-12.col-md-6.col-lg-6
     .input-group
       .input-group-addon Login
-      input.form-control(name='user', type='input')
+      input.form-control(name='name', type='input')
     br
   .col-xs-12.col-sm-12.col-md-6.col-lg-6
     .input-group
@@ -62,7 +62,7 @@ mixin findUser()
       h5
         b Find User Profile
        p Search for user profile by:
-      form(role='form', method='POST', action='/account/find', id='find-profile-form')
+      form#user-search-form(role='form', method='POST', action='/manager/users/search')
         ul.nav.nav-tabs(role='tablist')
           li.active(role='presentation')
             a(href='#profile-by-auth', aria-controls='Authentication', role='tab', data-toggle='tab') Authentication

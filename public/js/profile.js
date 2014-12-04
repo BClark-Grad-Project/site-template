@@ -3,6 +3,7 @@ $(document).ready(function(){
 		$(form + ' button[type=submit]').disable(toggle);
 	}	
 	$('#edit-profile-form :input[name=gender]').val(data.detail.gender);	
+	$('#edit-profile-form :input[name=auth_type]').val(data.user.type);	
 	// Contact state field propagate. 
 	for(var i in data.contact){
 		$('#edit-profile-form select[name=state'+ data.contact[i].type +']').val(data.contact[i].state);
@@ -110,6 +111,22 @@ $(document).ready(function(){
 					return false;
 				} 
 				return true;
+			},
+			type: function(){
+				var type = $('input[name=auth_type]').val() == data.user.type;
+
+				if(!type){
+					return false;
+				} 
+				return true;
+			},
+			active: function(){
+				var active = $('input[name=auth_active]').val() == data.user.active;
+
+				if(!active){
+					return false;
+				} 
+				return true;
 			}
 	};
 
@@ -174,6 +191,22 @@ $(document).ready(function(){
 	$(':input[name=gender]').on('keyup change', function(){
 		var gender = validateUserFields.gender();
 		if(gender){
+			toggleSubmit('#edit-profile-form', true);
+		} else {
+			toggleSubmit('#edit-profile-form', false);
+		}
+	});
+	$(':input[name=auth_active]').on('keyup change', function(){
+		var active = validateUserFields.active();
+		if(active){
+			toggleSubmit('#edit-profile-form', true);
+		} else {
+			toggleSubmit('#edit-profile-form', false);
+		}
+	});
+	$(':input[name=auth_type]').on('keyup change', function(){
+		var type = validateUserFields.type();
+		if(type){
 			toggleSubmit('#edit-profile-form', true);
 		} else {
 			toggleSubmit('#edit-profile-form', false);

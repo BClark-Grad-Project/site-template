@@ -4,15 +4,13 @@ extends ../layout
 block css
   link(rel='stylesheet', href='/css/profile.css')
     
-block js-bottom
-  script(src='/js/profile.js')
-  script(type='text/javascript').
-    var data = !{JSON.stringify(user)}
-    
 //-HTML content to display.
 block content
+  if useraccount
+    - user = useraccount;
   section#main.container
-    form(role='form', method='POST', action='/account', id='edit-profile-form')
+    - var action = !useraccount ? '/account' : '/manager/users/edit';
+    form(role='form', method='POST', action=action, id='edit-profile-form')
       include ./components/profile-edit-form.jade
       .row
         .col-xs-12.col-sm-12.col-md-3.col-lg-2
@@ -22,5 +20,13 @@ block content
           +userNameFields(user.detail)
           +userDetail(user.detail)
           +userContact(user.contact)
+          if useraccount
+            +adminProfileOptions()
           +saveEdits()
+                    
+                    
+block js-bottom
+  script(src='/js/profile.js')
+  script(type='text/javascript').
+    var data = !{JSON.stringify(user)}
 // End Jade Template

@@ -1,0 +1,29 @@
+#register-form-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='registerLabel', aria-hidden='true')
+  .modal-dialog.modal-lg
+    .modal-content
+      form#register-form(role='form', method='POST', action='/authentication/register')
+        .modal-header
+          button.close(type='button', data-dismiss='modal')
+            span(aria-hidden='true') &times;
+            span.sr-only Close
+          h4#registerLabel.modal-title Register Account
+        .modal-body.row
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12
+            +userCredentialFields()
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12
+              small Add More Detail (Optional)
+              hr(style='margin:0px;')
+              .profile-option-group(style='margin:0px;padding:0px;')
+                a.btn.profile-option.pull-left(href='#', data-toggle='collapse', data-target='#user-name') +  Real Name 
+                  span.glyphicon.glyphicon-user 
+                a.btn.profile-option.pull-left(href='#', data-toggle='collapse', data-target='#user-detail') +  Demographic Detail 
+                  span.glyphicon.glyphicon-info-sign 
+                a.btn.profile-option.pull-left(href='#', data-toggle='collapse', data-target='#user-contact') +  Contact Information 
+                  span.glyphicon.glyphicon-envelope 
+            br 
+            +userNameFields()
+            +userDetail()
+            +userContact()
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12
+            br
+            +registerAcceptButtons()
