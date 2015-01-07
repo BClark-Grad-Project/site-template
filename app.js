@@ -25,12 +25,12 @@ module.exports = function (data) {
 	app.use(express.static(path.join(__dirname, 'public')));
 	
 	//For session handling.
-	app.use(data.session());
-	app.use(data.registerSession);
+	app.use(data.secure.create());
+	app.use(data.secure.register);
 	
 	// Force HTTPS connections
 	function ensure(req, res, next){
-		var port = app.get('port') === 80 ? '' : ':' + app.get('port-ssl'); // Only for testing under local ENV
+		var port = app.get('port') === 80 ? '' : ':' + app.get('secure'); // Only for testing under local ENV
 		
 		if(req.secure){
 		  // OK, continue
