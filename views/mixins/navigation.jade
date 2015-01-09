@@ -7,10 +7,10 @@ mixin userHeader()
           img(src='/images/user/profile-image-btn.png')
       .media-body.col-xs-8.col-sm-8.col-md-12.col-lg-12(style='padding-left: 25px;padding-right:25px;')
         br
-        h3.media-heading #{user.user.name.charAt(0).toUpperCase() + user.user.name.slice(1)} 
+        h3.media-heading #{user.credentials.alias.charAt(0).toUpperCase() + user.credentials.alias.slice(1)} 
         if user.type == 'admin'
           h5 Administrator
-        else if user.type == 'user'
+        else if user.credentials.type == 'general'
           h5 Standard User
         hr
         br        
@@ -47,7 +47,7 @@ mixin register()
   a(role='menuitem', tabindex='-1', data-toggle='modal', data-target='#register-form-modal') Register Account
   
 mixin userIcon()
-  if user.img
+  if user.detail.img
     //-TODO File server requirement
   else
     if user.detail.gender == 'male'
@@ -85,7 +85,7 @@ mixin userCredentialFields()
   .col-xs-12.col-sm-6.col-md-6.col-lg-6
     .input-group
       .input-group-addon Login Name&nbsp;
-      input.form-control(name='name', type='input', required)
+      input.form-control(name='alias', type='input', required)
     br  
   .col-xs-12.col-sm-6.col-md-6.col-lg-6
     .input-group.has-feedback
@@ -320,7 +320,7 @@ mixin registerAcceptButtons()
 mixin selectProfilePhoto()
   .btn.btn-primary.btn-file.btn-lg.pull-right
     p(style='margin:0px;') Select 
-    input.form-control(type='file', value=user.user.img)
+    input.form-control(type='file', value=user.detail.img)
   button.btn.btn-default.btn-lg.pull-left(type='button', data-dismiss='modal') Cancel
   
 mixin adminProfileOptions()
@@ -328,13 +328,13 @@ mixin adminProfileOptions()
     hr
     br
     h4(style="margin-top:0px;") Administration Only
-    input.form-control(type='hidden', name='userId', value=user.user.id) 
+    input.form-control(type='hidden', name='userId', value=user.id) 
     h6
       b User Account Options
   .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
     .col-xs-2.col-sm-2.col-md-2.col-lg-1              
       .checkbox(style='margin-left:20px;')
-        if user.user.active == 'true'
+        if user.credentials.active == 'true'
           input(type='checkbox', name='auth_active', checked) 
         else
           input(type='checkbox', name='auth_active') 

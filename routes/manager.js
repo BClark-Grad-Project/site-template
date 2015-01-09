@@ -34,7 +34,6 @@ module.exports = function (data) {
 		userObj.user   = userAuths;
 		
 		data.updateProfile(null, userObj, function(err, user){
-			console.log(user);
 			res.render('user/profile', {title:'Edit ' + user.user.name, user: req.session.user, useraccount: user});			
 		});
 	});

@@ -1,13 +1,13 @@
 var getUserObj = function(req){
-	var name     = req.body.name     ? req.body.name     : undefined;
+	var alias     = req.body.alias     ? req.body.alias     : undefined;
 	var email    = req.body.email    ? req.body.email    : undefined;
 	var password = req.body.password ? req.body.password : undefined;
 	
 	return {
-			name:     name,
+			alias:    alias,
 			email:    email,
 			password: password,
-			type:     'user'
+			type:     'general'
 		};
 };
 var getDetailObj = function(req){
@@ -166,7 +166,7 @@ module.exports.getRegistrationObj = function(req){
 	var detail = getDetailObj(req);
 	var contacts = getContactsObj(req);
 	
-	registration.user = user;
+	registration.credentials = user;
 	registration.detail = detail;
 	registration.contact = contacts;
 	
@@ -174,7 +174,7 @@ module.exports.getRegistrationObj = function(req){
 };
 
 module.exports.getUserObj = function(req){
-	var user = {};
+	var user = {id:req.session.user.id};
 	var detail = getDetailObj(req);
 	var contacts = getContactsObj(req);
 	
@@ -200,20 +200,24 @@ module.exports.getNewAuthObj = function(req){
 module.exports.getSeachObj = function(req){
 	var user   = {};
     var id     = req.body.userId ? req.body.userId : undefined;
-    var type   = req.body.name   ? req.body.name   : undefined;
+    var alias  = req.body.alias  ? req.body.alias  : undefined;
+    var type   = req.body.type   ? req.body.type   : undefined;
     var email  = req.body.email  ? req.body.email  : undefined;	
     var first  = req.body.first  ? req.body.first  : undefined;
     var middle = req.body.middle ? req.body.middle : undefined;
     var last   = req.body.last   ? req.body.last   : undefined;	
 
     if(id){
-      user.user.id = id;
+      user.id = id;
+    }
+    if(alias){
+        user.credentials.alias = alias;
     }
     if(type){
-      user.user.type = type;
+        user.credentials.type = type;
     }
     if(email){
-      user.user.email = email;
+      user.credentials.email = email;
     }
     if(first){
       user.detail.first = first;

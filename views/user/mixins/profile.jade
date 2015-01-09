@@ -7,10 +7,10 @@ mixin userHeader()
           img(src='/images/user/profile-image-btn.png')
       .media-body.col-xs-8.col-sm-8.col-md-12.col-lg-12(style='padding-left: 25px;padding-right:25px;')
         br
-        h3.media-heading #{user.name.charAt(0).toUpperCase() + user.name.slice(1)} 
+        h3.media-heading #{user.credentials.alias.charAt(0).toUpperCase() + user.credentials.alias.slice(1)} 
         if user.type == 'admin'
           h5 Administrator
-        else if user.type == 'user'
+        else if user.credentials.type == 'general'
           h5 Standard User
         hr
         br        

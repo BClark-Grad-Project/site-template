@@ -7,7 +7,7 @@ var https = require('https');
 var http = require('http');
 
 // Secured port uses 'secure' namespace.
-app.set(secure.port());
+app.set('secure', secure.port());
 app.set('port', process.env.PORT || 3000);
 
 var server = https.createServer(secure.options(), app).listen(app.get('secure'));

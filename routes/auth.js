@@ -7,7 +7,7 @@ module.exports = function (data) {
 	/* Login */
 	router.post('/', function(req, res, next) {
 		var authorization = createObj.getAuthenticationObj(req);
-		data.login(req.session, authorization, function(err, user){
+		data.profile.verify(req.session, authorization, function(err, user){
 			if(err){console.log(err);}
 			res.redirect('/');			
 		});
@@ -15,8 +15,9 @@ module.exports = function (data) {
 
 	/* Logout */
 	router.get('/logout', function(req, res, next) {
-		data.logout(req.session, function(err, success){
-			backURL=req.header('Referer') || '/';
+		data.secure.destroy(req.session, function(fail, success){
+			if(fail){console.log(fail);}
+			backURL= '/';
 			res.redirect(backURL);
 		});
 	}); 
@@ -24,7 +25,7 @@ module.exports = function (data) {
 	/* Register */
 	router.post('/register', function(req, res, next) {
 		var authorization = createObj.getRegistrationObj(req);
-		data.register(req.session, authorization,function(err, user){
+		data.profile.create(req.session, authorization,function(err, user){
 			if(err){console.log('error : ', err, user);}
 			res.redirect('/');
 		});

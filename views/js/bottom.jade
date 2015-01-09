@@ -3,6 +3,6 @@ script(src='/js/bootstrap/bootstrap.js')
 script(src='/js/misc/uuid.js')
 script(src='/js/forms.js')
 script(src='/js/javascript.js')
-if user.user.type == 'guest'
+if user.credentials.type == 'guest'
   script(src='/js/authentication.js')
 block js-bottom

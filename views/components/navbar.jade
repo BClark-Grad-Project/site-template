@@ -18,30 +18,30 @@ nav.navbar.navbar-default(role='navigation')
         li.dropdown
           a.nav-button.dropdown-toggle(data-toggle='dropdown')
             .nav-profile-name.pull-left
-              if user.user.type != 'guest'
+              if user.credentials.type != 'guest'
                 small Signed in as: 
-                .nav-user #{user.user.name} &nbsp;  
+                .nav-user #{user.credentials.alias} &nbsp;  
               else
                 img(src='/images/user/loginregister.png', style='height:40px;')
             | &nbsp;  
             .nav-profile-icon.pull-right
               +userIcon() 
           ul.dropdown-menu(role='menu')
-            if user.user.type == 'admin' 
+            if user.credentials.type == 'admin' 
               +adminNav()
-            else if user.user.type == 'user'
+            else if user.credentials.type == 'general'
               +generalUserNav()
             else
               li
                 +signIn()
               li.divider
               +guestNav()
-            if user.user.type != 'guest'
+            if user.credentials.type != 'guest'
               li.divider  
               +navItem('/account', 'My Profile')
               +navItem('/authentication/logout','Sign Out')
                 span.glyphicon.glyphicon-log-out
                 
-if user.user.type == 'guest'
+if user.credentials.type == 'guest'
   include login.jade
   include register.jade
