@@ -1,0 +1,124 @@
+mixin article(blog)
+  h2 #{blog.article.title}
+  small blog.written
+  br
+  if blog.article.image
+    img(src=blog.article.image)          
+  p #{blog.description}
+  br
+  small.pull-right 
+    a(href='#') #{blog.author} 
+  if blog.edit.last
+    small Edited: #{blog.edit.last}
+  br
+  hr
+  
+mixin newComment()
+  form(action='/blog/create/comment/' + blog.id, method='POST', role='form')
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      small Comment
+      .col-xs-8.col-sm-8.col-md-8.col-lg-8
+        input.form-control(name='author', type='hidden', value=user.credentials.alias)
+        textarea.form-control(name='description', type='textarea', rows=3, required)
+        br
+      .col-xs-4.col-sm-4.col-md-4.col-lg-4
+        button.btn.btn-primary.btn-md(type='submit')
+        br
+        
+mixin popularArticles()
+  small Popular Articles
+  br
+  if top
+    ul
+      for rank in top
+        li 
+          a(href='/blog/' + rank.id) #{rank.article.title}
+  else
+    small
+      b None
+    br
+    
+mixin articles(blogs)
+  if blogs
+    for blog in blogs
+      +article(blog, false)
+  else
+    small
+      b Tell the Administrators to get crackin!
+    br
+  br
+  
+mixin blog()
+  if blog
+    +article(blog)
+    br
+    +newComment()
+    br
+    for comment in blog.comment
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        .col-xs-8.col-sm-8.col-md-9.col-lg-9.pull-left
+          small #{comment.description}
+        .col-xs-4.col-sm-4.col-md-3.col-lg-3.pull-right
+          small #{comment.author}
+  else
+    small 
+      b Article Not Found!
+      
+mixin newBlog()
+  if !blog
+    -var blog = {type:'site',tags:'',notice:{visits:0,favorites:0},article:{title:'',description:'',image:''}};
+  form(action='/blog/create', method='POST', role='form')
+    input.form-control(type='hidden', name='type', value=blog.type)
+    input.form-control(type='hidden', name='visits', value=blog.notice.visits, required)
+    input.form-control(type='hidden', name='favorites', value=blog.notice.favorites, required)
+    .col-xs-12.col-sm-4.col-md-3.col-lg-3
+      label(for='image') Title Image
+      input.form-control(name='image', type='file', value=blog.article.image)
+      br
+    .col-xs-12.col-sm-8.col-md-9.col-lg-9
+      label(for='title') Title
+      input.form-control(name='title', type='input', value=blog.article.title, required)
+      br
+    if !blog.edit
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        small Back-date this article 
+          a(href='#') click here
+        | .
+        br
+        br
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      label(for='description') Description
+      textarea.form-control(name='description', rows='15', value=blog.article.description, required)
+      br
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      label(for='tags') Tags
+      input.form-control(name='tags', type='input', value=blog.tags)
+      br
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      button.btn.btn-primary.btn-lg.pull-right(type='submit') Submit 
+      button.btn.btn-default.btn-lg.pull-right(type='reset', style='margin-right:10px;') Clear 
+      br
+      
+mixin recentArticles()
+  small Recent Articles
+  br
+  if recent
+    ul
+      for post in recent
+        li 
+          a(href='/blog/' + post.id) #{post.article.title}
+  else
+    small
+      b Get Started & Post Something!
+    br
+    
+mixin blogViews(notice)
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    .panel.panel-default
+      .col-xs-5.col-sm-5.col-md-5.col-lg-5
+        h5 Views
+        br
+      .col-xs-7.col-sm-7.col-md-7.col-lg-7
+        h5 #{notice.visits}
+        br
+      

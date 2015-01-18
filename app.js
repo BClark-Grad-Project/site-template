@@ -10,6 +10,7 @@ module.exports = function (data) {
 	var routeAuth = require('./routes/auth')(data);
 	var routeAcct = require('./routes/account')(data);
 	var routeManager = require('./routes/manager')(data);
+	var routeBlog = require('./routes/blog')(data);
 	
 	var app = express();
 	
@@ -45,6 +46,7 @@ module.exports = function (data) {
 	app.use('/authentication', routeAuth);
 	app.use('/account', routeAcct);
 	app.use('/manager', routeManager);
+	app.use('/blog', routeBlog);
 	
 	app.all('*', function(req, res, next){
 		res.redirect('/');

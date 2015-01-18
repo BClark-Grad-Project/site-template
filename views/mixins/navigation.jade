@@ -26,8 +26,16 @@ mixin adminNav()
   block
   li.dropdown-header Administrator Menu  
   li.divider  
+  li.dropdown-header Profile Management
+  +navItem('/manager/users/create', 'New User')
   +navItem('/manager/users', 'Manage Users')
-  +navItem('/manager/content', 'Manage Content')
+  li.divider  
+  li.dropdown-header Site Management
+  +navItem('/manager/content', 'Manage Modules')
+  li.divider  
+  li.dropdown-header Blog Management
+  +navItem('/blog/create', 'New Article')
+  +navItem('/blog/manager', 'Manage Articles')
   block adminNav
 
 mixin generalUserNav()
