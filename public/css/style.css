@@ -4,37 +4,47 @@
 	margin: 0;
 	padding: 0;
 }
-
+html {
+  position: relative;
+  min-height: 100%;
+}
 body {
-	margin: 0;
-	padding: 0;
-	position: relative;
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+  margin-top: 0px;
 }
 
 body h1 {
-	color: #cd610a;
+	weight: bold;
+	color: #000000;
 }
 
 body h2 {
-	color: #b75709;
+	color: #161616;
 }
 
 body h3 {
-	color: #a64f08;
+	color: #222222;
 }
 
 body h4 {
-	color: #7c3c08;
+	color: #383838;
 }
 
 body h5 {
-	color: #683308;
+	color: #494949;
 }
 
 body h6 {
-	color: #492406;
+	color: #5a5a5a;
 }
 
+a, a:link, a:visited{
+	color: #000000;
+}
+a:hover, a:active{
+	
+}
 .middle {
 	text-align: center;
 	verticle-align:middle;
@@ -49,4 +59,57 @@ body h6 {
 
 .form-control-feedback {
 	margin-top:-25px;
+}
+
+.show-md{
+	display:none;
+}
+
+.show-sm{
+	display:none;
+}
+#navbar-signin{
+		display:none;
+}
+	
+@media (min-width:991px) {
+	 #usernavigation {
+		width:440px;
+	}
+}
+	
+@media (max-width: 991px) {
+	.hide-md{
+		display:none;
+	}
+	#navbar-signin{
+		display:block;
+	}
+}
+@media (max-width: 768px) {
+	.hide-sm{
+		display:none;
+	}
+}
+
+
+/* Sticky footer styles
+-------------------------------------------------- */
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+  padding-top:20px;
+  margin-top:20px;
+}
+.footer img {
+  margin:-10px;
+  padding:0px;
+}
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
 }

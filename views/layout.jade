@@ -4,7 +4,12 @@ html
     title= title
     include ./css/index.jade
     include ./js/top.jade
-  body(data-target='nav')
+  body
     include ./components/navbar.jade
     block content
+    
+    br
+    br
+    br
+    include ./components/footer.jade
     include ./js/bottom.jade

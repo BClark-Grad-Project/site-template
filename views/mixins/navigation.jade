@@ -59,11 +59,11 @@ mixin userIcon()
     //-TODO File server requirement
   else
     if user.detail.gender == 'male'
-      img.media-object.img-responsive.img-rounded(src='/images/user/default-male.png')
+      img.img-rounded(src='/images/user/default-male.png', style='margin:0px;padding:0px;')
     else if user.detail.gender == 'female'
-      img.media-object.img-responsive.img-rounded(src='/images/user/default-female.png')
+      img.img-rounded(src='/images/user/default-female.png', style='margin:0px;padding:0px;')
     else
-      img.media-object.img-responsive.img-rounded(src='/images/user/default-profile.png')
+      img.img-rounded(src='/images/user/default-profile.png', style='margin:0px;padding:0px;')
   block
   
 mixin idField(name, id)
@@ -309,6 +309,61 @@ mixin userContact(data)
         if i.type == 'mobile'
           +mobileContactFields(i)
   
+mixin navLinks()
+  ul.nav.navbar-nav(style='margin:0px,padding:0px;')
+    li
+      a(href='/about') About
+    li
+      a(href='/blog') Blog
+    li
+      a(href='/docs') Docs
+    li.disabled
+      a(href='/mind-research') Beta
+          
+mixin userOptions()
+  ul.dropdown-menu(role='menu')
+    if user.credentials.type == 'admin' 
+      +adminNav()
+    else if user.credentials.type == 'general'
+      +generalUserNav()
+    else
+      li
+        +signIn()
+      li.divider
+      +guestNav()
+    if user.credentials.type != 'guest'
+      li.divider  
+      +navItem('/account', 'My Profile')
+      +navItem('/authentication/logout','Sign Out')
+        span.glyphicon.glyphicon-log-out
+        
+mixin navUser()
+  ul.nav.navbar-nav.navbar-right(style='float:right;')
+    if user.credentials.type != 'guest'
+      li.dropdown(style='margin:0px;padding:0px;float:right;')
+        a.nav-button.dropdown-toggle(data-toggle='dropdown', style='padding:0px 15px;padding-top:0px;padding-bottom:0px;margin:0px;')
+          .nav-profile-name.pull-left(style='margin:0px;padding:4px 0px;')
+            small(style='color:#ffffff;') Signed in as: 
+            .nav-user #{user.credentials.alias} &nbsp;  
+          button.btn-link(type='button', style='padding:3px 0px;margin:0px;')
+            .nav-profile-icon(style='padding:0px;margin:0px;')
+              +userIcon() 
+        +userOptions()
+    if user.credentials.type == 'guest'   
+      li.navbar-right(style='float:right;margin:0px;')
+        a(role='menuitem', tabindex='-1', data-toggle='modal', data-target='#register-form-modal')
+          small Sign up
+      li#navbar-signin.navbar-right(style='float:right;margin:0px;padding:0px;')
+        a(role='menuitem', tabindex='-1', data-toggle='modal', data-target='#login-form-modal')
+          small Sign in
+      li.navbar-right(style='float:right;margin:0px;padding:0px;padding-top:8px;')
+        form.navbar-form.hide-md(role='form', method='POST', action='/authentication', style='margin:0px;padding:0px;')
+          input.form-control(name='user', type='input', placeholder='user', style='margin:0px;width:125px;')
+          |  
+          input.form-control(name='password', type='password', placeholder='pass', style='margin:0px;width:125px;')  
+          |  
+          button.btn.navbar-btn(type='submit', style='margin:0px;') Sign-in
+
 mixin registerAcceptButtons()
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     .col-xs-5.col-sm-6.col-md-8.col-lg-8

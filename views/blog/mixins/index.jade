@@ -1,38 +1,97 @@
 mixin article(blog)
-  h2 #{blog.article.title}
-  small blog.written
-  br
-  if blog.article.image
-    img(src=blog.article.image)          
-  p #{blog.description}
-  br
-  small.pull-right 
-    a(href='#') #{blog.author} 
-  if blog.edit.last
-    small Edited: #{blog.edit.last}
-  br
-  hr
+  a(href='/blog/' + blog.id)
+    if blog.article.image
+      .col-xs-12.col-sm-10.col-md-10.col-lg-10.pull-right
+        h2(style='margin-bottom:0px;') #{blog.article.title}
+        small.text-muted(style='margin-top:0px;') #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()}
+        br
+      .col-xs-12.col-sm-2.col-md-2.col-lg-2.pull-left
+        img(src=blog.article.image)
+        br
+    else
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        h2(style='margin-bottom:0px;') #{blog.article.title}
+        small.text-muted(style='margin-top:0px;') #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()}
+        br        
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    br
+    p #{blog.article.description}
+    br
+  .col-xs-6.col-sm-7.col-md-8.col-lg-8
+    //-reserved for later use
+  .col-xs-12.col-sm-5.col-md-4.col-lg-4
+    .panel.panel-default(style='padding:0px;')
+      .panel-body(style='padding:10px 0;')
+        .col-xs-2.col-sm-5.col-md-5.col-lg-5
+          h5 Author
+          if blog.edit.last
+            h6 Edited
+        .col-xs-10.col-sm-7.col-md-7.col-lg-7
+          h5.text-muted 
+            a.text-muted(href='#') #{blog.author} 
+          if blog.edit.last
+            h6.text-muted #{blog.edit.last}
+    br
+  br  
+  
+mixin articleShort(blog)
+  a(href='/blog/' + blog.id)
+    if blog.article.image
+      .col-xs-12.col-sm-10.col-md-10.col-lg-10.pull-right(style='padding-bottom:5px;')
+        h3(style='margin-bottom:0px;') #{blog.article.title}
+        small
+          b #{blog.author} 
+        small.text-muted ( #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()} )
+      .col-xs-12.col-sm-2.col-md-2.col-lg-2.pull-left(style='padding-bottom:5px;')
+        img(src=blog.article.image)
+    else
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-bottom:5px;')
+        h3(style='margin-bottom:0px;') #{blog.article.title}
+        small.text-muted #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()} 
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    if blog.article.description.length > 399
+      p.text-muted #{blog.article.description.substring(0, 400)}...  
+        a(href='/blog/' + blog.id) [ + more ]
+    else
+      p.text-muted #{blog.article.description}
+    br
+    hr
+  br  
   
 mixin newComment()
-  form(action='/blog/create/comment/' + blog.id, method='POST', role='form')
-    .col-xs-12.col-sm-12.col-md-12.col-lg-12
-      small Comment
-      .col-xs-8.col-sm-8.col-md-8.col-lg-8
-        input.form-control(name='author', type='hidden', value=user.credentials.alias)
-        textarea.form-control(name='description', type='textarea', rows=3, required)
+  if user.credentials.type != 'guest'
+    form(action='/blog/create/comment', method='POST', role='form')
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding:0 50px;')
+        hr
         br
-      .col-xs-4.col-sm-4.col-md-4.col-lg-4
-        button.btn.btn-primary.btn-md(type='submit')
-        br
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          input.form-control(name='id', type='hidden', value=blog.id)
+          if blog.notice.id
+            input.form-control(name='blog', type='hidden', value=blog.notice.id)
+          else 
+            input.form-control(name='blog', type='hidden', value=blog.id)
+          input.form-control(name='author', type='hidden', value=user.credentials.alias)
+          textarea.form-control(name='description', type='textarea', rows=3, required)
+          br
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          button.btn.btn-primary.btn-md.pull-right(type='submit') Add Comment
+          br
+  else
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding:0 30px;')
+      small 
+        +signIn()   
+        |  or 
+        +register()  
+        |  a account to leave a comment.
         
 mixin popularArticles()
-  small Popular Articles
   br
+  h4 Popular Articles
   if top
-    ul
+    ul.list-group
       for rank in top
-        li 
-          a(href='/blog/' + rank.id) #{rank.article.title}
+        li.list-group-item
+          a.text-muted(href='/blog/' + rank.id) #{rank.article.title}
   else
     small
       b None
@@ -41,7 +100,7 @@ mixin popularArticles()
 mixin articles(blogs)
   if blogs
     for blog in blogs
-      +article(blog, false)
+      +articleShort(blog)
   else
     small
       b Tell the Administrators to get crackin!
@@ -51,15 +110,18 @@ mixin articles(blogs)
 mixin blog()
   if blog
     +article(blog)
-    br
     +newComment()
-    br
-    for comment in blog.comment
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        .col-xs-8.col-sm-8.col-md-9.col-lg-9.pull-left
-          small #{comment.description}
-        .col-xs-4.col-sm-4.col-md-3.col-lg-3.pull-right
-          small #{comment.author}
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding:0 50px;')
+      hr
+      br
+      h5 Comments
+      for comment in blog.comment
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-bottom:20px;') 
+          small
+            b #{comment.author} 
+          small.text-muted ( #{monthNames[comment.written.getMonth()]} #{comment.written.getDate()}, #{comment.written.getFullYear()} )
+          br
+          p #{comment.description}
   else
     small 
       b Article Not Found!
@@ -68,6 +130,11 @@ mixin newBlog()
   if !blog
     -var blog = {type:'site',tags:'',notice:{visits:0,favorites:0},article:{title:'',description:'',image:''}};
   form(action='/blog/create', method='POST', role='form')
+    if blog.id
+      input.form-control(type='hidden', name='id', value=blog.id)
+    if blog.edit
+      input.form-control(type='hidden', name='editId', value=blog.edit.id)
+      input.form-control(type='hidden', name='last', value=new Date())
     input.form-control(type='hidden', name='type', value=blog.type)
     input.form-control(type='hidden', name='visits', value=blog.notice.visits, required)
     input.form-control(type='hidden', name='favorites', value=blog.notice.favorites, required)
@@ -100,25 +167,24 @@ mixin newBlog()
       br
       
 mixin recentArticles()
-  small Recent Articles
   br
+  h4 Recent Articles
   if recent
-    ul
+    ul.list-group
       for post in recent
-        li 
-          a(href='/blog/' + post.id) #{post.article.title}
+        li.list-group-item 
+          a(href='/blog/' + post.id).text-muted #{post.article.title}
   else
     small
       b Get Started & Post Something!
     br
     
 mixin blogViews(notice)
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12
-    .panel.panel-default
-      .col-xs-5.col-sm-5.col-md-5.col-lg-5
-        h5 Views
-        br
-      .col-xs-7.col-sm-7.col-md-7.col-lg-7
-        h5 #{notice.visits}
-        br
+  br
+  .panel.panel-default.hide-md
+    .panel-heading.panel-body
+      .col-xs-2.col-sm-2.col-md-5.col-lg-5
+        h4 Views
+      .col-xs-10.col-sm-10.col-md-7.col-lg-7
+        h4.text-muted #{notice.visits}
       

@@ -1,47 +1,19 @@
 include ../mixins/navigation.jade
 
-nav.navbar.navbar-default(role='navigation')
-  .container-fluid
-    .navbar-header
-      button.navbar-toggle.collapsed.btn-xs(type='button', data-toggle='collapse', data-target='#navigation')
-        span.sr-only Toggle navigation
-        span.glyphicon.glyphicon-th-list
-      a.navbar-brand(href='/')
-        font(color='#cd610a')
-          b Template
-        font(color='black')
-          b Base
-    #navigation.collapse.navbar-collapse
-      ul.nav.navbar-nav.navbar-left
-        block nav
-      ul.nav.navbar-nav.navbar-right
-        li.dropdown
-          a.nav-button.dropdown-toggle(data-toggle='dropdown')
-            .nav-profile-name.pull-left
-              if user.credentials.type != 'guest'
-                small Signed in as: 
-                .nav-user #{user.credentials.alias} &nbsp;  
-              else
-                img(src='/images/user/loginregister.png', style='height:40px;')
-            | &nbsp;  
-            .nav-profile-icon.pull-right
-              +userIcon() 
-          ul.dropdown-menu(role='menu')
-            if user.credentials.type == 'admin' 
-              +adminNav()
-            else if user.credentials.type == 'general'
-              +generalUserNav()
-            else
-              li
-                +signIn()
-              li.divider
-              +guestNav()
-            if user.credentials.type != 'guest'
-              li.divider  
-              +navItem('/account', 'My Profile')
-              +navItem('/authentication/logout','Sign Out')
-                span.glyphicon.glyphicon-log-out
-                
+nav.navbar.navbar-inverse(role='navigation',style='margin:0px;padding:0px;')
+  .container-fluid(style='margin:0px;padding-left:0px;')
+    .navbar-header.navbar-left.col-xs-8.col-sm-3.col-md-3.col-lg-2(style='padding:0px; margin:0px;')
+      a.collapsed.navbar-toggle(data-toggle='collapse', data-target='#navigation', style='float:left;border:0px;padding:0px;padding-top:10px;margin:0px;')
+        img(src='/images/site/logo6.png', style='padding:6px 20px; margin:0px;')
+        span.caret.text-muted(style='margin:0px;padding:0px;margin-right:10px;')
+      .navbar-brand.hide-sm(style='float:left;padding:0px;border:0px;padding-top:10px;margin:0px;')
+        a(href='/')
+          img(src='/images/site/logo6.png', style='padding:0px 10px; margin:0px;')  
+    #navigation.collapse.navbar-collapse.navbar-left.col-xs-12.col-sm-4.col-md-3.col-lg-5(style='padding:0px; margin:0px;')
+      +navLinks()
+    #usernavigation.navbar-right.col-xs-4.col-sm-5.col-md-6.col-lg-5(style='padding:0px; margin:0px;float:right;')  
+      +navUser()
+                      
 if user.credentials.type == 'guest'
   include login.jade
   include register.jade

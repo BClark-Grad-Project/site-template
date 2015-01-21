@@ -1,3 +1,15 @@
+var getComment = function(req, id){
+	var comment = {
+			  id:            req.body.id,
+			  comment:{
+				blog:        req.body.blog,
+                author:      req.session.user.credentials.alias,
+			    description: req.body.description}
+	};
+	
+	return comment;
+};
+
 var getBlog = function(req){
 	var blog = {
 		  author:        req.session.user.credentials.alias,
@@ -36,4 +48,10 @@ module.exports.newBlog = function(req){
 	var blog = getBlog(req);
 	
 	return blog;
+};
+
+module.exports.newComment = function(req){
+	var comment = getComment(req);
+	
+	return comment;
 };

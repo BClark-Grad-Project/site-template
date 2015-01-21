@@ -1,27 +1,79 @@
 // Begin Jade template.
 extends layout
-
-//-CSS is inserted in the HEAD tag.
-block css
+   
   
-//-JavaScript will be inserted in the header tag.
-block js-top
-
-//-JavaScript will be inserted at the end of the BODY tag.
-block js-bottom
+mixin articleShort(blog)
+  a(href='/blog/' + blog.id, style='margin:0px;padding-top:0px;')
+    if blog.article.image
+      .col-xs-12.col-sm-10.col-md-10.col-lg-10.pull-right(style='padding:0px;margin:0px;')
+        h3(style='margin-bottom:0px;') #{blog.article.title}
+        small.text-muted ( #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()} )
+        br
+        br
+      .col-xs-12.col-sm-2.col-md-2.col-lg-2.pull-left
+        img(src=blog.article.image)
+        br
+        br
+    else
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding:0px;margin:0px;')
+        h3(style='margin-bottom:0px;') #{blog.article.title}
+        small.text-muted #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()} 
+        br
+        br
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-left:0px;')
+    if blog.article.description.length > 899
+      p.text-muted #{blog.article.description.substring(0, 900)}...  
+        a(href='/blog/' + blog.id, style='white-space:nowrap;') [ + more ]
+    else
+      p.text-muted #{blog.article.description}
+    br
+  br  
   
-//-Add navigation item to general navigation set.
-block nav
-  
-//-Add navigation item to existing Administrator navigation set.
-block navAdmin
-    
 //-HTML content to display.
 block content
-  section#main.container
+  #main.jumbotron
+    .container
+      .row
+        .col-xs-12.col-sm-12.col-md-6.col-lg-7
+          h2(style='margin-bottom:0px;') Project
+          h1(style='margin-top:0px;') Mind Research
+          p A web service that provides survey research tools. Services will offer researchers an all-in-one toolset to create, conduct, gather, analyze and report questionnaire survey results. The analysis portion of this service will distinguish it from others by allowing users create customized mathematical formulas for analyzing and reporting real-time data. 
+          p
+            a.btn.btn-default.btn-lg(href="/about",role="button") Learn more »
+        .col-xs-0.col-sm-0.col-md-6.col-lg-5.hide-md(style='padding-top:50px;height:400px;')
+          img(src='/images/site/mind-research.png', style='width:100%;position:absolute;bottom:0;')
+  section#news.container
     .row
-      //-Columns in a row must equal 12. 
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        h1 #{title}
-
+      .col-xs-12.col-sm-6.col-md-7.col-lg-8
+        h3(style='margin-bottom:0px;') Mind Research Activity Blog      
+        for j in blog
+          +articleShort(j)     
+      .col-xs-12.col-sm-6.col-md-5.col-lg-4
+        .panel.panel-default(style='padding:15px;')
+          h4 Git Updates
+          hr
+          .col-xs-8
+            p.pull-left
+              b Project Name
+          .col-xs-4
+            p.pull-right
+              b Updated
+          for i in git
+            .col-xs-8
+              small 
+                a(href='https://github.com/BClark-Grad-Project/site-blog/commit/' + i.payload.commits[0].sha) #{i.repo.name}
+            .col-xs-4
+              small.pull-right #{new Date(i.created_at).getMonth() + 1}-#{new Date(i.created_at).getDate()}-#{new Date(i.created_at).getFullYear()}
+            br
+          br
+          br
+  section(style='background:#fdfdfd;')
+    hr
+    #about.container
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          h2(style='padding-bottom:10px;') Project Status
+          p
+          
+          
 // End Jade Template

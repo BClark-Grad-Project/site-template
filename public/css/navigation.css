@@ -1,20 +1,14 @@
 @CHARSET "UTF-8";
 .nav-button{
-	top:0;
 	height: auto;
 	width:auto;
-	padding: 10px;
+}
+.navbar{
+	border-radius:0px;
 }
 
-#navigation.collapse.navbar-collapse{
-	padding: 0px;
-	margin: 0px;
-	text-align:right;
-}
-
-.nav-profile-icon img {	
-	margin-top:-5px;
-    max-height:30px;
+.nav-profile-icon img {
+    max-height:40px;
     width:auto;
 }
 
@@ -26,17 +20,8 @@
 
 .nav-user {
 	font-weight: bold;
-	margin: -5px;
 	padding: 0px;
 	font-size: small;
-}
-
-ul.nav.navbar-nav.navbar-right li {
-	text-align:right;
-}
-
-.nav-profile-name {
-	margin-top:-8px;
 }
 
 .agree-check {
