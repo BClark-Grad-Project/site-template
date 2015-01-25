@@ -7,10 +7,10 @@ module.exports = function (data) {
 	
 		// Build the authorization config and url
 		var client = github.client('caf298682e6e30aa710cc07cffb9fda6835ed505');
-		var ghme        = client.user('BClark-Grad-Project');
-		ghme.events(1,10, function (err, git, headers) {
+		var ghme   = client.user('BClark-Grad-Project');
+		ghme.events(1,10,["PushEvent", "CreateEvent"], function (err, git, headers) {
 			if(err){console.error(err);}
-			
+			console.log(git);
 			data.blog.recent(1, 'site', function(err, blog){
 				if(err){console.error(err);}
 			

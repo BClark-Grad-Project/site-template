@@ -24,23 +24,21 @@ mixin navItem(target, title)
 
 mixin adminNav()
   block
-  li.dropdown-header Administrator Menu  
-  li.divider  
-  li.dropdown-header Profile Management
-  +navItem('/manager/users/create', 'New User')
-  +navItem('/manager/users', 'Manage Users')
-  li.divider  
+  li.dropdown-header(style='padding:0px 10px;margin-bottom:0px;background:#f9f9f9;') Administrator Menu  
+  li.divider(style='padding-top:0px;margin-top:0px;')
   li.dropdown-header Site Management
-  +navItem('/manager/content', 'Manage Modules')
-  li.divider  
-  li.dropdown-header Blog Management
-  +navItem('/blog/create', 'New Article')
-  +navItem('/blog/manager', 'Manage Articles')
+  +navItem('/manager/content', 'Module Organizer')
+  +navItem('/manager/users', 'User Administration')
+  li.divider(style='padding-top:0px;margin-top:0px;')
+  li.dropdown-header Site Management
+  +navItem('/blog/create', 'Blog Administration')
+  +navItem('/project/manage', 'Project Manager')
   block adminNav
 
 mixin generalUserNav()
   block
-  li.dropdown-header User Menu
+  li.dropdown-header(style='padding:0px 10px;margin-bottom:0px;background:#f9f9f9;') User Menu
+  li.divider(style='padding-top:0px;margin-top:0px;')
   block generalUserNav
 
 mixin guestNav()
@@ -312,11 +310,11 @@ mixin userContact(data)
 mixin navLinks()
   ul.nav.navbar-nav(style='margin:0px,padding:0px;')
     li
-      a(href='/about') About
+      a(href='/project') About
     li
       a(href='/blog') Blog
     li
-      a(href='/docs') Docs
+      a(href='/project/status') Status
     li.disabled
       a(href='/mind-research') Beta
           
@@ -333,6 +331,7 @@ mixin userOptions()
       +guestNav()
     if user.credentials.type != 'guest'
       li.divider  
+      li.dropdown-header Options
       +navItem('/account', 'My Profile')
       +navItem('/authentication/logout','Sign Out')
         span.glyphicon.glyphicon-log-out
@@ -376,15 +375,15 @@ mixin registerAcceptButtons()
           a(href='#') Terms.
     .col-xs-7.col-sm-6.col-md-4.col-lg-4(style='padding:0px;')
       .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='padding:0px 10px 0px 0px;')
-        button.btn.btn-lg.btn-default.pull-right(type='button', data-dismiss='modal', style='width:100%;') Cancel
+        button.btn.btn-lg.btn-inverse.pull-right(type='button', data-dismiss='modal', style='width:100%;') Cancel
       .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='padding:0px 0px 0px 10px;')
-        button.btn.btn-lg.btn-primary.pull-right(type='submit', style='width:100%;') Register
+        button.btn.btn-lg.btn-default.pull-right(type='submit', style='width:100%;') Register
         
 mixin selectProfilePhoto()
-  .btn.btn-primary.btn-file.btn-lg.pull-right
+  .btn.btn-default.btn-file.btn-lg.pull-right
     p(style='margin:0px;') Select 
     input.form-control(type='file', value=user.detail.img)
-  button.btn.btn-default.btn-lg.pull-left(type='button', data-dismiss='modal') Cancel
+  button.btn.btn-inverse.btn-lg.pull-left(type='button', data-dismiss='modal') Cancel
   
 mixin adminProfileOptions()
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
@@ -416,5 +415,5 @@ mixin saveEdits()
   br
   hr
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
-    button.btn.btn-primary.btn-lg.pull-right(type='submit') Save 
-    button.btn.btn-default.btn-lg.pull-right(type='reset', style='margin-right: 10px;') Undo 
+    button.btn.btn-default.btn-lg.pull-right(type='submit') Save 
+    button.btn.btn-inverse.btn-lg.pull-right(type='reset', style='margin-right: 10px;') Undo 

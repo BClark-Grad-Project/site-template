@@ -1,0 +1,247 @@
+// Begin Jade template.
+extends ../layout
+   
+
+          
+mixin projectItems()
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    h3 Manage Project Items
+  .col-xs-4.col-sm-4.col-md-3.col-lg-3(style='background:#fdfdfd;border-radius:5px;padding:0px 10px;')
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      h5 
+        span.glyphicon.glyphicon-th-large   
+        |   Task  
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      a.pull-right(href'#', style='color:#494949;margin-top:10px;min-height:300px;')
+        span.glyphicon.glyphicon-plus-sign   
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      br
+      br
+  .col-xs-8.col-sm-8.col-md-9.col-lg-9
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      h5.pull-left 
+        span.glyphicon.glyphicon-th   
+        |   Stories
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      a.pull-right(href'#', style='color:#494949;margin-top:10px;')
+        span.glyphicon.glyphicon-plus-sign  
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      small.text-muted Assign story by dragging to task assignment.
+      p
+      br
+      br
+
+   
+mixin sprints() 
+  .col-xs-12.col-sm-6.col-md-4.col-lg-4
+    .panel.panel-default(style='padding:5px 10px;min-height:175px;')
+      .col-xs-9.col-sm-9.col-md-9.col-lg-9
+        h4(style='margin-bottom:0px;padding-bottom:0px;') Sprint One
+      .col-xs-3.col-sm-3.col-md-3.col-lg-3
+        a.pull-right(href'#', style='color:#494949;margin-top:10px;')
+          span.glyphicon.glyphicon-edit
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        small.text-muted(style='margin:0px;padding:0px;') 01-10-15 through 02-09-15
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        small Status: Active
+        br
+        br
+        .col-xs-6.col-sm-6.col-md-6.col-lg-6
+          .panel.panel-default
+            .panel-heading(style='margin:0px;padding:0px;')
+              h4.middle Task
+            .panel-body(style='margin:0px;padding:0px;')
+              p.middle(style='margin:0px;padding:0px;') 4
+        .col-xs-6.col-sm-6.col-md-6.col-lg-6
+          .panel.panel-default
+            .panel-heading(style='margin:0px;padding:0px;')
+              h4.middle Stories
+            .panel-body(style='margin:0px;padding:0px;')
+              p.middle(style='margin:0px;padding:0px;') 100
+  .col-xs-12.col-sm-6.col-md-4.col-lg-4
+    .panel.panel-default(style='padding:5px 10px;min-height:175px;')
+      .col-xs-9.col-sm-9.col-md-9.col-lg-9
+        h4(style='margin-bottom:0px;padding-bottom:0px;') Sprint Two
+      .col-xs-3.col-sm-3.col-md-3.col-lg-3
+        a.pull-right(href'#', style='color:#494949;margin-top:10px;')
+          span.glyphicon.glyphicon-edit
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        small.text-muted(style='margin:0px;padding:0px;') 02-10-15 through 03-09-15
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        small Status: Pending
+        br
+        br
+        .col-xs-6.col-sm-6.col-md-6.col-lg-6
+          .panel.panel-default
+            .panel-heading(style='margin:0px;padding:0px;')
+              h4.middle Task
+            .panel-body(style='margin:0px;padding:0px;')
+              p.middle(style='margin:0px;padding:0px;') 3
+        .col-xs-6.col-sm-6.col-md-6.col-lg-6
+          .panel.panel-default
+            .panel-heading(style='margin:0px;padding:0px;')
+              h4.middle Stories
+            .panel-body(style='margin:0px;padding:0px;')
+              p.middle(style='margin:0px;padding:0px;') 130
+  .col-xs-12.col-sm-12.col-md-4.col-lg-4
+    .panel.panel-default(style='padding:5px 10px;min-height:175px;')
+      .col-xs-9.col-sm-9.col-md-9.col-lg-9
+        h4(style='margin-bottom:0px;padding-bottom:0px;') Sprint Three
+      .col-xs-3.col-sm-3.col-md-3.col-lg-3
+        a.pull-right(href'#', style='color:#494949;margin-top:10px;')
+          span.glyphicon.glyphicon-edit
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        small.text-muted(style='margin:0px;padding:0px;') 03-10-15 through 04-09-15
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        small Status: Pending
+        br
+        br
+        .col-xs-6.col-sm-6.col-md-6.col-lg-6
+          .panel.panel-default
+            .panel-heading(style='margin:0px;padding:0px;')
+              h4.middle Task
+            .panel-body(style='margin:0px;padding:0px;')
+              p.middle(style='margin:0px;padding:0px;') 3
+        .col-xs-6.col-sm-6.col-md-6.col-lg-6
+          .panel.panel-default
+            .panel-heading(style='margin:0px;padding:0px;')
+              h4.middle Stories
+            .panel-body(style='margin:0px;padding:0px;')
+              p.middle(style='margin:0px;padding:0px;') 170
+
+
+mixin newProjectDetail()
+  .col-xs-4.col-sm-4.col-md-2.col-lg-2
+    small Status
+    br
+    select.form-control(name='status', type='input', required)
+      option.active Active
+      option Pending
+    br
+  .col-xs-8.col-sm-8.col-md-4.col-lg-4
+    small Name
+    br
+    input.form-control(type='text', name='name')
+    br
+  .col-xs-12.col-sm-12.col-md-6.col-lg-6
+    small Duration
+    br
+    .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='margin:0px;padding:0px;')
+      .input-group(style='margin-right:10px;')
+        .input-group-addon Start
+        input.form-control(type='date', name='start')
+      br
+    .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='margin:0px;padding:0px;')
+      .input-group(style='padding-left:10px;')
+        .input-group-addon Stop  
+        input.form-control(type='date', name='stop')
+      br
+  .col-xs-12.col-sm-12.col-md-4.col-lg-4
+    small Description
+    br
+    textarea.form-control(type='textarea', name='description', style='min-height:150px;max-width:100%;')
+    br
+    br
+  .col-xs-12.col-sm-12.col-md-8.col-lg-8
+    small(style='padding:20px 0px;') Vision
+    br
+    textarea.form-control(type='textarea', name='name', style='min-height:150px;max-width:100%;')
+    br
+    br
+    button.btn.btn-lg.btn-default.pull-right(type='sybmit') Submit
+    button.btn.btn-lg.btn-inverse.pull-right(type='sybmit', style='margin-right:20px;') Cancel
+          
+mixin projectDetail()
+  .col-xs-4.col-sm-4.col-md-2.col-lg-2(style='margin:0px;padding:0px;')
+    small Status
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      h4 Active
+  .col-xs-8.col-sm-8.col-md-4.col-lg-4(style='margin:0px;padding:0px;')
+    small Name
+    br
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      h4 Mind Research
+  .col-xs-12.col-sm-12.col-md-6.col-lg-6(style='margin:0px;padding:0px;')
+    small Duration
+    br
+    .col-xs-4.col-sm-2.col-md-2.col-lg-2
+      h4 Start
+    .col-xs-8.col-sm-4.col-md-4.col-lg-4
+      h4(style='font-weight:normal;') 01-10-15 
+    .col-xs-4.col-sm-2.col-md-2.col-lg-2
+      h4 Stop
+    .col-xs-8.col-sm-4.col-md-4.col-lg-4
+      h4(style='font-weight:normal;') 05-10-15 
+  .col-xs-12.col-sm-12.col-md-4.col-lg-4(style='margin:0px;padding:20px 0px;')
+    small Description
+    br
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-top: 20px;')
+      p(style='font-size:small;') A web service that provides survey research tools. Services will offer researchers an all-in-one toolset to create, conduct, analyze and report questionnaire responses. The analysis portion of this service will distinguish it from others by allowing users create customized mathematical formulas for analyzing and reporting real-time data. 
+    br
+    br
+  .col-xs-12.col-sm-12.col-md-8.col-lg-8(style='margin:0px;padding:20px 0px;')
+    small(style='padding:20px 0px;') Vision
+    br
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-top: 20px;')
+      p(style='font-size:small;') This product is intended for researchers to compose, conduct and analyze survey questionnaires. Users will be accessing web based services in both desktop and mobile environments. In addition to providing visual interface service a Web Application Program Interface ( Web API ) should be provided to developers.  
+      p(style='font-size:small;') Architecture for this software should be cloud based to maximize resource availability. This architecture is to support a software base that communicates between services offered to users. Software is to built by component when possible to maximize modifiability and scalability.  
+      p(style='font-size:small;') This service is to include a statistical formula tool for designing data measurements based on a questionnaires feedback. Features of the product should include real-time data interaction and an ability to add additional analysis tools and services to an existing account. Social integrations should be made where possible to enhance the user experience.
+      p(style='font-size:small;') A project deadline has been set for May 10, 2015 and will be managed though a modified Agile process known as SCRUM.  
+    br
+    br
+  .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='margin:0px;padding:20px 0px;min-height:100px;')
+    small Diagrams
+    br
+    a(href='#')
+      span.skill-pill
+        span.endorse-item-name
+          span.endorse-item-name-text dbms.pdf
+    a(href='#')
+      span.skill-pill
+        span.endorse-item-name
+          span.endorse-item-name-text user-story-map.pdf
+  .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='margin:0px;padding:20px 0px;min-height:100px;')
+    small Documents
+    br
+    a(href='#')
+      span.skill-pill
+        span.endorse-item-name
+          span.endorse-item-name-text srs.pdf
+          
+mixin manager()
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    h1 Project Management
+  .col-xs-6.col-sm-6.col-md-6.col-lg-6
+    h3 Details
+  .col-xs-6.col-sm-6.col-md-6.col-lg-6
+    a.pull-right(href'#', style='color:#494949;margin-top:30px;')
+      span.glyphicon.glyphicon-edit
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin-bottom:30px;')
+    form#sdl-form(action='/', method='POST')
+      +projectDetail()
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    +sprints()
+          
+//-HTML content to display.
+block content
+  if project
+    #main.jumbotron
+      .container
+        .row
+          +manager()
+    section
+      #manage.container
+        .row
+          +projectItems()
+  else
+    section#main
+      .container
+        .row
+          h1 Create Project
+          form#create-project-form(action='/project/create', method='POST')
+            +newProjectDetail()
+            
+        
+        
+        
+          

@@ -1,103 +1,17 @@
 // Begin Jade template.
-extends layout
+extends ../layout
    
-mixin articleShort(blog)
-  a(href='/blog/' + blog.id, style='margin:0px;padding-top:0px;')
-    if blog.article.image
-      .col-xs-12.col-sm-10.col-md-10.col-lg-10.pull-right(style='padding:0px;margin:0px;')
-        h3(style='margin-bottom:0px;') #{blog.article.title}
-        small.text-muted ( #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()} )
-        br
-        br
-      .col-xs-12.col-sm-2.col-md-2.col-lg-2.pull-left
-        img(src=blog.article.image)
-        br
-        br
-    else
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding:0px;margin:0px;')
-        h3(style='margin-bottom:0px;') #{blog.article.title}
-        small.text-muted #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()} 
-        br
-        br
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-left:0px;')
-    if blog.article.description.length > 899
-      p.text-muted #{blog.article.description.substring(0, 900)}...  
-        a(href='/blog/' + blog.id, style='white-space:nowrap;') [ + more ]
-    else
-      p.text-muted #{blog.article.description}
-    br
-  br  
-  
 //-HTML content to display.
 block content
   #main.jumbotron
     .container
       .row
-        .col-xs-12.col-sm-12.col-md-6.col-lg-7
-          h2(style='margin-bottom:0px;') Project
-          h1(style='margin-top:0px;') Mind Research
-          p A web service that provides survey research tools. Services will offer researchers an all-in-one toolset to create, conduct, analyze and report questionnaire responses. The analysis portion of this service will distinguish it from others by allowing users create customized mathematical formulas for analyzing and reporting real-time data. 
-          p
-            a.btn.btn-default.btn-lg(href="/about",role="button") Learn more »
-        .col-xs-0.col-sm-0.col-md-6.col-lg-5.hide-md(style='padding-top:50px;height:400px;')
-          img(src='/images/site/mind-research.png', style='width:100%;position:absolute;bottom:0;')
-  section#news.container
-    .row
-      .col-xs-12.col-sm-6.col-md-7.col-lg-8
-        a(href='/blog')
-          h3(style='margin-bottom:0px;') Mind Research Activity Blog      
-        for j in blog
-          +articleShort(j)     
-      .col-xs-12.col-sm-6.col-md-5.col-lg-4
-        .panel.panel-default(style='padding:15px;')
-          h4 
-            img(src='/images/social/gh.png')  
-            |  Git Updates
-          hr
-          .col-xs-8
-            p.pull-left
-              b Project Name
-          .col-xs-4
-            p.pull-right
-              b Updated
-          for i in git
-            .col-xs-8
-              small 
-                if i.payload.commits
-                  a(href='https://github.com/' + i.repo.name + '/commit/' + i.payload.commits[0].sha) #{i.repo.name.split("/")[1]}
-                else
-                  a(href='https://github.com/' + i.repo.name) #{i.repo.name.split("/")[1]}
-            .col-xs-4
-              small.pull-right #{new Date(i.created_at).getMonth() + 1}-#{new Date(i.created_at).getDate()}-#{new Date(i.created_at).getFullYear()}
-            br
-          br
-          br
         .col-xs-12.col-sm-12.col-md-12.col-lg-12
-          br
-          h4 Social Media Feeds
-        .col-xs-2.col-sm-2.col-md-2.col-lg-2
-        
-        .col-xs-2.col-sm-2.col-md-2.col-lg-2
-          img(src='/images/social/li.png')
-        .col-xs-2.col-sm-2.col-md-2.col-lg-2
-          img(src='/images/social/tw.png')
-        .col-xs-2.col-sm-2.col-md-2.col-lg-2
-          img(src='/images/social/fb.png')
-        .col-xs-2.col-sm-2.col-md-2.col-lg-2
-          img(src='/images/social/gp.png')
-        .col-xs-2.col-sm-2.col-md-2.col-lg-2
-    br
-    br
-  section(style='background:#fdfdfd;')
-    hr(style='margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;')
-    #about.container
-      .row
         .col-xs-12.col-sm-12.col-md-12.col-lg-12
-          a(href='/project/status')
-            h2(style='padding-bottom:10px;') 
-              img(src='/images/progress.png', style='width:50px;')
-              |  Project Status
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-bottom:0px;margin-bottom:0px;')
+          h1 
+            img(src='/images/progress.png', style='width:50px;')
+            |  Project Status
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12
             .col-xs-12.col-sm-3.col-md-3.col-lg-3
               h5 State
               p.big-text(style='color:#64a964;text-align:left;') Active
@@ -200,8 +114,99 @@ block content
                 small Early
               br
               br
+  section
+    #task.container
+      .row
+        .col-xs-12.col-sm-7.col-md-8.col-lg-8.pull-left
+          h3
+            span.glyphicon.glyphicon-tasks
+            |   Task Priority 
+        .col-xs-12.col-sm-5.col-md-4.col-lg-4.pull-right
+          br
+          h4
+            |  Project Task List     
+          if project
+            ul.list-group
+              for task in project.task
+                li.list-group-item
+                  a.text-muted(href='/project/' + project.task.id) #{project.task.name}
+          else
+            small
+              b None
+          br
+          br
+          br
+        .col-xs-12.col-sm-7.col-md-8.col-lg-8.pull-left
+          h4 Current Task List   
+          if project
+            ul.list-unstyled
+              for task in project.task
+                if project.task.status == 'active'
+                  li
+                    a.text-muted(href='/project/' + project.task.id) #{project.task.name}
+          else
+            small
+              b None
+          br
+          br
+          br
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          h4
+            span.glyphicon.glyphicon-th
+            |  Task Stories
+          small Stories are arranged by task and priority.
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          if project
+            for task in project.task
+              for story in task.stories
+                .col-xs-6.col-sm-4.col-md-3.col-lg-3
+                  .panel.panel-default
+                    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+                      h5 Story #
+                    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+                      small 
+                        b State:  
+                        |  Incomplete
+                    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                      p Description
+                      br
+                      br
+                  br
+                  br
+            br
+            br
+          else
+            small
+              b None
               br
-              
+              br
+              br
+  section(style='background:#fdfdfd;')
+    hr(style='margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;')
+    #pbi.container
+      .row
+        .col-xs-12.col-sm-7.col-md-8.col-lg-8.pull-left
+          h3 Product Inventory Backlog
+          small User stories that are desired but will not be present in release 1.0.
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          if project
+            for item in project.pbi
+              .col-xs-6.col-sm-4.col-md-3.col-lg-3
+                .panel.panel-default
+                  .col-xs-6.col-sm-6.col-md-6.col-lg-6
+                    h5 Story #
+                  .col-xs-6.col-sm-6.col-md-6.col-lg-6
+                    small 
+                      b State:  
+                      |  Incomplete
+                  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                    p Description
+                    br
+                    br
+          else
+            small
+              b None
+          br
+          br
+          br
           
-          
-// End Jade Template
