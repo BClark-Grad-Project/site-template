@@ -10,7 +10,6 @@ module.exports = function (data) {
 		var ghme   = client.user('BClark-Grad-Project');
 		ghme.events(1,10,["PushEvent", "CreateEvent"], function (err, git, headers) {
 			if(err){console.error(err);}
-			console.log(git);
 			data.blog.recent(1, 'site', function(err, blog){
 				if(err){console.error(err);}
 			

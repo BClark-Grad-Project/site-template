@@ -1,6 +1,7 @@
 module.exports = function (data) {
-	var express = require('express');
-	var router = express.Router();
+	var express   = require('express');
+	var router    = express.Router();
+	var createObj = require('./objects/projects');
 
 	/* GET about */
 	router.get('/', function(req, res) {
@@ -13,28 +14,64 @@ module.exports = function (data) {
 	});
 
 	/* GET-POST project */
-	router.post('/create/sdl', function(req, res) {
-		res.redirect('/project/manage');
+	router.post('/create', function(req, res) {
+		var projectObj = createObj.newProject(req);
+		data.project.create(projectObj, function(err, project){
+			if(err){console.error(err);}
+			
+			res.redirect('/project/manage');
+		});
 	});
-
-	/* GET-POST sprint */
-	router.post('/create/sprint', function(req, res) {
-		res.redirect('/project/manage');
-	});
-
+	
 	/* GET-POST sprint task */
 	router.post('/create/task', function(req, res) {
-		res.redirect('/project/manage');
+		var projectObj = {};
+		projectObj.task = createObj.newTask(req);
+		data.project.create(projectObj, function(err, project){
+			if(err){console.error(err);}
+			
+			res.redirect('/project/manage');
+		});
 	});
 
 	/* GET-POST story */
 	router.post('/create/story', function(req, res) {
-		res.redirect('/project/manage');
+		var projectObj = {};
+		projectObj.story = createObj.newStory(req);
+		data.project.create(projectObj, function(err, project){
+			if(err){console.error(err);}
+			
+			res.redirect('/project/manage');
+		});
+	});
+
+
+	/* POST project update*/
+	router.post('/update', function(req, res) {
+		res.redirect('/project/manage');		
+	});
+
+	/* POST project update*/
+	router.post('/update/task', function(req, res) {
+			res.redirect('/project/manage');
+	});
+
+	/* POST project update*/
+	router.post('/update/story', function(req, res) {
+		res.redirect('/project/manage#manage');
 	});
 
 	/* GET project manager */
 	router.get('/manage', function(req, res) {
-		res.render('project/manage', { title:"Manage Project", user: req.session.user });
+		data.project.read({active:true}, function(err, project){
+			if(err){console.error(err);}
+			if(!project){
+				res.render('project/manage', {title:"Create Project", user: req.session.user });
+			} else {
+				console.log('manage', project, err);
+				res.render('project/manage', {project:project, title:"Manage Project", user: req.session.user });
+			}
+		});		
 	});
 	
 	return router;

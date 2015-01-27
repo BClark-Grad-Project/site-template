@@ -2,7 +2,119 @@
 extends ../layout
    
 
-          
+mixin taskForm()   
+  #task-form.modal.fade(tabindex='-1', role='dialog', aria-labelledby='taskLabel', aria-hidden='true')
+    .modal-dialog.modal-lg
+      .modal-content
+        form(action='/project/create/task', method='POST')
+          input(type='hidden', name='id', value=project.id)
+          .modal-header
+            button.close(type='button', data-dismiss='modal')
+              span(aria-hidden='true') &times;
+              span.sr-only Close
+            h3#taskLabel.modal-title New Task
+          .modal-body
+            small Name
+            br
+            input.form-control(type='text', name='name')
+            br
+            small Description
+            br
+            textarea.form-control(type='textarea', name='description', style='min-height:150px;')
+            br
+          .modal-footer
+            button.btn.btn-inverse(type='button', data-dismiss='modal') Cancel
+            button.btn.btn-default(type='submit') Save
+   
+mixin storyForm()          
+  #story-form.modal.fade(tabindex='-1', role='dialog', aria-labelledby='storyLabel', aria-hidden='true')
+    .modal-dialog.modal-lg
+      .modal-content
+        form(action='/project/create/story', method='POST')
+          input(type='hidden', name='id', value=project.id)
+          .modal-header
+            button.close(type='button', data-dismiss='modal')
+              span(aria-hidden='true') &times;
+              span.sr-only Close
+            h3#storyLabel.modal-title New Story
+          .modal-body
+            .col-xs-8.col-sm-8.col-md-10.col-lg-10(style='padding:0px;padding-right:10px;')
+              small Name
+              br
+              input.form-control(type='text', name='name')
+              br
+            .col-xs-4.col-sm-4.col-md-2.col-lg-2(style='padding:0px;padding-left:10px')
+              small Weight
+              br
+              select.form-control(name='weight', type='input', required)
+                option.active 0
+                option 1
+                option 2
+                option 3
+                option 4
+                option 5
+                option 6
+                option 7
+                option 8
+                option 9
+                option 10
+              br
+            small Description
+            br
+            textarea.form-control(type='textarea', name='description', style='min-height:150px;')
+            br
+          .modal-footer
+            button.btn.btn-inverse(type='button', data-dismiss='modal') Cancel
+            button.btn.btn-default(type='submit') Save
+  
+mixin taskCard(task)
+  li.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding-top:0px;padding-bottom:20px;height:100%;', dropzone="move s:text/plain s:text/html", ondrop="storyToTask(event)")
+    .panel.panel-default.task-item(id=task.id, style='background:#f9f9f9;')
+      .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='margin:0px; padding:0px;')
+        h5(style='margin:0px; padding:0px;') #{task.name}
+      .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='margin:0px; padding:0px;')
+        a.pull-right(href'#', style='color:#494949;;margin-bottom:0px; padding-bottom:0px;')
+          span.glyphicon.glyphicon-edit
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;') 
+        small(style='margin-top:0px;padding-top:0px;') 
+          b Status:   
+          |   #{task.status}
+        br
+      br
+      br
+      br
+      small #{task.description}
+      br
+
+mixin storyCard(story)
+  li.col-xs-6.col-sm-6.col-md-4.col-lg-4(style='margin:0px;padding-top:0px;padding-bottom:15px;')
+    .panel.panel-default.story-item(id=story.id, draggable='true')
+      .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='margin:0px; padding:0px;')
+        h5(style='margin:0px; padding:0px;') #{story.name}
+      .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='margin:0px; padding:0px;')
+        a.pull-right(href'#', style='color:#494949;margin-bottom:0px; padding-bottom:0px;')
+          span.glyphicon.glyphicon-edit
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;') 
+        small(style='margin-top:0px;padding-top:0px;') 
+          b Status:   
+          |   #{story.status}
+        br
+      br
+      br
+      br
+      small #{story.description}
+      br
+      if story.weight
+        br
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          .panel.panel-default
+            .panel-heading(style='margin:0px;padding:0px;')
+              h6.middle Weight
+            .panel-body(style='margin:0px;padding:0px;')
+              p.middle(style='margin:0px;padding:0px;') #{story.weight}
+        br
+        br
+        
 mixin projectItems()
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     h3 Manage Project Items
@@ -12,9 +124,12 @@ mixin projectItems()
         span.glyphicon.glyphicon-th-large   
         |   Task  
     .col-xs-6.col-sm-6.col-md-6.col-lg-6
-      a.pull-right(href'#', style='color:#494949;margin-top:10px;min-height:300px;')
+      +taskForm()
+      a.pull-right(href'#', style='color:#494949;margin-top:10px;', data-toggle='modal', data-target='#task-form')
         span.glyphicon.glyphicon-plus-sign   
-    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    ul#task-list.list-inline.col-xs-12.col-sm-12.col-md-12.col-lg-12
+      for task in project.task
+        +taskCard(task)
       br
       br
   .col-xs-8.col-sm-8.col-md-9.col-lg-9
@@ -22,12 +137,15 @@ mixin projectItems()
       h5.pull-left 
         span.glyphicon.glyphicon-th   
         |   Stories
+        br
     .col-xs-6.col-sm-6.col-md-6.col-lg-6
-      a.pull-right(href'#', style='color:#494949;margin-top:10px;')
+      +storyForm()
+      a.pull-right(href'#', style='color:#494949;margin-top:10px;', data-toggle='modal', data-target='#story-form')
         span.glyphicon.glyphicon-plus-sign  
-    .col-xs-12.col-sm-12.col-md-12.col-lg-12
-      small.text-muted Assign story by dragging to task assignment.
-      p
+        br
+    ul#story-list.list-inline.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+      for story in project.stories
+        +storyCard(story)
       br
       br
 
@@ -36,14 +154,14 @@ mixin sprints()
   .col-xs-12.col-sm-6.col-md-4.col-lg-4
     .panel.panel-default(style='padding:5px 10px;min-height:175px;')
       .col-xs-9.col-sm-9.col-md-9.col-lg-9
-        h4(style='margin-bottom:0px;padding-bottom:0px;') Sprint One
+        h4(style='margin-bottom:0px;padding-bottom:0px;') #{project.iteration[0].name}
       .col-xs-3.col-sm-3.col-md-3.col-lg-3
         a.pull-right(href'#', style='color:#494949;margin-top:10px;')
           span.glyphicon.glyphicon-edit
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        small.text-muted(style='margin:0px;padding:0px;') 01-10-15 through 02-09-15
+        small.text-muted(style='margin:0px;padding:0px;') #{project.iteration[0].start.getMonth() + 1}-#{project.iteration[0].start.getDate()}-#{project.iteration[0].start.getFullYear().toString().substr(2,2)} through #{project.iteration[0].stop.getMonth() + 1}-#{project.iteration[0].stop.getDate()}-#{project.iteration[0].stop.getFullYear().toString().substr(2,2)}
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        small Status: Active
+        small Status: #{project.iteration[0].status}
         br
         br
         .col-xs-6.col-sm-6.col-md-6.col-lg-6
@@ -61,14 +179,14 @@ mixin sprints()
   .col-xs-12.col-sm-6.col-md-4.col-lg-4
     .panel.panel-default(style='padding:5px 10px;min-height:175px;')
       .col-xs-9.col-sm-9.col-md-9.col-lg-9
-        h4(style='margin-bottom:0px;padding-bottom:0px;') Sprint Two
+        h4(style='margin-bottom:0px;padding-bottom:0px;') #{project.iteration[1].name}
       .col-xs-3.col-sm-3.col-md-3.col-lg-3
         a.pull-right(href'#', style='color:#494949;margin-top:10px;')
           span.glyphicon.glyphicon-edit
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        small.text-muted(style='margin:0px;padding:0px;') 02-10-15 through 03-09-15
+        small.text-muted(style='margin:0px;padding:0px;') #{project.iteration[1].start.getMonth() + 1}-#{project.iteration[1].start.getDate()}-#{project.iteration[1].start.getFullYear().toString().substr(2,2)} through #{project.iteration[1].stop.getMonth() + 1}-#{project.iteration[1].stop.getDate()}-#{project.iteration[1].stop.getFullYear().toString().substr(2,2)}
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        small Status: Pending
+        small Status: #{project.iteration[1].status}
         br
         br
         .col-xs-6.col-sm-6.col-md-6.col-lg-6
@@ -86,14 +204,14 @@ mixin sprints()
   .col-xs-12.col-sm-12.col-md-4.col-lg-4
     .panel.panel-default(style='padding:5px 10px;min-height:175px;')
       .col-xs-9.col-sm-9.col-md-9.col-lg-9
-        h4(style='margin-bottom:0px;padding-bottom:0px;') Sprint Three
+        h4(style='margin-bottom:0px;padding-bottom:0px;') #{project.iteration[2].name}
       .col-xs-3.col-sm-3.col-md-3.col-lg-3
         a.pull-right(href'#', style='color:#494949;margin-top:10px;')
           span.glyphicon.glyphicon-edit
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        small.text-muted(style='margin:0px;padding:0px;') 03-10-15 through 04-09-15
+        small.text-muted(style='margin:0px;padding:0px;') #{project.iteration[2].start.getMonth() + 1}-#{project.iteration[2].start.getDate()}-#{project.iteration[2].start.getFullYear().toString().substr(2,2)} through #{project.iteration[2].stop.getMonth() + 1}-#{project.iteration[2].stop.getDate()}-#{project.iteration[2].stop.getFullYear().toString().substr(2,2)}
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        small Status: Pending
+        small Status: #{project.iteration[2].status}
         br
         br
         .col-xs-6.col-sm-6.col-md-6.col-lg-6
@@ -145,7 +263,7 @@ mixin newProjectDetail()
   .col-xs-12.col-sm-12.col-md-8.col-lg-8
     small(style='padding:20px 0px;') Vision
     br
-    textarea.form-control(type='textarea', name='name', style='min-height:150px;max-width:100%;')
+    textarea.form-control(type='textarea', name='vision', style='min-height:150px;max-width:100%;')
     br
     br
     button.btn.btn-lg.btn-default.pull-right(type='sybmit') Submit
@@ -155,19 +273,19 @@ mixin projectDetail()
   .col-xs-4.col-sm-4.col-md-2.col-lg-2(style='margin:0px;padding:0px;')
     small Status
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
-      h4 Active
+      h4 #{project.status}
   .col-xs-8.col-sm-8.col-md-4.col-lg-4(style='margin:0px;padding:0px;')
     small Name
     br
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
-      h4 Mind Research
+      h4 #{project.name}
   .col-xs-12.col-sm-12.col-md-6.col-lg-6(style='margin:0px;padding:0px;')
     small Duration
     br
     .col-xs-4.col-sm-2.col-md-2.col-lg-2
       h4 Start
     .col-xs-8.col-sm-4.col-md-4.col-lg-4
-      h4(style='font-weight:normal;') 01-10-15 
+      h4(style='font-weight:normal;') #{project.start.getMonth() + 1}-#{project.start.getDate()}-#{project.start.getFullYear().toString().substr(2,2)} 
     .col-xs-4.col-sm-2.col-md-2.col-lg-2
       h4 Stop
     .col-xs-8.col-sm-4.col-md-4.col-lg-4
@@ -176,17 +294,14 @@ mixin projectDetail()
     small Description
     br
     .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-top: 20px;')
-      p(style='font-size:small;') A web service that provides survey research tools. Services will offer researchers an all-in-one toolset to create, conduct, analyze and report questionnaire responses. The analysis portion of this service will distinguish it from others by allowing users create customized mathematical formulas for analyzing and reporting real-time data. 
+      p(style='font-size:small;') #{project.description}
     br
     br
   .col-xs-12.col-sm-12.col-md-8.col-lg-8(style='margin:0px;padding:20px 0px;')
     small(style='padding:20px 0px;') Vision
     br
     .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-top: 20px;')
-      p(style='font-size:small;') This product is intended for researchers to compose, conduct and analyze survey questionnaires. Users will be accessing web based services in both desktop and mobile environments. In addition to providing visual interface service a Web Application Program Interface ( Web API ) should be provided to developers.  
-      p(style='font-size:small;') Architecture for this software should be cloud based to maximize resource availability. This architecture is to support a software base that communicates between services offered to users. Software is to built by component when possible to maximize modifiability and scalability.  
-      p(style='font-size:small;') This service is to include a statistical formula tool for designing data measurements based on a questionnaires feedback. Features of the product should include real-time data interaction and an ability to add additional analysis tools and services to an existing account. Social integrations should be made where possible to enhance the user experience.
-      p(style='font-size:small;') A project deadline has been set for May 10, 2015 and will be managed though a modified Agile process known as SCRUM.  
+      p(style='font-size:small;') #{project.vision}
     br
     br
   .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='margin:0px;padding:20px 0px;min-height:100px;')
@@ -221,7 +336,7 @@ mixin manager()
       +projectDetail()
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     +sprints()
-          
+                 
 //-HTML content to display.
 block content
   if project

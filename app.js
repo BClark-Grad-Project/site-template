@@ -6,7 +6,7 @@ module.exports = function (data) {
 	var cookieParser = require('cookie-parser');
 	var bodyParser = require('body-parser');
 
-	var routeHome = require('./routes')(data);
+	var routeHome = require('./routes/index')(data);
 	var routeAuth = require('./routes/auth')(data);
 	var routeAcct = require('./routes/account')(data);
 	var routeManager = require('./routes/manager')(data);
@@ -50,9 +50,6 @@ module.exports = function (data) {
 	app.use('/blog', routeBlog);
 	app.use('/project', routeProject);
 	
-	app.all('*', function(req, res, next){
-		res.redirect('/');
-	}); // If the route doesn't exist.
 	
 	// catch 404 and forward to error handler
 	app.use(function(req, res, next) {
