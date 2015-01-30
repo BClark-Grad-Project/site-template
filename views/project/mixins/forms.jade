@@ -1,0 +1,122 @@
+mixin formProcessBtn()
+  button.btn.btn-inverse(type='button', style='margin:10px;', data-dismiss='modal') Cancel
+  button.btn.btn-default(type='submit', style='margin:10px;') Save  
+  
+mixin projectForm()
+  if !project
+    - var project = {start:new Date(), stop:new Date(),iteration:{},task:{},stories:{}};
+  input.id(type='hidden', name='id', value=project.id)
+  .col-xs-12.col-sm-12.col-md-4.col-lg-4
+    small Name
+    br
+    input.form-control(type='text', name='name', value=project.name)
+    br
+  .col-xs-12.col-sm-12.col-md-8.col-lg-8
+    small Duration
+    br
+    .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='margin:0px;padding:0px;')
+      .input-group(style='padding-right:10px')
+        .input-group-addon Start
+        - var day = ("0" + project.start.getDate()).slice(-2);
+        - var month = ("0" + (project.start.getMonth() + 1)).slice(-2);
+        - var start = project.start.getFullYear()+"-"+(month)+"-"+(day) ;
+        input.form-control(type='date', name='start', value=start)
+      br
+    .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='margin:0px;padding:0px;')
+      .input-group
+        .input-group-addon Stop  
+        - var day = ("0" + project.stop.getDate()).slice(-2);
+        - var month = ("0" + (project.stop.getMonth() + 1)).slice(-2);
+        - var stop = project.stop.getFullYear()+"-"+(month)+"-"+(day) ;
+        input.form-control(type='date', name='stop', value=stop)
+    br
+  .col-xs-12.col-sm-12.col-md-4.col-lg-4
+    small Description
+    br
+    textarea.form-control(type='textarea', name='description', style='min-height:150px;max-width:100%;') #{project.description}
+    br
+    br
+  .col-xs-12.col-sm-12.col-md-8.col-lg-8
+    small Vision
+    br
+    textarea.form-control(type='textarea', name='vision', style='min-height:150px;max-width:100%;') #{project.vision}
+    br
+    br
+   
+mixin sprintForm()
+  input.id(type='hidden', name='id')
+  input(type='hidden', name='sdl', value=project.id)
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')    
+    small Duration
+    br
+    .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='margin:0px;padding:0px;')
+      .input-group(style='padding-right:10px')
+        .input-group-addon Start
+        input.form-control(type='date', name='start', value=start)
+      br
+    .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='margin:0px;padding:0px;')
+      .input-group
+        .input-group-addon Stop 
+        input.form-control(type='date', name='stop', value=stop)
+    br
+  br
+  small Deliverable Work Product(s)
+  br
+  textarea.form-control(type='textarea', name='product', style='min-height:150px;max-width:100%;')
+  br
+      
+mixin taskForm()   
+  input.id(type='hidden', name='id')
+  input(type='hidden', name='sdl', value=project.id)
+  small Name
+  br
+  input.form-control(type='text', name='name')
+  br
+  small Description
+  br
+  textarea.form-control(type='textarea', name='description', style='min-height:150px;')
+  br
+  if project.iteration
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+      small Assignment
+      br
+    select.form-control(type='date', name='iteration')
+      option  
+      for i in project.iteration
+        option(value=i.id) #{i.name}
+    br
+  
+   
+mixin storyForm()
+  input.id(type='hidden', name='id')
+  input(type='hidden', name='sdl', value=project.id)
+  .col-xs-8.col-sm-8.col-md-10.col-lg-10(style='padding:0px;padding-right:10px;')
+    small Name
+      br
+    input.form-control(type='text', name='name')
+    br
+  .col-xs-4.col-sm-4.col-md-2.col-lg-2(style='padding:0px;padding-left:10px')
+    small Weight
+    br
+    select.form-control(name='weight', type='input', required)
+      - for(var i = 0; i < 11; i++){
+        option(value=i) #{i}
+      -  }
+      br
+  br
+  br
+  br
+  br
+  small Description
+  br
+  textarea.form-control(type='textarea', name='description', style='min-height:150px;')
+  br
+  if project.task
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+      small Assignment
+      br
+      select.form-control(type='date', name='task')
+        option  
+        for i in project.task
+          option(value=i.id) #{i.name}
+      br

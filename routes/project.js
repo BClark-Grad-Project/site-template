@@ -30,7 +30,7 @@ module.exports = function (data) {
 		data.project.create(projectObj, function(err, project){
 			if(err){console.error(err);}
 			
-			res.redirect('/project/manage');
+			res.redirect('/project/manage#manage');
 		});
 	});
 
@@ -41,24 +41,52 @@ module.exports = function (data) {
 		data.project.create(projectObj, function(err, project){
 			if(err){console.error(err);}
 			
-			res.redirect('/project/manage');
+			res.redirect('/project/manage#manage');
 		});
 	});
 
 
 	/* POST project update*/
 	router.post('/update', function(req, res) {
-		res.redirect('/project/manage');		
+		var Obj = createObj.projectUpdate(req);
+		data.project.update(Obj, function(err, data){
+			if(err){console.error(err);}
+			
+			res.redirect('/project/manage#manage');
+		});	
 	});
 
-	/* POST project update*/
-	router.post('/update/task', function(req, res) {
+	/* POST project iteration update*/
+	router.post('/update/iteration', function(req, res) {
+		var Obj = {};
+		Obj.iteration = createObj.iterationUpdate(req);
+		data.project.update(Obj, function(err, data){
+			if(err){console.error(err);}
+			
 			res.redirect('/project/manage');
+		});	
 	});
 
-	/* POST project update*/
+	/* POST project task update*/
+	router.post('/update/task', function(req, res) {
+		var Obj = {};
+		Obj.task = createObj.taskUpdate(req);
+		data.project.update(Obj, function(err, data){
+			if(err){console.error(err);}
+			
+			res.redirect('/project/manage#manage');
+		});	
+	});
+
+	/* POST project story update*/
 	router.post('/update/story', function(req, res) {
-		res.redirect('/project/manage#manage');
+		var Obj = {};
+		Obj.story = createObj.storyUpdate(req);
+		data.project.update(Obj, function(err, data){
+			if(err){console.error(err);}
+			
+			res.redirect('/project/manage#manage');
+		});	
 	});
 
 	/* GET project manager */
