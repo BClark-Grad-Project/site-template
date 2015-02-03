@@ -3,6 +3,7 @@ function storyToTask(e){
 	var form = document.createElement('form');
 	var story = document.createElement('input');
 	var task = document.createElement('input');
+	var status = document.createElement('input');
 
    // var el = document.getElementById(e.dataTransfer.getData('Text'));
 	  // this/e.target is current target element.
@@ -19,8 +20,12 @@ function storyToTask(e){
 	task.setAttribute('name', 'task');
 	task.setAttribute('type', 'hidden');
 	task.setAttribute('value', e.target.id);
+	status.setAttribute('name', 'status');
+	status.setAttribute('type', 'hidden');
+	status.setAttribute('value', $(e.target).attr('status'));
 	form.appendChild(task);
 	form.appendChild(story);
+	form.appendChild(status);
 	form.submit();
 
 	  return false;
@@ -42,16 +47,15 @@ function handleDragStart(e) {
 }
 
 function handleDragOver(e) {
-	  if (e.preventDefault) {
-		    e.preventDefault(); // Necessary. Allows us to drop.
-		  }
+  if (e.preventDefault) {
+	    e.preventDefault(); // Necessary. Allows us to drop.
+  }
 
-		if($(e.target).hasClass('task-item')){
-
-			if($(dragSrcEl).hasClass('story-item')){
-				e.target.style.opacity = '0.4';
-			}
-		}  
+  if($(e.target).hasClass('task-item')){
+	if($(dragSrcEl).hasClass('story-item')){
+		e.target.style.opacity = '0.4';
+	}
+  }  
 }
 
 $('.panel.story-item').hover(
@@ -116,14 +120,15 @@ function taskToIteration(e){
 	var form = document.createElement('form');
 	var iteration = document.createElement('input');
 	var task = document.createElement('input');
+	var status = document.createElement('input');
 
    // var el = document.getElementById(e.dataTransfer.getData('Text'));
 	  // this/e.target is current target element.
 
+	console.log(e.target.status);
 	  if (e.stopPropagation) {
 	    e.stopPropagation(); // Stops some browsers from redirecting.
 	  }
-    console.log(e.target.id, dragSrcEl.id);
 	form.setAttribute('action', '/project/update/task');
 	form.setAttribute('method', 'POST');
 	iteration.setAttribute('name', 'iteration');
@@ -132,8 +137,12 @@ function taskToIteration(e){
 	task.setAttribute('name', 'id'); 
 	task.setAttribute('type', 'hidden');
 	task.setAttribute('value', dragSrcEl.id);
+	status.setAttribute('name', 'status');
+	status.setAttribute('type', 'hidden');
+	status.setAttribute('value', $(e.target).attr('status'));
 	form.appendChild(task);
 	form.appendChild(iteration);
+	form.appendChild(status);
 	form.submit();
 
 	  return false;

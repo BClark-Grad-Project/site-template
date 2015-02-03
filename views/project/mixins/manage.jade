@@ -73,7 +73,7 @@ mixin taskCard(task, taskPos)
   -     return -1;
   - }
   li.col-xs-6.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:3px;padding-top:0px;', dropzone="move s:text/plain s:text/html")
-    .panel.panel-default.task-item(id=task.id, style='background:#f9f9f9;', draggable='true')
+    .panel.panel-default.task-item(id=task.id, status=task.status, style='background:#f9f9f9;', draggable='true')
       .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='margin:0px; padding:0px;')
         h5(style='margin:0px; padding:0px;') #{task.name}
       .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='margin:0px; padding:0px;')
@@ -107,8 +107,8 @@ mixin storyCard(story, storyPos)
   -     }
   -     return -1;
   - }  
-  li.col-xs-6.col-sm-6.col-md-4.col-lg-4(style='margin:0px;padding:5px;padding-top:0px;')
-    .panel.panel-default.story-item(id=story.id, draggable='true')
+  li.col-xs-6.col-sm-6.col-md-4.col-lg-4.pull-left(style='margin:0px;padding:5px;padding-top:0px;')
+    .panel.panel-default.story-item(id=story.id, status=story.status, draggable='true')
       .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='margin:0px; padding:0px;')
         h5(style='margin:0px; padding:0px;') #{story.name}
       .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='margin:0px; padding:0px;')
@@ -141,7 +141,7 @@ mixin projectItems()
         |   Task  
     .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='margin:0px;padding:0px;')
       +newTask()
-      a.pull-right#project-edit(href'#', style='color:#494949;margin-top:10px;', data-toggle='modal', data-target='#task-form')
+      a.pull-right.new-form(href'#', style='color:#494949;margin-top:10px;', data-toggle='modal', data-target='#task-form')
         span.glyphicon.glyphicon-plus-sign   
     +editTask()
     ul#task-list.list-inline.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
@@ -158,7 +158,7 @@ mixin projectItems()
         br
     .col-xs-6.col-sm-6.col-md-6.col-lg-6
       +newStory()
-      a.pull-right(href'#', style='color:#494949;margin-top:10px;', data-toggle='modal', data-target='#story-form')
+      a.pull-right.new-form(href'#', style='color:#494949;margin-top:10px;', data-toggle='modal', data-target='#story-form')
         span.glyphicon.glyphicon-plus-sign  
         br
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
@@ -171,7 +171,7 @@ mixin projectItems()
 
 mixin sprint(pos) 
   .col-xs-12.col-sm-6.col-md-4.col-lg-4
-    .panel.panel-default.iteration-item(id=project.iteration[pos].id, style='padding:10px 20px 5px 20px;', dropzone="move s:text/plain s:text/html")
+    .panel.panel-default.iteration-item(id=project.iteration[pos].id, status=project.iteration[pos].status, style='padding:10px 20px 5px 20px;', dropzone="move s:text/plain s:text/html")
       .col-xs-2.col-sm-2.col-md-3.col-lg-2(style='margin:0px;padding:0px;')
         img(src='/images/sprint.png', style='height:auto;width:45px;margin:2px;margin-bottom:0px;margin-left:0px;')
       .col-xs-8.col-sm-8.col-md-7.col-lg-8(style='margin:0px;padding:0px;')
@@ -263,7 +263,7 @@ mixin manager()
     h3 Details
   +editProject()
   .col-xs-6.col-sm-6.col-md-6.col-lg-6
-    a.pull-right(href'#', style='color:#494949;margin-top:30px;', data-toggle='modal', data-target='#edit-project-form')
+    a.pull-right#project-edit(href'#', style='color:#494949;margin-top:30px;', data-toggle='modal', data-target='#edit-project-form')
       span.glyphicon.glyphicon-edit
   .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin-bottom:30px;')
     +projectDetail()

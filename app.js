@@ -1,16 +1,17 @@
 module.exports = function (data) {		
-	var express = require('express');
-	var path = require('path');
-	var favicon = require('serve-favicon');
-	var logger = require('morgan');
+	var express      = require('express');
+	var path         = require('path');
+	var favicon      = require('serve-favicon');
+	var logger       = require('morgan');
 	var cookieParser = require('cookie-parser');
-	var bodyParser = require('body-parser');
-
-	var routeHome = require('./routes/index')(data);
-	var routeAuth = require('./routes/auth')(data);
-	var routeAcct = require('./routes/account')(data);
+	var bodyParser   = require('body-parser');
+	var multer       = require('multer');
+	
+	var routeHome    = require('./routes/index')(data);
+	var routeAuth    = require('./routes/auth')(data);
+	var routeAcct    = require('./routes/account')(data);
 	var routeManager = require('./routes/manager')(data);
-	var routeBlog = require('./routes/blog')(data);
+	var routeBlog    = require('./routes/blog')(data);
 	var routeProject = require('./routes/project')(data);
 	
 	var app = express();
@@ -23,6 +24,7 @@ module.exports = function (data) {
 	app.use(logger('dev'));
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: false }));
+	app.use(multer({ dest: './uploads/'}));
 	app.use(cookieParser());
 	app.use(express.static(path.join(__dirname, 'public')));
 	

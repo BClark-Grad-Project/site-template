@@ -2,9 +2,17 @@ module.exports = function (data) {
 	var express = require('express');
 	var router = express.Router();
 	var github = require("octonode");
-	/* GET home page. */
-	router.get('/', function(req, res) {
+	var marked = require('marked');
+	marked.setOptions({
+		  highlight: function (code, lang, callback) {
+		    require('pygmentize-bundled')({ lang: lang, format: 'html' }, code, function (err, result) {
+		      callback(err, result.toString());
+		    });
+		  }
+		});
 	
+	/* GET home page. */
+	router.get('/', function(req, res) {	
 		// Build the authorization config and url
 		var client = github.client('caf298682e6e30aa710cc07cffb9fda6835ed505');
 		var ghme   = client.user('BClark-Grad-Project');
@@ -12,7 +20,9 @@ module.exports = function (data) {
 			if(err){console.error(err);}
 			data.blog.recent(1, 'site', function(err, blog){
 				if(err){console.error(err);}
-			
+				for(var i in blog){
+			    	blog[i].article.description = marked(blog[i].article.description);
+			    }
 				res.render('index', {git:git, blog:blog, title:"coming soon", user: req.session.user });
 			});
 		});

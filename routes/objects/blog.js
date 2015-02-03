@@ -1,3 +1,29 @@
+function nameMerge (title) {
+  title = title.replace(/[/\.../]/gi, '');
+  var merged = title.split(' ').join('_');
+  return merged;
+}
+
+function imgExtention (type) {
+  var extention;
+  if (type == 'image/jpeg') {
+    extention='jpg';
+  } else if (type == 'image/png') {
+    extention='png';
+  } else if (type == 'image/gif') {
+    extention='gif';
+  } else {
+    // default image
+    extention = 'png';
+  }
+  return extention;
+}
+	
+function imagePath (image, title) {
+  var img = nameMerge(title) + '.' + imgExtention(image.type);
+  return img;
+}
+	
 var getComment = function(req, id){
 	var comment = {
 			  id:            req.body.id,
@@ -36,9 +62,8 @@ var getBlog = function(req){
 	if(req.body.tags){
 		blog.tags    =  req.body.tags;
 	}
-	
-	if(req.body.image){
-		blog.article = {image: req.body.image};
+	if(req.files.image){
+		blog.article.image = 'https://blogguts.s3.amazonaws.com/' + imagePath(req.files.image, req.body.title);
 	}
 	
 	return blog;	

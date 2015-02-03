@@ -1,15 +1,18 @@
 // Begin Jade template.
 extends ../../layout
 
+block js-bottom
+  script(src='/js/post.js')
+
 include ./../mixins/index.jade
-    
+
 //-HTML content to display.
 block content
   section#main.container
     .row
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
         h1 New Blog Article
-        .col-xs-12.col-sm-12.col-md-9.col-lg-9.pull-left
+        .col-xs-12.col-sm-12.col-md-9.col-lg-9.pull-left.well
           +newBlog()
           br
           br

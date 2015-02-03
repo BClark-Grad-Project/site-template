@@ -91,12 +91,8 @@ var setStatistics = function(){
 	for(var i in statistics.iteration){
 		var pos = parseInt(i) + 1;
 		var task = '#sprint' + pos + '-task';
-		if(statistics.iteration[i].task){
 			$(task).html('<span class="glyphicon glyphicon-th-large"></span> ' + statistics.iteration[i].task);
-		}
-		if(statistics.iteration[i].iteration){
 			$('#sprint' + pos + '-stories').html('<span class="glyphicon glyphicon-th"></span> ' + statistics.iteration[i].stories);
-		}
 	}
 
 /*	for(var i in  statistics.task){
@@ -106,7 +102,7 @@ var setStatistics = function(){
 	if(statistics.task){
 		for(var i in  statistics.task){
 			if(statistics.task[i].id && statistics.task[i].stories.count){$('#' + statistics.task[i].id.toString() + '-stories').html('<span class="glyphicon glyphicon-th"></span> ' + (statistics.task[i].stories.count));}
-			if(statistics.task[i].stories.weight > 0){$('#' + statistics.task[i].id.toString() + '-weight').html('<span class="glyphicon glyphicon-scale"></span> ' + (statistics.task[i].stories.weight));}
+			if(statistics.task[i].stories.weight > 0){$('#' + statistics.task[i].id.toString() + '-weight').html('<span class="glyphicon glyphicon-scale"></span> ' + ((statistics.task[i].stories.weight)));}
 		}
 	}
 };
@@ -132,10 +128,17 @@ var initStatistics = function(){
 // Remains at bottom of statistics.js
 initStatistics();
 
+var clearForm = function(){
+    $("input[name=id]").val( '' );
+    $("input[name=name]").val( '' );
+    $("textarea[name=description]").val( '' );
+    $("input[name=sprint]").val( '' );
+    $("select").prop('selectedIndex',0);
+};
 
 $(document).on("click", "#story-edit", function () {
     var Id = parseInt($(this).data('id'));
-    console.log( projectObj.stories[Id].id);
+    clearForm();
     if(projectObj.stories[Id]){
 	    $("input[name=id]").val( projectObj.stories[Id].id );
 	    $("input[name=name]").val( projectObj.stories[Id].name );
@@ -147,7 +150,7 @@ $(document).on("click", "#story-edit", function () {
 
 $(document).on("click", "#task-edit", function () {
     var Id = parseInt($(this).data('id'));
-    console.log( projectObj.task[Id].id);
+    clearForm();
     if(projectObj.task[Id]){
 	    $("input[name=id]").val( projectObj.task[Id].id );
 	    $("input[name=name]").val( projectObj.task[Id].name );
@@ -158,11 +161,25 @@ $(document).on("click", "#task-edit", function () {
 
 $(document).on("click", "#sprint-edit", function (e) {
     var Id = parseInt($(this).data('id'));
-    console.log(Id, projectObj.iteration[Id].start.substr(0,10));
+    clearForm();
     
     $("input[name=id]").val( projectObj.iteration[Id].id );
     $("input[name=start]").val(projectObj.iteration[Id].start.substr(0,10));
     $("input[name=stop]").val(projectObj.iteration[Id].stop.substr(0,10));
     
     $("textarea[name=product]").val( projectObj.iteration[Id].product );
+});
+
+$(document).on("click", "#project-edit", function (e) { 
+	clearForm();
+    $("input[name=id]").val( projectObj.id );
+    $("input[name=name]").val( projectObj.name );
+    $("input[name=start]").val(projectObj.start.substr(0,10));
+    $("input[name=stop]").val(projectObj.stop.substr(0,10));
+    $("textarea[name=vision]").val( projectObj.vision );
+    $("textarea[name=description]").val( projectObj.description );
+});
+
+$(document).on("click", ".new-form", function (e) {    
+	clearForm();
 });

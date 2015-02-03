@@ -15,7 +15,7 @@ mixin article(blog)
         br        
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     br
-    p #{blog.article.description}
+    != blog.article.description
     br
   .col-xs-6.col-sm-7.col-md-8.col-lg-8
     //-reserved for later use
@@ -50,10 +50,11 @@ mixin articleShort(blog)
         small.text-muted #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()} 
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     if blog.article.description.length > 399
-      p.text-muted #{blog.article.description.substring(0, 400)}...  
+      .marked.text-muted!= blog.article.description.substring(0, 400)
+        | ...  
         a(href='/blog/' + blog.id) [ + more ]
     else
-      p.text-muted #{blog.article.description}
+      p.text-muted!= blog.article.description
     br
     hr
   br  
@@ -129,7 +130,7 @@ mixin blog()
 mixin newBlog()
   if !blog
     -var blog = {type:'site',tags:'',notice:{visits:0,favorites:0},article:{title:'',description:'',image:''}};
-  form(action='/blog/create', method='POST', role='form')
+  form(action='/blog/create', method='POST', role='form',  enctype="multipart/form-data")
     if blog.id
       input.form-control(type='hidden', name='id', value=blog.id)
     if blog.edit
@@ -140,7 +141,7 @@ mixin newBlog()
     input.form-control(type='hidden', name='favorites', value=blog.notice.favorites, required)
     .col-xs-12.col-sm-4.col-md-3.col-lg-3
       label(for='image') Title Image
-      input.form-control(name='image', type='file', value=blog.article.image)
+      input(name='image', type='file', value=blog.article.image)
       br
     .col-xs-12.col-sm-8.col-md-9.col-lg-9
       label(for='title') Title
@@ -155,7 +156,7 @@ mixin newBlog()
         br
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
       label(for='description') Description
-      textarea.form-control(name='description', rows='15', value=blog.article.description, required)
+      textarea.form-control(name='description', data-provide='markdown', rows='15', value=blog.article.description, required)
       br
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
       label(for='tags') Tags

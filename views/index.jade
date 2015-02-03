@@ -21,10 +21,11 @@ mixin articleShort(blog)
         br
   .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-left:0px;')
     if blog.article.description.length > 899
-      p.text-muted #{blog.article.description.substring(0, 900)}...  
+      p.text-muted!= blog.article.description.substring(0, 900)
+        | ...  
         a(href='/blog/' + blog.id, style='white-space:nowrap;') [ + more ]
     else
-      p.text-muted #{blog.article.description}
+      p.text-muted!= blog.article.description
     br
   br  
   

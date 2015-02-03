@@ -200,3 +200,8 @@ a, a:link, a:visited{
   -khtml-user-drag: element;
   -webkit-user-drag: element;
 }
+
+
+ol li {
+	margin-left:30px;
+}

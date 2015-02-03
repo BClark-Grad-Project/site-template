@@ -21,6 +21,9 @@ var getStory = function(req){
 	story.name        = req.body.name        ? req.body.name        : undefined;
 	story.description = req.body.description ? req.body.description : undefined;
 	story.weight       = req.body.weight      ? req.body.weight      : undefined;
+	if(req.body.task){
+		story.task      = req.body.task       ? req.body.task           : undefined;
+	}
 	
 	return story;
 };
@@ -31,7 +34,10 @@ var getTask = function(req){
 	task.sdl         = req.body.sdl          ? req.body.sdl          : undefined;
 	task.name        = req.body.name        ? req.body.name        : undefined;
 	task.description = req.body.description ? req.body.description : undefined;
-	
+	if(req.body.iteration){
+		task.iteration   = req.body.iteration   ? req.body.iteration   : undefined;
+	}
+
 	return task;
 };
 
@@ -95,6 +101,9 @@ var getTaskUpdate = function(req){
 	if(req.body.name){
 		task.name        = req.body.name        ? req.body.name        : undefined;
 	}
+	if(req.body.status){
+		task.status = req.body.status ? req.body.status : undefined;
+	}
 	if(req.body.description){
 		task.description = req.body.description ? req.body.description : undefined;
 	}
@@ -121,6 +130,9 @@ var getStoryUpdate = function(req){
 	}
 	if(req.body.description){
 		story.description = req.body.description ? req.body.description : undefined;
+	}
+	if(req.body.status){
+		story.status = req.body.status ? req.body.status : undefined;
 	}
 	if(req.body.weight){
 		story.weight       = req.body.weight      ? req.body.weight      : undefined;

@@ -100,7 +100,7 @@ mixin storyForm()
     br
     select.form-control(name='weight', type='input', required)
       - for(var i = 0; i < 11; i++){
-        option(value=i) #{i}
+        option(value=parseInt(i)) #{i}
       -  }
       br
   br
