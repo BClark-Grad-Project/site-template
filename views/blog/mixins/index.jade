@@ -1,24 +1,24 @@
 mixin article(blog)
-  a(href='/blog/' + blog.id)
-    if blog.article.image
-      .col-xs-12.col-sm-10.col-md-10.col-lg-10.pull-right
-        h2(style='margin-bottom:0px;') #{blog.article.title}
-        small.text-muted(style='margin-top:0px;') #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()}
-        br
-      .col-xs-12.col-sm-2.col-md-2.col-lg-2.pull-left
-        img(src=blog.article.image)
-        br
-    else
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        h2(style='margin-bottom:0px;') #{blog.article.title}
-        small.text-muted(style='margin-top:0px;') #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()}
-        br        
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    h2(style='margin-bottom:0px;') #{blog.article.title}
+    small.text-muted(style='margin-top:0px;') #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()}
+    br      
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     br
+    if blog.article.image
+      img.img-rounded.pull-left(src=blog.article.image, style='max-width:100%;height:auto;margin-right:10px;margin-bottom:10px;')
     != blog.article.description
     br
-  .col-xs-6.col-sm-7.col-md-8.col-lg-8
-    //-reserved for later use
+  .col-xs-6.col-sm-7.col-md-8.col-lg-8(style='padding-top:35px;')
+    |    
+    script.pull-left(type="IN/Share", style='margin:5px;float:left;')
+    |    
+    a.pull-left.twitter-share-button(href="https://twitter.com/share", data-count='none', style='margin:5px;float:left;') Tweet
+    |    
+    .g-plusone.pull-left(data-size="medium", data-annotation="none", style='margin:5px;float:left;')
+    |    
+    .fb-like.pull-left(data-send="true",  data-show-faces="false", data-layout="button", style='margin:0px 3px;')
+    |   
   .col-xs-12.col-sm-5.col-md-4.col-lg-4
     .panel.panel-default(style='padding:0px;')
       .panel-body(style='padding:10px 0;')
@@ -32,31 +32,28 @@ mixin article(blog)
           if blog.edit.last
             h6.text-muted #{blog.edit.last}
     br
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12 
+    br  
   br  
   
 mixin articleShort(blog)
   a(href='/blog/' + blog.id)
-    if blog.article.image
-      .col-xs-12.col-sm-10.col-md-10.col-lg-10.pull-right(style='padding-bottom:5px;')
-        h3(style='margin-bottom:0px;') #{blog.article.title}
-        small
-          b #{blog.author} 
-        small.text-muted ( #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()} )
-      .col-xs-12.col-sm-2.col-md-2.col-lg-2.pull-left(style='padding-bottom:5px;')
-        img(src=blog.article.image)
-    else
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-bottom:5px;')
-        h3(style='margin-bottom:0px;') #{blog.article.title}
-        small.text-muted #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()} 
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-bottom:5px;')
+      h3(style='margin-bottom:0px;') #{blog.article.title}
+      small.text-muted #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()} 
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
-    if blog.article.description.length > 399
-      .marked.text-muted!= blog.article.description.substring(0, 400)
+    if blog.article.description.length > 299
+      .marked.text-muted!= blog.article.description.substring(0, 300)
+        if blog.article.image
+          img.img-rounded.pull-left(src=blog.article.image, style='max-width:10%;height:auto;margin-right:10px;margin-bottom:10px;')
         | ...  
         a(href='/blog/' + blog.id) [ + more ]
     else
-      p.text-muted!= blog.article.description
+      p.text-muted
+        if blog.article.image
+          img.img-rounded.pull-left(src=blog.article.image, style='max-width:10%;height:auto;margin-right:10px;margin-bottom:10px;')
+        != blog.article.description
     br
-    hr
   br  
   
 mixin newComment()

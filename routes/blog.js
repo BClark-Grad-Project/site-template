@@ -59,6 +59,8 @@ module.exports = function (data) {
 		var blogObj = createObj.newBlog(req);
 		data.blog.create(blogObj, function(err, blog){
 			if(err){console.error(err);}
+			
+			// if blog post success upload image to aws s3 storage
 			if(req.files.image){
 				var image = writeImage(req.files.image, req.body.title);
 				var s3 = new AWS.S3({params: {Bucket: 'blogguts', Key: image}}); 
@@ -74,7 +76,6 @@ module.exports = function (data) {
 		var comment = createObj.newComment(req);
 		data.blog.create(comment, function(err, blog){	
 			if(err){console.error(err);}	
-			//if(req.files.image){writeImage(req.files.image, req.body.title);}
 			res.redirect('/blog/' + blog.id);
 		});
 	});

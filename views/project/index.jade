@@ -1,6 +1,5 @@
 // Begin Jade template.
 extends ../layout
-   
 
 mixin skills()
   .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-bottom:10px;')
@@ -86,7 +85,6 @@ mixin skills()
           span.endorse-item-name-text Team Leadership
       br
   
-  
 //-HTML content to display.
 block content
   #main.jumbotron
@@ -96,12 +94,14 @@ block content
           h1 About Project 
           p(style='margin-bottom:0px;padding-bottom:0px;') Project Mind Research is being developed by Brandon Laurence Clark for his Master in Software Engineering degree at California State University Fullerton.
           ul.nav.nav-pills(role="tablist", style='margin-top:0px;padding-top:0px;')
+            li(role="presentation", style='padding:0px; padding-right:20px;')
+              h4 About      
             li(role="presentation")
-              a(href="#amse",style='margin-left:0px;padding-left:0px;') » Degree
+              a.text-muted(href="#amse",style='margin-left:0px;padding-left:0px;') » Degree
             li(role="presentation")
-              a(href="#author") » Author
+              a.text-muted(href="#author") » Author
             li(role="presentation")
-              a(href="#project") » Mind Research
+              a.text-muted(href="#project") » Mind Research
   section
     #amse.container
       .row
@@ -116,7 +116,9 @@ block content
           p The program curriculum is designed with the following learning goals: comprehension of software standards, implementation and management of software process, assessment/appraisal of software process, management of legal and ethical issues, collaboration and team work, critical thinking and problem solving, research, and communication.
           br
         .col-xs-12.col-sm-12.col-md-12.col-lg-10(style='padding-bottom:20px;')
-          h4 Project Specification
+          h4 
+            span.glyphicon.glyphicon-copy(style='margin-left:10px;')     
+            |    Project Specification
           p The AMSE program requires each student to follow research and development practices of software engineering to a engineer a project of their choice.  Research is approved by 
             a(href='http://tryu.ecs.fullerton.edu/') Professor Christopher Ryu
             |   and then developed with a written report for final review. 
@@ -131,11 +133,14 @@ block content
           .panel.panel-default(style='padding:5px;')
             img(src='/images/author.jpg', style='width:100%;') 
           .col-xs-4.col-sm-4.col-md-4.col-lg-4.middle
-            img(src='/images/social/li.png')     
+            a(href='http://www.linkedin.com/in/clarkbrandon')
+              img(src='/images/social/li.png')     
           .col-xs-4.col-sm-4.col-md-4.col-lg-4.middle
-            img(src='/images/social/gh.png')
+            a(href='https://github.com/BClark-Grad-Project')
+              img(src='/images/social/gh.png')
           .col-xs-4.col-sm-4.col-md-4.col-lg-4.middle
-            img(src='/images/social/so.png')
+            a(href='https://stackexchange.com/users/1331603/brandon-clark')
+              img(src='/images/social/so.png')
         .col-xs-12.col-sm-8.col-md-9.col-lg-9.pull-left
           h4 Summary
           p My bachelors degree is in Business Information Systems and Decision Systems. 
@@ -218,5 +223,3 @@ block content
           br
           br
           br
-                    
-          

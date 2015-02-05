@@ -68,10 +68,19 @@ mixin sprintForm()
 mixin taskForm()   
   input.id(type='hidden', name='id')
   input(type='hidden', name='sdl', value=project.id)
-  small Name
-  br
-  input.form-control(type='text', name='name')
-  br
+  .col-xs-4.col-sm-4.col-md-4.col-lg-3(style='margin-left:0px;padding-left:0px;')
+    small Status
+    br
+    select.form-control(name='status')
+      option(value='Pending') Pending
+      option(value='Active') Active
+      option(value='Complete') Complete 
+    br
+  .col-xs-8.col-sm-8.col-md-8.col-lg-9
+    small Name
+    br
+    input.form-control(type='text', name='name')
+    br
   small Description
   br
   textarea.form-control(type='textarea', name='description', style='min-height:150px;')
@@ -90,12 +99,19 @@ mixin taskForm()
 mixin storyForm()
   input.id(type='hidden', name='id')
   input(type='hidden', name='sdl', value=project.id)
-  .col-xs-8.col-sm-8.col-md-10.col-lg-10(style='padding:0px;padding-right:10px;')
+  .col-xs-4.col-sm-4.col-md-4.col-lg-3(style='margin-left:0px;padding-left:0px;')
+    small Status
+    br
+    select.form-control(name='status')
+      option(value='Pending') Pending
+      option(value='Active') Active
+      option(value='Complete') Complete 
+  .col-xs-5.col-sm-6.col-md-6.col-lg-7(style='padding:0px;padding-right:10px;')
     small Name
       br
     input.form-control(type='text', name='name')
     br
-  .col-xs-4.col-sm-4.col-md-2.col-lg-2(style='padding:0px;padding-left:10px')
+  .col-xs-3.col-sm-2.col-md-2.col-lg-2(style='padding:0px;padding-left:10px')
     small Weight
     br
     select.form-control(name='weight', type='input', required)

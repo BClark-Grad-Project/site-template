@@ -200,7 +200,11 @@ a, a:link, a:visited{
   -khtml-user-drag: element;
   -webkit-user-drag: element;
 }
-
+.fb-root, .fb-like, .fb-like > span, .fb-like > button, .fb_iframe_widget span {
+	vertical-align: text-bottom;
+	margin:0px;
+	padding:0px;
+}
 
 ol li {
 	margin-left:30px;

@@ -5,12 +5,30 @@ module.exports = function (data) {
 
 	/* GET about */
 	router.get('/', function(req, res) {
-		res.render('project/index', { title:"Project Status", user: req.session.user });
+		data.project.read({active:true}, function(err, project){
+			if(err){console.error(err);}
+			if(!project){
+				res.render('project/index', {title:"Project Status", user: req.session.user });
+			} else {
+				console.log('manage', project, err);
+				res.render('project/index', {project:project,  title:"Project Status", user: req.session.user });
+			}
+		});	
+		
 	});
 
 	/* GET status */
 	router.get('/status', function(req, res) {
-		res.render('project/detail', { title:"Project Status", user: req.session.user });
+		data.project.read({active:true}, function(err, project){
+			if(err){console.error(err);}
+			if(!project){
+				res.render('project/detail', { title:"Project Status", user: req.session.user });
+			} else {
+				console.log('manage', project, err);
+				res.render('project/detail', { project:project, title:"Project Status", user: req.session.user });
+			}
+		});	
+		
 	});
 
 	/* GET-POST project */

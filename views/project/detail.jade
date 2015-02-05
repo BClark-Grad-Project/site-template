@@ -1,12 +1,18 @@
 // Begin Jade template.
 extends ../layout
-   
+
+block js-top
+  script(type='text/javascript').
+    var projectObj = !{JSON.stringify(project)}   
+
+block js-bottom
+  script(src='/js/stats.js')
+
 //-HTML content to display.
 block content
   #main.jumbotron
     .container
       .row
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12
         .col-xs-12.col-sm-12.col-md-12.col-lg-12
           h1 
             img(src='/images/progress.png', style='width:50px;')
@@ -14,8 +20,9 @@ block content
           .col-xs-12.col-sm-12.col-md-12.col-lg-12
             .col-xs-12.col-sm-3.col-md-3.col-lg-3
               h5 State
-              p.big-text(style='color:#64a964;text-align:left;') Active
-              small.text-muted Completion Date: May 10, 2015
+              p.big-text(style='color:#64a964;text-align:left;') #{project.status}
+              small.text-muted Completion Date: 
+                |  #{monthNames[project.stop.getMonth()]} #{project.stop.getDate()} #{project.stop.getFullYear()} 
               br
               br
             .col-xs-12.col-sm-9.col-md-9.col-lg-9
@@ -25,15 +32,15 @@ block content
               .col-xs-6.col-sm-4.col-md-4.col-lg-4
                 .panel.panel-default(style='padding:5px 20px;')
                   h5 Total Sprints
-                  p.big-text 3            
+                  p#total-sprints.big-text 0            
               .col-xs-6.col-sm-4.col-md-4.col-lg-4
                 .panel.panel-default(style='padding:5px 20px;')
                   h5 Task
-                  p.big-text 10   
+                  p#total-task.big-text 0   
               .col-xs-12.col-sm-4.col-md-4.col-lg-4
                 .panel.panel-default(style='padding:5px 20px;')
                   h5 User Stories
-                  p.big-text 300   
+                  p#total-stories.big-text 0   
             .col-xs-12.col-sm-3.col-md-3.col-lg-3
               
             .col-xs-12.col-sm-9.col-md-9.col-lg-9
@@ -43,24 +50,24 @@ block content
               .col-xs-6.col-sm-4.col-md-4.col-lg-4
                 .panel.panel-default(style='padding:5px 20px;background:#f9f9f9;')
                   h5 Sprint
-                  p.big-text One            
+                  p#sprint-name.big-text One            
               .col-xs-6.col-sm-4.col-md-4.col-lg-4
                 .panel.panel-default(style='padding:5px 20px;background:#f9f9f9;')
                   h5 Task
-                  p.big-text 4   
+                  p#total-sprint-task.big-text 0   
               .col-xs-12.col-sm-4.col-md-4.col-lg-4
                 .panel.panel-default(style='padding:5px 20px;background:#f9f9f9;')
                   h5 User Stories
-                  p.big-text 100   
+                  p#total-sprint-stories.big-text 0   
           .col-xs-12.col-sm-12.col-md-12.col-lg-12
             h3 Burn Downs
           .col-xs-12.col-sm-6.col-md-6.col-lg-6    
             .col-xs-12.col-sm-12.col-md-12.col-lg-12       
               h5 Current Sprint Life Cycle
               .progress.progress-bar-striped(style='background: rgba(245, 245, 245, 1); border: 1px solid rgba(245, 245, 245, 1); border-radius: 7px; height: 34px;')
-                .progress-bar.progress-bar-custom.active(role="progressbar", aria-valuenow="45", aria-valuemin="0", aria-valuemax="100", style="width: 45%;background-color: rgba(77, 77, 77, 1); background-image: -webkit-gradient(linear,0 100%,100% 0,color-stop(0.25,rgba(255, 255, 255, 0.15),color-stop(0.25,transparent),color-stop(0.5,transparent),color-stop(0.5,rgba(255, 255, 255, 0.15)),color-stop(0.75,rgba(255, 255, 255, 0.15)),color-stop(0.75,transparent),to(transparent))); background-image: -webkit-linear-gradient(45deg,rgba(255, 255, 255, 0.15) 25%,transparent 25%,transparent 50%,rgba(255, 255, 255, 0.15) 50%,rgba(255, 255, 255, 0.15) 75%,transparent 75%,transparent); background-image: linear-gradient(45deg,rgba(255, 255, 255, 0.15) 25%,transparent 25%,transparent 50%,rgba(255, 255, 255, 0.15) 50%,rgba(255, 255, 255, 0.15) 75%,transparent 75%,transparent); background-size: 40px 40px;padding:5px;")
-                  span.sr-only 45% Complete
-                  small 45% 
+                #sprint-completion.progress-bar.progress-bar-custom.active(role="progressbar", aria-valuenow="0", aria-valuemin="0", aria-valuemax="100", style="width: 0%;background-color: rgba(77, 77, 77, 1); background-image: -webkit-gradient(linear,0 100%,100% 0,color-stop(0.25,rgba(255, 255, 255, 0.15),color-stop(0.25,transparent),color-stop(0.5,transparent),color-stop(0.5,rgba(255, 255, 255, 0.15)),color-stop(0.75,rgba(255, 255, 255, 0.15)),color-stop(0.75,transparent),to(transparent))); background-image: -webkit-linear-gradient(45deg,rgba(255, 255, 255, 0.15) 25%,transparent 25%,transparent 50%,rgba(255, 255, 255, 0.15) 50%,rgba(255, 255, 255, 0.15) 75%,transparent 75%,transparent); background-image: linear-gradient(45deg,rgba(255, 255, 255, 0.15) 25%,transparent 25%,transparent 50%,rgba(255, 255, 255, 0.15) 50%,rgba(255, 255, 255, 0.15) 75%,transparent 75%,transparent); background-size: 40px 40px;padding:5px;")
+                  span.sprint-completion.sr-only 0%
+                  small.sprint-completion 0% 
               .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle 
                 small
                   b Remaining Task
@@ -68,9 +75,9 @@ block content
                 small
                   b Remaining Stories
               .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle
-                small 3
+                small#remaining-sprint-task 0 
               .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle
-                small 75
+                small#remaining-sprint-stories 0
               .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle 
                 small
                   b Time Estimate
@@ -78,9 +85,9 @@ block content
                 small
                   b On Schedule
               .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle
-                small 20 hours
+                small#remaining-sprint-time 0 hours
               .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle
-                small Early
+                small#status-sprint-time Early
               br
               br
               br
@@ -89,9 +96,9 @@ block content
             .col-xs-12.col-sm-12.col-md-12.col-lg-12   
               h5 Project Life Cycle    
               .progress.progress-bar-striped(style='background: rgba(245, 245, 245, 1); border: 1px solid rgba(245, 245, 245, 1); border-radius: 7px; height: 34px;')
-                .progress-bar.progress-bar-custom.active(role="progressbar", aria-valuenow="45", aria-valuemin="0", aria-valuemax="100", style="width: 18%;background-color: rgba(77, 77, 77, 1); background-image: -webkit-gradient(linear,0 100%,100% 0,color-stop(0.25,rgba(255, 255, 255, 0.15),color-stop(0.25,transparent),color-stop(0.5,transparent),color-stop(0.5,rgba(255, 255, 255, 0.15)),color-stop(0.75,rgba(255, 255, 255, 0.15)),color-stop(0.75,transparent),to(transparent))); background-image: -webkit-linear-gradient(45deg,rgba(255, 255, 255, 0.15) 25%,transparent 25%,transparent 50%,rgba(255, 255, 255, 0.15) 50%,rgba(255, 255, 255, 0.15) 75%,transparent 75%,transparent); background-image: linear-gradient(45deg,rgba(255, 255, 255, 0.15) 25%,transparent 25%,transparent 50%,rgba(255, 255, 255, 0.15) 50%,rgba(255, 255, 255, 0.15) 75%,transparent 75%,transparent); background-size: 40px 40px;padding:5px;")
-                  span.sr-only 18% Complete       
-                  small 18% 
+                #project-completion.project.progress-bar.progress-bar-custom.active(role="progressbar", aria-valuenow="0", aria-valuemin="0", aria-valuemax="100", style="width: 0%;background-color: rgba(77, 77, 77, 1); background-image: -webkit-gradient(linear,0 100%,100% 0,color-stop(0.25,rgba(255, 255, 255, 0.15),color-stop(0.25,transparent),color-stop(0.5,transparent),color-stop(0.5,rgba(255, 255, 255, 0.15)),color-stop(0.75,rgba(255, 255, 255, 0.15)),color-stop(0.75,transparent),to(transparent))); background-image: -webkit-linear-gradient(45deg,rgba(255, 255, 255, 0.15) 25%,transparent 25%,transparent 50%,rgba(255, 255, 255, 0.15) 50%,rgba(255, 255, 255, 0.15) 75%,transparent 75%,transparent); background-image: linear-gradient(45deg,rgba(255, 255, 255, 0.15) 25%,transparent 25%,transparent 50%,rgba(255, 255, 255, 0.15) 50%,rgba(255, 255, 255, 0.15) 75%,transparent 75%,transparent); background-size: 40px 40px;padding:5px;")
+                  span.project-completion.sr-only 0% Complete       
+                  small.project-completion 0% 
               .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle 
                 small
                   b Remaining Task
@@ -99,9 +106,9 @@ block content
                 small
                   b Remaining Stories
               .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle
-                small 9
+                small#remaining-task 0
               .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle
-                small 275
+                small#remaining-stories 0
               .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle 
                 small
                   b Time Estimate
@@ -109,27 +116,60 @@ block content
                 small
                   b On Schedule
               .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle
-                small 350 hours
+                small#remaining-time 0 hours
               .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle
-                small Early
+                small#status-time Early
               br
               br
   section
     #task.container
       .row
-        .col-xs-12.col-sm-7.col-md-8.col-lg-8.pull-left
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12.pull-left
           h3
             span.glyphicon.glyphicon-tasks
-            |   Task Priority 
-        .col-xs-12.col-sm-5.col-md-4.col-lg-4.pull-right
+            |   Sprint Workflow
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12.pull-right
+          h4 Work Products Description
+          for sprint in project.iteration  
+            if sprint.status == 'Active'
+              if sprint.product
+                p #{sprint.product} 
+              else
+                p No work product has been defined.
+          else
+            small
+              b None
           br
+          br
+          br
+        .col-xs-12.col-sm-5.col-md-4.col-lg-4.pull-left
           h4
-            |  Project Task List     
+            span.glyphicon.glyphicon-th-large
+            |  Sprint Task List    
           if project
             ul.list-group
-              for task in project.task
-                li.list-group-item
-                  a.text-muted(href='/project/' + project.task.id) #{project.task.name}
+              for sprint in project.iteration
+                if sprint.status == 'Active'
+                  for task in project.task
+                    - var taskPos = 0;
+                    if task.iteration
+                      if task.iteration.toString() == sprint.id.toString()
+                        - function indexOfIteration(iterations, searchTerm) {
+                        -     for(var i = 0, len = iterations.length; i < len; i++) {
+                        -         if(iterations[i].id.toString() == searchTerm.toString()) return i;
+                        -     }
+                        -     return -1;
+                        - }  
+                        li.list-group-item
+                          h4(style='margin:0px; padding:0px;') #{task.name}
+                          small #{task.description}
+                          br
+                          h5(style=pad)
+                            span.label.label-default.pull-left(style='margin-right:5px;')  #{task.status}
+                            span.label.label-default.pull-right(style='margin-left:5px;', id=task.id.toString() + '-stories')
+                            span.label.label-info.pull-right(id=task.id.toString() + '-weight')
+                          br
+                  - taskPos++;  
           else
             small
               b None
@@ -137,44 +177,44 @@ block content
           br
           br
         .col-xs-12.col-sm-7.col-md-8.col-lg-8.pull-left
-          h4 Current Task List   
-          if project
-            ul.list-unstyled
-              for task in project.task
-                if project.task.status == 'active'
-                  li
-                    a.text-muted(href='/project/' + project.task.id) #{project.task.name}
-          else
-            small
-              b None
-          br
-          br
-          br
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12
           h4
             span.glyphicon.glyphicon-th
-            |  Task Stories
-          small Stories are arranged by task and priority.
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+            |  Sprint Product Backlog
+        .col-xs-12.col-sm-7.col-md-8.col-lg-8.pull-left
           if project
             for task in project.task
-              for story in task.stories
-                .col-xs-6.col-sm-4.col-md-3.col-lg-3
-                  .panel.panel-default
-                    .col-xs-6.col-sm-6.col-md-6.col-lg-6
-                      h5 Story #
-                    .col-xs-6.col-sm-6.col-md-6.col-lg-6
-                      small 
-                        b State:  
-                        |  Incomplete
-                    .col-xs-12.col-sm-12.col-md-12.col-lg-12
-                      p Description
-                      br
-                      br
-                  br
-                  br
-            br
-            br
+              - var storyPos = 0;
+              if task.status == 'Active'
+                for story in project.stories
+                  if story.task
+                    if story.task.toString() == task.id.toString()
+                      - function indexOfTask(tasks, searchTerm) {
+                      -     for(var i = 0, len = tasks.length; i < len; i++) {
+                      -         if(tasks[i].id.toString() == searchTerm.toString()) return i;
+                      -     }
+                      -     return -1;
+                      - }  
+                      .col-xs-6.col-sm-6.col-md-4.col-lg-4.pull-left(style='margin:0px;padding:5px;padding-top:0px;')
+                        .panel.panel-default.story-item(id=story.id, status=story.status, draggable='true')
+                          .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px; padding:0px;')
+                            h5(style='margin:0px; padding:0px;') #{story.name}
+                          .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;margin-bottom:10px;') 
+                            if story.task
+                              - var pos = indexOfTask(project.task, story.task);
+                              .col-xs-12.col-sm-4.col-md-4.col-lg-3(style='margin:0px; padding:0px;')
+                                small(style='margin-top:0px;padding-top:0px;') 
+                                  b Task:  
+                              .col-xs-12.col-sm-8.col-md-8.col-lg-9(style='margin:0px; padding:0px;')
+                                small(style='color:#64a964;margin-top:0px;padding-top:0px;')  #{project.task[pos].name}
+                          small #{story.description}
+                          br
+                          h5(style='padding-bottom:10px;')
+                            span.label.label-default.pull-left(style='margin-right:10px;') #{story.status}
+                            if story.weight  
+                              span.label.label-info.pull-right 
+                                span.glyphicon.glyphicon-scale    
+                                |    #{story.weight}
+                - storyPos++;          
           else
             small
               b None
@@ -186,23 +226,44 @@ block content
     #pbi.container
       .row
         .col-xs-12.col-sm-7.col-md-8.col-lg-8.pull-left
-          h3 Product Inventory Backlog
+          h3 
+            span.glyphicon.glyphicon-folder-open(style='margin-right:10px;')
+            |    Product Inventory Backlog
           small User stories that are desired but will not be present in release 1.0.
+          br
+          br
         .col-xs-12.col-sm-12.col-md-12.col-lg-12
           if project
-            for item in project.pbi
-              .col-xs-6.col-sm-4.col-md-3.col-lg-3
-                .panel.panel-default
-                  .col-xs-6.col-sm-6.col-md-6.col-lg-6
-                    h5 Story #
-                  .col-xs-6.col-sm-6.col-md-6.col-lg-6
-                    small 
-                      b State:  
-                      |  Incomplete
-                  .col-xs-12.col-sm-12.col-md-12.col-lg-12
-                    p Description
-                    br
-                    br
+            - var storyPos = 0;
+            for story in project.stories
+              if !story.task
+                  - function indexOfTask(tasks, searchTerm) {
+                  -     for(var i = 0, len = tasks.length; i < len; i++) {
+                  -         if(tasks[i].id.toString() == searchTerm.toString()) return i;
+                  -     }
+                  -     return -1;
+                  - }  
+                  .col-xs-6.col-sm-6.col-md-4.col-lg-3.pull-left(style='margin:0px;padding:5px;padding-top:0px;')
+                    .panel.panel-default.story-item(id=story.id, status=story.status, draggable='true')
+                      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px; padding:0px;')
+                        h5(style='margin:0px; padding:0px;') #{story.name}
+                      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;margin-bottom:10px;') 
+                        if story.task
+                          - var pos = indexOfTask(project.task, story.task);
+                          .col-xs-12.col-sm-4.col-md-4.col-lg-3(style='margin:0px; padding:0px;')
+                            small(style='margin-top:0px;padding-top:0px;') 
+                              b Assigned:  
+                          .col-xs-12.col-sm-8.col-md-8.col-lg-9(style='margin:0px; padding:0px;')
+                            small(style='color:#64a964;margin-top:0px;padding-top:0px;')  #{project.task[pos].name}
+                      small #{story.description}
+                      br
+                      h5(style='padding-bottom:10px;')
+                        span.label.label-default.pull-left(style='margin-right:10px;') #{story.status}
+                        if story.weight  
+                          span.label.label-info.pull-right 
+                            span.glyphicon.glyphicon-scale    
+                            |    #{story.weight}
+                - storyPos++;   
           else
             small
               b None
