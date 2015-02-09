@@ -179,8 +179,8 @@ var calculateIter = function(){
 						if(projectObj.stories[n].task){
 							if(statistics.task[j].id.toString() == projectObj.stories[n].task.toString()){
 								if(projectObj.stories[n].status == 'Complete'){
-									statistics.iteration[i].storiesfinished += statistics.task[j].stories.storiesfinished;
-									storiesFinished += statistics.task[j].stories.storiesfinished;
+									statistics.iteration[i].storiesfinished++;
+									storiesFinished++;
 								}						
 							}
 						}
@@ -284,7 +284,7 @@ initStatistics();
 
 var clearForm = function(){
     $("input[name=id]").val( '' );
-    $("input[name=name]").val( '' );
+    $("input[name=nametag]").val( '' );
     $("textarea[name=description]").val( '' );
     $("input[name=sprint]").val( '' );
     $("select").prop('selectedIndex',0);
@@ -295,7 +295,7 @@ $(document).on("click", "#story-edit", function () {
     clearForm();
     if(projectObj.stories[Id]){
 	    $("input[name=id]").val( projectObj.stories[Id].id );
-	    $("input[name=name]").val( projectObj.stories[Id].name );
+	    $("input[name=nametag]").val( projectObj.stories[Id].name );
 	    $("textarea[name=description]").val( projectObj.stories[Id].description );
 	    $("option[value=" + projectObj.stories[Id].task + "]").attr('selected', 'selected');
 	    $("option[value=" + projectObj.stories[Id].weight + "]").attr('selected', 'selected');
@@ -308,7 +308,7 @@ $(document).on("click", "#task-edit", function () {
     clearForm();
     if(projectObj.task[Id]){
 	    $("input[name=id]").val( projectObj.task[Id].id );
-	    $("input[name=name]").val( projectObj.task[Id].name );
+	    $("input[name=nametag]").val( projectObj.task[Id].name );
 	    $("textarea[name=description]").val( projectObj.task[Id].description );
 	    $("option[value=" + projectObj.task[Id].iteration + "]").attr('selected', 'selected');
 	    $("option[value=" + projectObj.task[Id].status + "]").attr('selected', 'selected');
@@ -329,7 +329,7 @@ $(document).on("click", "#sprint-edit", function (e) {
 $(document).on("click", "#project-edit", function (e) { 
 	clearForm();
     $("input[name=id]").val( projectObj.id );
-    $("input[name=name]").val( projectObj.name );
+    $("input[name=nametag]").val( projectObj.name );
     $("input[name=start]").val(projectObj.start.substr(0,10));
     $("input[name=stop]").val(projectObj.stop.substr(0,10));
     $("textarea[name=vision]").val( projectObj.vision );

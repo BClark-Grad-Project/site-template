@@ -31,7 +31,7 @@ module.exports = function (data) {
 		data.project.read({active:true}, function(err, project){
 			if(err){console.error(err);}
 			if(!project){
-				res.render('project/detail', { title:"Project Status", user: req.session.user });
+				res.render('project/detail', { title:"Project Mind Research Status", user: req.session.user });
 			} else {
 				if(project.description){
 					project.description = marked(project.description);
@@ -41,7 +41,7 @@ module.exports = function (data) {
 				}
 				
 				console.log('manage', project, err);
-				res.render('project/detail', { project:project, title:"Project Status", user: req.session.user });
+				res.render('project/detail', { project:project, title:"Project Mind Research Status", user: req.session.user });
 			}
 		});	
 		
