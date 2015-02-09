@@ -90,7 +90,7 @@ module.exports = function (data) {
 			    for(var i in blogs){
 			    	blogs[i].article.description = marked(blogs[i].article.description);
 			    }
-				res.render('blog/index', {blogs: blogs, top: top, title:"coming soon", user: req.session.user});
+				res.render('blog/index', {blogs: blogs, top: top, title:"Project Mind Research Blog", user: req.session.user});
 			});
 		});
 	});
@@ -108,7 +108,7 @@ module.exports = function (data) {
 				if(err){console.error(err);}
 				blog.article.description = marked(blog.article.description);
 				console.log(marked(blog.article.description));
-				res.render('blog/article', {blog: blog, recent: recent, title:"coming soon", user: req.session.user });
+				res.render('blog/article', {blog: blog, recent: recent, title:"Project Mind Research Blog | " + blog.article.title, user: req.session.user });
 			});
 		});
 	});
