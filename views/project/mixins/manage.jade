@@ -74,9 +74,9 @@ mixin taskCard(task, taskPos)
   - }
   li.col-xs-6.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:3px;padding-top:0px;', dropzone="move s:text/plain s:text/html")
     .panel.panel-default.task-item(id=task.id, status=task.status, style='background:#f9f9f9;', draggable='true')
-      .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='margin:0px; padding:0px;')
+      .col-xs-10.col-sm-10.col-md-10.col-lg-10(style='margin:0px; padding:0px;')
         h5(style='margin:0px; padding:0px;') #{task.name}
-      .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='margin:0px; padding:0px;')
+      .col-xs-2.col-sm-2.col-md-2.col-lg-2(style='margin:0px; padding:0px;')
         a.pull-right#task-edit(href'#', style='color:#494949;margin-bottom:0px; padding-bottom:0px;', data-toggle='modal', data-target='#edit-task-form', data-id=taskPos)
           span.glyphicon.glyphicon-edit
       .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;margin-bottom:10px;') 
