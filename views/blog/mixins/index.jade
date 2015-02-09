@@ -86,7 +86,7 @@ mixin popularArticles()
   br
   h4 Popular Articles
   if top
-    ul.list-group
+    ul.list-group.inverse
       for rank in top
         li.list-group-item
           a.text-muted(href='/blog/' + rank.id) #{rank.article.title}

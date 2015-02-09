@@ -9,7 +9,7 @@ mixin projectForm()
   .col-xs-12.col-sm-12.col-md-4.col-lg-4
     small Name
     br
-    input.form-control(type='text', name='name', value=project.name)
+    input.form-control(type='text', name='nametag', value=project.name)
     br
   .col-xs-12.col-sm-12.col-md-8.col-lg-8
     small Duration
@@ -79,7 +79,7 @@ mixin taskForm()
   .col-xs-8.col-sm-8.col-md-8.col-lg-9
     small Name
     br
-    input.form-control(type='text', name='name')
+    input.form-control(type='text', name='nametag')
     br
   small Description
   br
@@ -109,7 +109,7 @@ mixin storyForm()
   .col-xs-5.col-sm-6.col-md-6.col-lg-7(style='padding:0px;padding-right:10px;')
     small Name
       br
-    input.form-control(type='text', name='name')
+    input.form-control(type='text', name='nametag')
     br
   .col-xs-3.col-sm-2.col-md-2.col-lg-2(style='padding:0px;padding-left:10px')
     small Weight

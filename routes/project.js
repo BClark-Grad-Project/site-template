@@ -2,6 +2,7 @@ module.exports = function (data) {
 	var express   = require('express');
 	var router    = express.Router();
 	var createObj = require('./objects/projects');
+	var marked = require('marked');
 
 	/* GET about */
 	router.get('/', function(req, res) {
@@ -11,6 +12,14 @@ module.exports = function (data) {
 				res.render('project/index', {title:"Project Status", user: req.session.user });
 			} else {
 				console.log('manage', project, err);
+				
+/*				if(project.description){
+					project.description = marked(project.description);
+				}
+				if(project.vision){
+					project.vision = marked(project.vision);
+				}*/
+				
 				res.render('project/index', {project:project,  title:"Project Status", user: req.session.user });
 			}
 		});	
@@ -24,6 +33,13 @@ module.exports = function (data) {
 			if(!project){
 				res.render('project/detail', { title:"Project Status", user: req.session.user });
 			} else {
+				if(project.description){
+					project.description = marked(project.description);
+				}
+				if(project.vision){
+					project.vision = marked(project.vision);
+				}
+				
 				console.log('manage', project, err);
 				res.render('project/detail', { project:project, title:"Project Status", user: req.session.user });
 			}
@@ -115,6 +131,13 @@ module.exports = function (data) {
 				res.render('project/manage', {title:"Create Project", user: req.session.user });
 			} else {
 				console.log('manage', project, err);
+				if(project.description){
+					project.description = marked(project.description);
+				}
+				if(project.vision){
+					project.vision = marked(project.vision);
+				}
+				
 				res.render('project/manage', {project:project, title:"Manage Project", user: req.session.user });
 			}
 		});		

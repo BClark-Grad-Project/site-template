@@ -97,62 +97,12 @@ block content
             li(role="presentation", style='padding:0px; padding-right:20px;')
               h4 About      
             li(role="presentation")
-              a.text-muted(href="#amse",style='margin-left:0px;padding-left:0px;') » Degree
+              a.text-muted(href="#project") » Mind Research
             li(role="presentation")
               a.text-muted(href="#author") » Author
             li(role="presentation")
-              a.text-muted(href="#project") » Mind Research
+              a.text-muted(href="#amse",style='margin-left:0px;padding-left:0px;') » Degree
   section
-    #amse.container
-      .row
-        .col-xs-3.col-sm-3.col-md-2.col-lg-2
-          img(src='/images/csuf.png', style='float:left;width:100%;padding-top:20%;')
-          br
-        .col-xs-9.col-sm-9.col-md-10.col-lg-10
-          h3 Accelerated MS in Software Engineering
-          h4 CSU Fullerton
-          br
-          p Cal State Fullerton's College of Engineering and Computer Science has been producing successful Software Engineers for many years with its award-winning online program. Building on this success, the new Accelerated MS in Software Engineering (AMSE) has been developed as an on-campus degree program that can be completed in just 17 months. The program is designed to prepare individuals for careers as software engineers and managers in the industry or government agencies and for advanced study as researchers.
-          p The program curriculum is designed with the following learning goals: comprehension of software standards, implementation and management of software process, assessment/appraisal of software process, management of legal and ethical issues, collaboration and team work, critical thinking and problem solving, research, and communication.
-          br
-        .col-xs-12.col-sm-12.col-md-12.col-lg-10(style='padding-bottom:20px;')
-          h4 
-            span.glyphicon.glyphicon-copy(style='margin-left:10px;')     
-            |    Project Specification
-          p The AMSE program requires each student to follow research and development practices of software engineering to a engineer a project of their choice.  Research is approved by 
-            a(href='http://tryu.ecs.fullerton.edu/') Professor Christopher Ryu
-            |   and then developed with a written report for final review. 
-  section(style='background:#fdfdfd;padding-bottom:20px;')
-    hr
-    #author.container
-      .row
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12
-          h3 About Brandon Laurence Clark
-        .col-xs-12.col-sm-4.col-md-3.col-lg-3.pull-right
-          br      
-          .panel.panel-default(style='padding:5px;')
-            img(src='/images/author.jpg', style='width:100%;') 
-          .col-xs-4.col-sm-4.col-md-4.col-lg-4.middle
-            a(href='http://www.linkedin.com/in/clarkbrandon')
-              img(src='/images/social/li.png')     
-          .col-xs-4.col-sm-4.col-md-4.col-lg-4.middle
-            a(href='https://github.com/BClark-Grad-Project')
-              img(src='/images/social/gh.png')
-          .col-xs-4.col-sm-4.col-md-4.col-lg-4.middle
-            a(href='https://stackexchange.com/users/1331603/brandon-clark')
-              img(src='/images/social/so.png')
-        .col-xs-12.col-sm-8.col-md-9.col-lg-9.pull-left
-          h4 Summary
-          p My bachelors degree is in Business Information Systems and Decision Systems. 
-          p I have a strong management background that has provided me with a great number of skill sets. My professional history contains five plus years of team management and self management positions.
-          p My programming history has been hobby based since 1996. I have worked with numerous programming languages and and have gained a strong understanding of language and software paradigms. Currently my proficiency is in using the Node.js framework and many of its packages.
-          p My software engineering experience has been primarily academic with focuses on the Compatibility Maturity Model and Agile principles and processes.
-          p I enjoy traveling with my wife around the world. Scuba diving is one of my favorite activities along with Frisbee Golf. I love the outdoors just as much as my geeky passions for technology.
-        .col-xs-12.col-sm-12.col-md-12.col-lg-9(style='padding-bottom:20px;')
-          h4 Skills
-          +skills()
-  section
-    hr(style='margin-top:0px;padding-top:0px;')
     #project.container
       .row
         .col-xs-12.col-sm-12.col-md-12.col-lg-12
@@ -223,3 +173,53 @@ block content
           br
           br
           br
+  section(style='background:#fdfdfd;padding-bottom:20px;')
+    hr
+    #author.container
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          h3 About Brandon Laurence Clark
+        .col-xs-12.col-sm-4.col-md-3.col-lg-3.pull-right
+          br      
+          .panel.panel-default(style='padding:5px;')
+            img(src='/images/author.jpg', style='width:100%;') 
+          .col-xs-4.col-sm-4.col-md-4.col-lg-4.middle
+            a(href='http://www.linkedin.com/in/clarkbrandon')
+              img(src='/images/social/li.png')     
+          .col-xs-4.col-sm-4.col-md-4.col-lg-4.middle
+            a(href='https://github.com/BClark-Grad-Project')
+              img(src='/images/social/gh.png')
+          .col-xs-4.col-sm-4.col-md-4.col-lg-4.middle
+            a(href='https://stackexchange.com/users/1331603/brandon-clark')
+              img(src='/images/social/so.png')
+        .col-xs-12.col-sm-8.col-md-9.col-lg-9.pull-left
+          h4 Summary
+          p My bachelors degree is in Business Information Systems and Decision Systems. 
+          p I have a strong management background that has provided me with a great number of skill sets. My professional history contains five plus years of team management and self management positions.
+          p My programming history has been hobby based since 1996. I have worked with numerous programming languages and and have gained a strong understanding of language and software paradigms. Currently my proficiency is in using the Node.js framework and many of its packages.
+          p My software engineering experience has been primarily academic with focuses on the Compatibility Maturity Model and Agile principles and processes.
+          p I enjoy traveling with my wife around the world. Scuba diving is one of my favorite activities along with Frisbee Golf. I love the outdoors just as much as my geeky passions for technology.
+        .col-xs-12.col-sm-12.col-md-12.col-lg-9(style='padding-bottom:20px;')
+          h4 Skills
+          +skills()
+  section
+    hr(style='margin-top:0px;padding-top:0px;')
+    #amse.container
+      .row
+        .col-xs-3.col-sm-3.col-md-2.col-lg-2
+          img(src='/images/csuf.png', style='float:left;width:100%;padding-top:20%;')
+          br
+        .col-xs-9.col-sm-9.col-md-10.col-lg-10
+          h3 Accelerated MS in Software Engineering
+          h4 CSU Fullerton
+          br
+          p Cal State Fullerton's College of Engineering and Computer Science has been producing successful Software Engineers for many years with its award-winning online program. Building on this success, the new Accelerated MS in Software Engineering (AMSE) has been developed as an on-campus degree program that can be completed in just 17 months. The program is designed to prepare individuals for careers as software engineers and managers in the industry or government agencies and for advanced study as researchers.
+          p The program curriculum is designed with the following learning goals: comprehension of software standards, implementation and management of software process, assessment/appraisal of software process, management of legal and ethical issues, collaboration and team work, critical thinking and problem solving, research, and communication.
+          br
+        .col-xs-12.col-sm-12.col-md-12.col-lg-10(style='padding-bottom:20px;')
+          h4 
+            span.glyphicon.glyphicon-copy(style='margin-left:10px;')     
+            |    Project Specification
+          p The AMSE program requires each student to follow research and development practices of software engineering to a engineer a project of their choice.  Research is approved by 
+            a(href='http://tryu.ecs.fullerton.edu/') Professor Christopher Ryu
+            |   and then developed with a written report for final review. 

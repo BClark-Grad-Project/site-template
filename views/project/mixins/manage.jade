@@ -227,34 +227,18 @@ mixin projectDetail()
     small Description
     br
     .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-top: 20px;')
-      p(style='font-size:small;') #{project.description}
+      #all-small
+        != project.description
     br
     br
   .col-xs-12.col-sm-12.col-md-8.col-lg-8(style='margin:0px;padding:20px 0px;')
     small(style='padding:20px 0px;') Vision
     br
     .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-top: 20px;')
-      p(style='font-size:small;') #{project.vision}
+      #all-small
+        != project.vision
     br
     br
-  .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='margin:0px;padding:20px 0px;min-height:100px;')
-    small Diagrams
-    br
-    a(href='#')
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text dbms.pdf
-    a(href='#')
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text user-story-map.pdf
-  .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='margin:0px;padding:20px 0px;min-height:100px;')
-    small Documents
-    br
-    a(href='#')
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text srs.pdf
           
 mixin manager()
   .col-xs-12.col-sm-12.col-md-12.col-lg-12

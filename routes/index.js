@@ -27,6 +27,12 @@ module.exports = function (data) {
 			    }
 				data.project.read({active:true},function(err, project){
 					if(err){console.error(err);}
+					/*if(project.description){
+					project.description = marked(project.description);
+					}
+					if(project.vision){
+						project.vision = marked(project.vision);
+					}*/
 					
 					res.render('index', {git:git, project:project, blog:blog, title:"coming soon", user: req.session.user });
 				});

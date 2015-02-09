@@ -4,7 +4,7 @@
 var getProject = function(req){
 	var project = {};
 	
-	project.name        = req.body.name        ? req.body.name        : undefined;
+	project.name        = req.body.nametag        ? req.body.nametag        : undefined;
 	project.vision      = req.body.vision      ? req.body.vision      : undefined;
 	project.description = req.body.description ? req.body.description : undefined;
 	project.start       = req.body.start       ? req.body.start       : undefined;
@@ -18,7 +18,7 @@ var getStory = function(req){
 	var story = {};
 
 	story.sdl         = req.body.sdl          ? req.body.sdl          : undefined;
-	story.name        = req.body.name        ? req.body.name        : undefined;
+	story.name        = req.body.nametag        ? req.body.nametag        : undefined;
 	story.description = req.body.description ? req.body.description : undefined;
 	story.weight       = req.body.weight      ? req.body.weight      : undefined;
 	if(req.body.task){
@@ -32,7 +32,7 @@ var getTask = function(req){
 	var task = {};
 
 	task.sdl         = req.body.sdl          ? req.body.sdl          : undefined;
-	task.name        = req.body.name        ? req.body.name        : undefined;
+	task.name        = req.body.nametag        ? req.body.nametag        : undefined;
 	task.description = req.body.description ? req.body.description : undefined;
 	if(req.body.iteration){
 		task.iteration   = req.body.iteration   ? req.body.iteration   : undefined;
@@ -45,8 +45,8 @@ var getProjectUpdate = function(req){
 	var project = {};
 	
 	project.id        = req.body.id        ? req.body.id        : undefined;
-	if(req.body.name){
-		project.name        = req.body.name        ? req.body.name        : undefined;
+	if(req.body.nametag){
+		project.name        = req.body.nametag        ? req.body.nametag        : undefined;
 	}
 	if(req.body.vision){
 		project.vision      = req.body.vision      ? req.body.vision      : undefined;
@@ -71,8 +71,8 @@ var getIterationUpdate = function(req){
 	var iteration = {};
 	
 	iteration.id        = req.body.id        ? req.body.id        : undefined;
-	if(req.body.name){
-		iteration.name   = req.body.name    ? req.body.name   : undefined;
+	if(req.body.nametag){
+		iteration.name   = req.body.nametag    ? req.body.nametag   : undefined;
 	}
 	if(req.body.start){
 		iteration.start  = req.body.start   ? req.body.start  : undefined;
@@ -98,8 +98,8 @@ var getTaskUpdate = function(req){
 	// ID has to be present for updates
 	task.id          = req.body.id          ? req.body.id          : undefined;
 	
-	if(req.body.name){
-		task.name        = req.body.name        ? req.body.name        : undefined;
+	if(req.body.nametag){
+		task.name        = req.body.nametag        ? req.body.nametag        : undefined;
 	}
 	if(req.body.status){
 		task.status = req.body.status ? req.body.status : undefined;
@@ -125,8 +125,8 @@ var getStoryUpdate = function(req){
 	if(req.body.task){
 		story.task      = req.body.task       ? req.body.task           : undefined;
 	}
-	if(req.body.name){
-		story.name        = req.body.name        ? req.body.name        : undefined;
+	if(req.body.nametag){
+		story.name        = req.body.nametag        ? req.body.nametag        : undefined;
 	}
 	if(req.body.description){
 		story.description = req.body.description ? req.body.description : undefined;

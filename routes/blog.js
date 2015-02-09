@@ -98,6 +98,9 @@ module.exports = function (data) {
 	/* GET blog article page. */
 	router.get('/:id', function(req, res) {
 		var id = req.params.id;
+		data.blog.update({id:id, article:{$inc: {visits:1}}}, function(err, response){
+			console.log(err, data);
+		});
 		data.blog.read(id, function(err, blog){
 			if(err){console.error(err);}
 			

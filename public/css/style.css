@@ -1,5 +1,9 @@
 @CHARSET "UTF-8";
 
+#all-small > p{
+	font-size:small;
+}
+
 * {	
 	margin: 0;
 	padding: 0;
