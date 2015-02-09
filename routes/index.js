@@ -11,7 +11,7 @@ module.exports = function (data) {
 		  }
 		});
 
-	var client = github.client('caf298682e6e30aa710cc07cffb9fda6835ed505');
+	var client = github.client('OAUTHKEYENTRY');
 	var ghme   = client.user('BClark-Grad-Project');
 	/* GET home page. */
 	router.get('/', function(req, res) {	

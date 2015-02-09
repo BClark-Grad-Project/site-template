@@ -48,7 +48,7 @@ module.exports = function (data) {
 	});
 
 	/* GET-POST project */
-	router.post('/create', function(req, res) {
+	router.post('/create', data.auth.grantAdmin, function(req, res) {
 		var projectObj = createObj.newProject(req);
 		data.project.create(projectObj, function(err, project){
 			if(err){console.error(err);}
@@ -58,7 +58,7 @@ module.exports = function (data) {
 	});
 	
 	/* GET-POST sprint task */
-	router.post('/create/task', function(req, res) {
+	router.post('/create/task', data.auth.grantAdmin, function(req, res) {
 		var projectObj = {};
 		projectObj.task = createObj.newTask(req);
 		data.project.create(projectObj, function(err, project){
@@ -69,7 +69,7 @@ module.exports = function (data) {
 	});
 
 	/* GET-POST story */
-	router.post('/create/story', function(req, res) {
+	router.post('/create/story', data.auth.grantAdmin, function(req, res) {
 		var projectObj = {};
 		projectObj.story = createObj.newStory(req);
 		data.project.create(projectObj, function(err, project){
@@ -81,7 +81,7 @@ module.exports = function (data) {
 
 
 	/* POST project update*/
-	router.post('/update', function(req, res) {
+	router.post('/update', data.auth.grantAdmin, function(req, res) {
 		var Obj = createObj.projectUpdate(req);
 		data.project.update(Obj, function(err, data){
 			if(err){console.error(err);}
@@ -91,7 +91,7 @@ module.exports = function (data) {
 	});
 
 	/* POST project iteration update*/
-	router.post('/update/iteration', function(req, res) {
+	router.post('/update/iteration', data.auth.grantAdmin, function(req, res) {
 		var Obj = {};
 		Obj.iteration = createObj.iterationUpdate(req);
 		data.project.update(Obj, function(err, data){
@@ -102,7 +102,7 @@ module.exports = function (data) {
 	});
 
 	/* POST project task update*/
-	router.post('/update/task', function(req, res) {
+	router.post('/update/task', data.auth.grantAdmin, function(req, res) {
 		var Obj = {};
 		Obj.task = createObj.taskUpdate(req);
 		data.project.update(Obj, function(err, data){
@@ -113,7 +113,7 @@ module.exports = function (data) {
 	});
 
 	/* POST project story update*/
-	router.post('/update/story', function(req, res) {
+	router.post('/update/story', data.auth.grantAdmin, function(req, res) {
 		var Obj = {};
 		Obj.story = createObj.storyUpdate(req);
 		data.project.update(Obj, function(err, data){
@@ -124,7 +124,7 @@ module.exports = function (data) {
 	});
 
 	/* GET project manager */
-	router.get('/manage', function(req, res) {
+	router.get('/manage', data.auth.grantAdmin, function(req, res) {
 		data.project.read({active:true}, function(err, project){
 			if(err){console.error(err);}
 			if(!project){

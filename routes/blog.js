@@ -46,16 +46,16 @@ module.exports = function (data) {
 	}
 
 	/* GET & POST blog article form. */
-	router.get('/manager', function(req, res) {
+	router.get('/manager', data.auth.grantAdmin, function(req, res) {
 		res.render('blog/post/index', {title:"coming soon", user: req.session.user });
 	});	
 
 	/* GET & POST blog article form. */
-	router.get('/create', function(req, res) {
+	router.get('/create', data.auth.grantAdmin, function(req, res) {
 		res.render('blog/post/create', {title:"coming soon", user: req.session.user });
 	});
 	
-	router.post('/create', function(req, res) {
+	router.post('/create', data.auth.grantAdmin, function(req, res) {
 		var blogObj = createObj.newBlog(req);
 		data.blog.create(blogObj, function(err, blog){
 			if(err){console.error(err);}
@@ -72,7 +72,7 @@ module.exports = function (data) {
 	});
 
 	/* POST blog comment form. */
-	router.post('/create/comment', function(req, res) {		
+	router.post('/create/comment', data.auth.grantAdmin, function(req, res) {		
 		var comment = createObj.newComment(req);
 		data.blog.create(comment, function(err, blog){	
 			if(err){console.error(err);}	
@@ -114,18 +114,18 @@ module.exports = function (data) {
 	});
 
 	/* POST article edit. */
-	router.post('/update/:id', function(req, res) {
+	router.post('/update/:id', data.auth.grantAdmin, function(req, res) {
 		var id = req.params.id;
 		res.redirect('/blog/article/' + id);
 	});
 
 	/* POST article removal */
-	router.post('/remove/:id', function(req, res) {
+	router.post('/remove/:id', data.auth.grantAdmin, function(req, res) {
 		res.redirect('/blog');
 	});
 	
 	/* POST article comment removal */
-	router.post('/remove/comment/:id', function(req, res) {
+	router.post('/remove/comment/:id', data.auth.grantAdmin, function(req, res) {
 		res.redirect('/blog');
 	});
 	

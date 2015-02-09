@@ -9,7 +9,8 @@ module.exports = function (data) {
 		var authorization = createObj.getAuthenticationObj(req);
 		data.profile.verify(req.session, authorization, function(err, user){
 			if(err){console.log(err);}
-			res.redirect('/');			
+			backURL=req.header('Referer') || '/';
+			res.redirect(backURL);
 		});
 	});
 
@@ -17,7 +18,7 @@ module.exports = function (data) {
 	router.get('/logout', function(req, res, next) {
 		data.secure.destroy(req.session, function(fail, success){
 			if(fail){console.log(fail);}
-			backURL= '/';
+			backURL=req.header('Referer') || '/';
 			res.redirect(backURL);
 		});
 	}); 
@@ -27,7 +28,8 @@ module.exports = function (data) {
 		var authorization = createObj.getRegistrationObj(req);
 		data.profile.create(req.session, authorization,function(err, user){
 			if(err){console.log('error : ', err, user);}
-			res.redirect('/');
+			backURL=req.header('Referer') || '/';
+			res.redirect(backURL);
 		});
 	});
 	
