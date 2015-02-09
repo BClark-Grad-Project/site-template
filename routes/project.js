@@ -9,7 +9,7 @@ module.exports = function (data) {
 		data.project.read({active:true}, function(err, project){
 			if(err){console.error(err);}
 			if(!project){
-				res.render('project/index', {title:"Project Status", user: req.session.user });
+				res.render('project/index', {title:"About Mind Research Project", user: req.session.user });
 			} else {
 				console.log('manage', project, err);
 				

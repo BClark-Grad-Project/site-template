@@ -34,7 +34,7 @@ module.exports = function (data) {
 						project.vision = marked(project.vision);
 					}*/
 					
-					res.render('index', {git:git, project:project, blog:blog, title:"coming soon", user: req.session.user });
+					res.render('index', {git:git, project:project, blog:blog, title:"Brandon Clark's MS Project | Mind Research", user: req.session.user });
 				});
 			});
 		});
