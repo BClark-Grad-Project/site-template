@@ -20,7 +20,7 @@ module.exports = function (data) {
 					project.vision = marked(project.vision);
 				}*/
 				
-				res.render('project/index', {project:project,  title:"Project Status", user: req.session.user });
+				res.render('project/index', {project:project,  title:"About Mind Research Project", user: req.session.user });
 			}
 		});	
 		
