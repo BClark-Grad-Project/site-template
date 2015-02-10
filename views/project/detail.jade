@@ -182,7 +182,7 @@ block content
             |  Sprint Product Backlog
         .col-xs-12.col-sm-7.col-md-8.col-lg-8.pull-left
           if project
-            for iteration in product.iteration
+            for iteration in project.iteration
               for task in project.task
                 if task.iteration
                   if iteration.id.toString() == task.iteration.toString()
