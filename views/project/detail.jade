@@ -181,42 +181,43 @@ block content
             span.glyphicon.glyphicon-th
             |  Sprint Product Backlog
         .col-xs-12.col-sm-7.col-md-8.col-lg-8.pull-left
+          - function indexOfTask(tasks, searchTerm) {
+          -     for(var i = 0, len = tasks.length; i < len; i++) {
+          -         if(tasks[i].id.toString() == searchTerm.toString()) return i;
+          -     }
+          -     return -1;
+          - }  
           if project
             for iteration in project.iteration
               for task in project.task
                 if task.iteration
                   if iteration.id.toString() == task.iteration.toString()
-                    - var storyPos = 0;
-                    for story in project.stories
-                      if story.task
-                        if story.task.toString() == task.id.toString()
-                          - function indexOfTask(tasks, searchTerm) {
-                          -     for(var i = 0, len = tasks.length; i < len; i++) {
-                          -         if(tasks[i].id.toString() == searchTerm.toString()) return i;
-                          -     }
-                          -     return -1;
-                          - }  
-                          .col-xs-6.col-sm-6.col-md-4.col-lg-4.pull-left(style='margin:0px;padding:5px;padding-top:0px;')
-                            .panel.panel-default.story-item(id=story.id, status=story.status, draggable='true')
-                              .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px; padding:0px;')
-                                h5(style='margin:0px; padding:0px;') #{story.name}
-                              .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;margin-bottom:10px;') 
-                                if story.task
-                                  - var pos = indexOfTask(project.task, story.task);
-                                  .col-xs-12.col-sm-4.col-md-4.col-lg-3(style='margin:0px; padding:0px;')
-                                    small(style='margin-top:0px;padding-top:0px;') 
-                                      b Task:  
-                                  .col-xs-12.col-sm-8.col-md-8.col-lg-9(style='margin:0px; padding:0px;')
-                                    small(style='color:#64a964;margin-top:0px;padding-top:0px;')  #{project.task[pos].name}
-                              small #{story.description}
-                              br
-                              h5(style='padding-bottom:10px;')
-                                span.label.label-default.pull-left(style='margin-right:10px;') #{story.status}
-                                if story.weight  
-                                  span.label.label-info.pull-right 
-                                    span.glyphicon.glyphicon-scale    
-                                    |    #{story.weight}
-                - storyPos++;          
+                    if project.stories
+                      - var storyPos = 0;
+                      for story in project.stories
+                        if story.task
+                          if story.task.toString() == task.id.toString()
+                            .col-xs-6.col-sm-6.col-md-4.col-lg-4.pull-left(style='margin:0px;padding:5px;padding-top:0px;')
+                              .panel.panel-default.story-item(id=story.id, status=story.status, draggable='true')
+                                .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px; padding:0px;')
+                                  h5(style='margin:0px; padding:0px;') #{story.name}
+                                .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;margin-bottom:10px;') 
+                                  if story.task
+                                    - var pos = indexOfTask(project.task, story.task);
+                                    .col-xs-12.col-sm-4.col-md-4.col-lg-3(style='margin:0px; padding:0px;')
+                                      small(style='margin-top:0px;padding-top:0px;') 
+                                        b Task:  
+                                    .col-xs-12.col-sm-8.col-md-8.col-lg-9(style='margin:0px; padding:0px;')
+                                      small(style='color:#64a964;margin-top:0px;padding-top:0px;')  #{project.task[pos].name}
+                                small #{story.description}
+                                br
+                                h5(style='padding-bottom:10px;')
+                                  span.label.label-default.pull-left(style='margin-right:10px;') #{story.status}
+                                  if story.weight  
+                                    span.label.label-info.pull-right 
+                                      span.glyphicon.glyphicon-scale    
+                                      |    #{story.weight}
+                        - storyPos++;          
           else
             small
               b None
@@ -248,7 +249,7 @@ block content
               for story in project.stories
                 if story.task
                   if story.task.toString() == task.id.toString()
-                    .col-xs-6.col-sm-6.col-md-4.col-lg-4.pull-left(style='margin:0px;padding:5px;padding-top:0px;')
+                    .col-xs-6.col-sm-4.col-md-3.col-lg-3.pull-left(style='margin:0px;padding:5px;padding-top:0px;')
                       .panel.panel-default.story-item(id=story.id, status=story.status, draggable='true')
                         .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px; padding:0px;')
                           h5(style='margin:0px; padding:0px;') #{story.name}
@@ -276,7 +277,7 @@ block content
     hr(style='margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;')
     #pbi.container
       .row
-        .col-xs-12.col-sm-7.col-md-8.col-lg-8.pull-left
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12.pull-left
           h3 
             span.glyphicon.glyphicon-folder-open(style='margin-right:10px;')
             |    Product Inventory Backlog
@@ -288,33 +289,33 @@ block content
             - var storyPos = 0;
             for story in project.stories
               if !story.task
-                  - function indexOfTask(tasks, searchTerm) {
-                  -     for(var i = 0, len = tasks.length; i < len; i++) {
-                  -         if(tasks[i].id.toString() == searchTerm.toString()) return i;
-                  -     }
-                  -     return -1;
-                  - }  
-                  .col-xs-6.col-sm-6.col-md-4.col-lg-3.pull-left(style='margin:0px;padding:5px;padding-top:0px;')
-                    .panel.panel-default.story-item(id=story.id, status=story.status, draggable='true')
-                      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px; padding:0px;')
-                        h5(style='margin:0px; padding:0px;') #{story.name}
-                      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;margin-bottom:10px;') 
-                        if story.task
-                          - var pos = indexOfTask(project.task, story.task);
-                          .col-xs-12.col-sm-4.col-md-4.col-lg-3(style='margin:0px; padding:0px;')
-                            small(style='margin-top:0px;padding-top:0px;') 
-                              b Assigned:  
-                          .col-xs-12.col-sm-8.col-md-8.col-lg-9(style='margin:0px; padding:0px;')
-                            small(style='color:#64a964;margin-top:0px;padding-top:0px;')  #{project.task[pos].name}
-                      small #{story.description}
-                      br
-                      h5(style='padding-bottom:10px;')
-                        span.label.label-default.pull-left(style='margin-right:10px;') #{story.status}
-                        if story.weight  
-                          span.label.label-info.pull-right 
-                            span.glyphicon.glyphicon-scale    
-                            |    #{story.weight}
-                - storyPos++;   
+                - function indexOfTask(tasks, searchTerm) {
+                -     for(var i = 0, len = tasks.length; i < len; i++) {
+                -         if(tasks[i].id.toString() == searchTerm.toString()) return i;
+                -     }
+                -     return -1;
+                - }  
+                .col-xs-6.col-sm-6.col-md-4.col-lg-3.pull-left(style='margin:0px;padding:5px;padding-top:0px;')
+                  .panel.panel-default.story-item(id=story.id, status=story.status, draggable='true')
+                    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px; padding:0px;')
+                      h5(style='margin:0px; padding:0px;') #{story.name}
+                    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;margin-bottom:10px;') 
+                      if story.task
+                        - var pos = indexOfTask(project.task, story.task);
+                        .col-xs-12.col-sm-4.col-md-4.col-lg-3(style='margin:0px; padding:0px;')
+                          small(style='margin-top:0px;padding-top:0px;') 
+                            b Assigned:  
+                        .col-xs-12.col-sm-8.col-md-8.col-lg-9(style='margin:0px; padding:0px;')
+                          small(style='color:#64a964;margin-top:0px;padding-top:0px;')  #{project.task[pos].name}
+                    small #{story.description}
+                    br
+                    h5(style='padding-bottom:10px;')
+                      span.label.label-default.pull-left(style='margin-right:10px;') #{story.status}
+                      if story.weight  
+                        span.label.label-info.pull-right 
+                          span.glyphicon.glyphicon-scale    
+                          |    #{story.weight}
+              - storyPos++;   
           else
             small
               b None
