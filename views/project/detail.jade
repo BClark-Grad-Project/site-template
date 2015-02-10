@@ -198,7 +198,7 @@ block content
                         for story in project.stories
                           if story.task
                             if story.task.toString() == task.id.toString()
-                              .col-xs-6.col-sm-6.col-md-4.col-lg-4.pull-left(style='margin:0px;padding:5px;padding-top:0px;')
+                              .col-xs-6.col-sm-6.col-md-4.col-lg-4.pull-left(style='margin:0px;padding:5px;padding-top:0px; position:relative;')
                                 .panel.panel-default.story-item(id=story.id, status=story.status, draggable='true')
                                   .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px; padding:0px;')
                                     h5(style='margin:0px; padding:0px;') #{story.name}
@@ -244,15 +244,16 @@ block content
                 span.glyphicon.glyphicon-th-list
                 |  Project Inventory Backlog
             for task in project.task
-              .col-xs-12.col-sm-12.col-md-12.col-lg-12
-                h5
-                  span.glyphicon.glyphicon-unchecked  
-                  |  #{task.name}
               - var storyPos = 0;
+              if project.stories
+                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                  h5
+                    span.glyphicon.glyphicon-unchecked  
+                    |  #{task.name}              
               for story in project.stories
                 if story.task
                   if story.task.toString() == task.id.toString()
-                    .col-xs-6.col-sm-4.col-md-3.col-lg-3.pull-left(style='margin:0px;padding:5px;padding-top:0px;')
+                    .col-xs-6.col-sm-4.col-md-3.col-lg-3.pull-left(style='margin:0px;padding:5px;padding-top:0px; position:relative;')
                       .panel.panel-default.story-item(id=story.id, status=story.status, draggable='true')
                         .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px; padding:0px;')
                           h5(style='margin:0px; padding:0px;') #{story.name}
@@ -298,7 +299,7 @@ block content
                 -     }
                 -     return -1;
                 - }  
-                .col-xs-6.col-sm-6.col-md-4.col-lg-3.pull-left(style='margin:0px;padding:5px;padding-top:0px;')
+                .col-xs-6.col-sm-6.col-md-4.col-lg-3.pull-left(style='margin:0px;padding:5px;padding-top:0px; position:relative;')
                   .panel.panel-default.story-item(id=story.id, status=story.status, draggable='true')
                     .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px; padding:0px;')
                       h5(style='margin:0px; padding:0px;') #{story.name}
