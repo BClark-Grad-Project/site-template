@@ -21,12 +21,13 @@ block content
             .col-xs-12.col-sm-3.col-md-3.col-lg-3
               h5 State
               p.big-text(style='color:#64a964;text-align:left;') #{project.status}
-              small.text-muted Completion Date: 
-                |  #{monthNames[project.stop.getMonth()]} #{project.stop.getDate()} #{project.stop.getFullYear()} 
               br
               br
             .col-xs-12.col-sm-9.col-md-9.col-lg-9
               small Project Plan Products
+              br
+              small.text-muted Completion Date: 
+                |  #{monthNames[project.stop.getMonth()]} #{project.stop.getDate()} #{project.stop.getFullYear()} 
               br
               br
               .col-xs-6.col-sm-4.col-md-4.col-lg-4
@@ -45,6 +46,12 @@ block content
               
             .col-xs-12.col-sm-9.col-md-9.col-lg-9
               small Current Work Products
+              br
+              if project.iteration
+                for iteration in project.iteration
+                  if iteration.status == 'Active' 
+                    small.text-muted Completion Date: 
+                      |  #{monthNames[iteration.stop.getMonth()]} #{iteration.stop.getDate()} #{iteration.stop.getFullYear()} 
               br
               br
               .col-xs-6.col-sm-4.col-md-4.col-lg-4
@@ -198,7 +205,7 @@ block content
                         for story in project.stories
                           if story.task
                             if story.task.toString() == task.id.toString()
-                              .col-xs-6.col-sm-6.col-md-4.col-lg-4.pull-left(style='margin:0px;padding:5px;padding-top:0px; position:relative;')
+                              .col-xs-6.col-sm-6.col-md-4.col-lg-4(style='margin:0px;padding:5px;padding-top:0px; position:relative; float:left;')
                                 .panel.panel-default.story-item(id=story.id, status=story.status, draggable='true')
                                   .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px; padding:0px;')
                                     h5(style='margin:0px; padding:0px;') #{story.name}
@@ -253,7 +260,7 @@ block content
               for story in project.stories
                 if story.task
                   if story.task.toString() == task.id.toString()
-                    .col-xs-6.col-sm-4.col-md-3.col-lg-3.pull-left(style='margin:0px;padding:5px;padding-top:0px; position:relative;')
+                    .col-xs-6.col-sm-4.col-md-3.col-lg-3(style='margin:0px;padding:5px;padding-top:0px; position:relative; float:left;')
                       .panel.panel-default.story-item(id=story.id, status=story.status, draggable='true')
                         h5(style='margin:0px; padding:0px;') #{story.name}
                         small #{story.description}
@@ -290,7 +297,7 @@ block content
                 -     }
                 -     return -1;
                 - }  
-                .col-xs-6.col-sm-6.col-md-4.col-lg-3.pull-left(style='margin:0px;padding:5px;padding-top:0px; position:relative;')
+                .col-xs-6.col-sm-6.col-md-4.col-lg-3(style='margin:0px;padding:5px;padding-top:0px; position:relative; float:left;')
                   .panel.panel-default.story-item(id=story.id, status=story.status, draggable='true')
                     .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px; padding:0px;')
                       h5(style='margin:0px; padding:0px;') #{story.name}
