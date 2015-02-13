@@ -33,6 +33,10 @@ var getComment = function(req, id){
 			    description: req.body.description}
 	};
 	
+	if(req.session.user.detail.first && req.session.user.detail.last){
+		comment.comment.author = req.session.user.detail.first + ' ' + req.session.user.detail.last.charAt(0);
+	}
+	
 	return comment;
 };
 
@@ -47,6 +51,10 @@ var getBlog = function(req){
 		    title:       req.body.title,
 		    description: req.body.description}
 	};
+
+	if(req.session.user.detail.first && req.session.user.detail.last){
+		blog.author = req.session.user.detail.first + ' ' + req.session.user.detail.last;
+	}
 
 	if(req.body.written){
 		blog.written = req.body.written;

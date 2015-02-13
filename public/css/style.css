@@ -213,3 +213,10 @@ a, a:link, a:visited{
 ol li {
 	margin-left:30px;
 }
+
+
+article p > img {
+	border-radius: 5px;
+	margin:20px 0px;
+	width:100%;
+}

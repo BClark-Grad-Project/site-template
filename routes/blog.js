@@ -3,22 +3,15 @@ module.exports = function (data) {
 	var router = express.Router();	
 	var createObj = require('./objects/blog');
 	var marked = require('marked');
-	var fs = require('fs');
-
-	var AWS = require('aws-sdk'); 
-
-
- 
 	marked.setOptions({
-		  highlight: function (code, lang, callback) {
-		    require('pygmentize-bundled')({ lang: lang, format: 'html' }, code, function (err, result) {
-		      callback(err, result.toString());
-		    });
+		  highlight: function (code) {
+		    return require('highlight.js').highlightAuto(code).value;
 		  }
 		});
-
-	var Path = __dirname;
-
+	
+	var fs = require('fs');
+	var AWS = require('aws-sdk'); 
+	
 	function nameMerge (title) {
 	  title = title.replace(/[/\.../]/gi, '');
 	  var merged = title.split(' ').join('_');

@@ -6,8 +6,9 @@ mixin article(blog)
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     br
     if blog.article.image
-      img.img-rounded.pull-left(src=blog.article.image, style='max-width:100%;height:auto;margin-right:10px;margin-bottom:10px;')
-    != blog.article.description
+      img.img-rounded.pull-left(src=blog.article.image, style='max-width:25%;height:auto;margin-right:20px;margin-bottom:20px;')
+    article
+      != blog.article.description
     br
   .col-xs-6.col-sm-7.col-md-8.col-lg-8(style='padding-top:35px;')
     |    
@@ -42,10 +43,10 @@ mixin articleShort(blog)
       h3(style='margin-bottom:0px;') #{blog.article.title}
       small.text-muted #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()} 
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
-    if blog.article.description.length > 299
-      .marked.text-muted!= blog.article.description.substring(0, 300)
-        if blog.article.image
-          img.img-rounded.pull-left(src=blog.article.image, style='max-width:10%;height:auto;margin-right:10px;margin-bottom:10px;')
+    if blog.article.image
+      img.img-rounded.pull-left(src=blog.article.image, style='max-width:175px;max-height:130px;margin-right:10px;margin-bottom:10px;')
+    if blog.article.description.length > 449
+      .marked.text-muted!= blog.article.description.substring(0, 550)
         | ...  
         a(href='/blog/' + blog.id) [ + more ]
     else
