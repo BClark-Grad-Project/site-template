@@ -11,6 +11,7 @@ module.exports = function (data) {
 	
 	var fs = require('fs');
 	var AWS = require('aws-sdk'); 
+	AWS.config.loadFromPath('./aws.json');
 	
 	function nameMerge (title) {
 	  title = title.replace(/[/\.../]/gi, '');
