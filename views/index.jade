@@ -16,16 +16,6 @@ mixin articleShort(blog)
       h3(style='margin-bottom:0px;') #{blog.article.title}
       small.text-muted #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()} 
       br
-      |    
-      script.pull-left(type="IN/Share", style='margin:5px;float:left;')
-      |    
-      a.pull-left.twitter-share-button(href="https://twitter.com/share", data-count='none', style='margin:5px;float:left;') Tweet
-      |    
-      .g-plusone.pull-left(data-size="medium", data-annotation="none", style='margin:5px;float:left;')
-      |    
-      .fb-like.pull-left(data-send="true",  data-show-faces="false", data-layout="button", style='margin:0px 3px;')
-      |    
-      br
       br
   .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-left:0px;')
     if blog.article.description.length > 899
