@@ -10,15 +10,24 @@ module.exports = function (data) {
 		    });
 		  }
 		});
-
+	var git = [];
 	var client = github.client('OAUTHKEYENTRY');
 	var ghme   = client.user('BClark-Grad-Project');
+	var runGitCheck = function(){
+		ghme.events(1,10,["PushEvent", "CreateEvent"], function (err, gitdata, headers) {
+			if(err){console.error(err);}
+			git = gitdata;
+		});
+	};
+	
+	runGitCheck();
+	setInterval(function(){
+		runGitCheck();
+		}, 600000); 
 	/* GET home page. */
 	router.get('/', function(req, res) {	
 		// Build the authorization config and url
-		ghme.events(1,10,["PushEvent", "CreateEvent"], function (err, git, headers) {
-			if(err){console.error(err);}
-			
+		
 			data.blog.recent(1, 'site', function(err, blog){
 				if(err){console.error(err);}
 				
@@ -37,7 +46,6 @@ module.exports = function (data) {
 					res.render('index', {git:git, project:project, blog:blog, title:"Brandon Clark's MS Project | Mind Research", user: req.session.user });
 				});
 			});
-		});
 	});
 	
 	return router;
