@@ -8,10 +8,10 @@
       status     : true,
       version    : 'v2.1'
     });
-  FB.ui(
+/*  FB.ui(
 		  {
 		   method: 'share_open_graph'
-		 }, function(response){});
+		 }, function(response){});*/
   };
   
   (function(d, s, id){

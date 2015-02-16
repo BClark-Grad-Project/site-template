@@ -2,8 +2,8 @@ mixin article(blog)
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     h2(style='margin-bottom:0px;') #{blog.article.title}
     block head
-      meta(property='og:title' content=blog.article.title)
-      meta(property='og:site_name' content='Project Mind Research') 
+      meta(property='og:title', content=blog.article.title)
+      meta(property='og:site_name', content='Project Mind Research') 
     small.text-muted(style='margin-top:0px;') #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()}
     br      
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
