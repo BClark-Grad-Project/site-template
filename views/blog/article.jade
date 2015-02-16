@@ -7,6 +7,7 @@ block css
     
 //-HTML content to display.
 block content
+  #fb-root
   script(src='/js/fb.js')
   script(src="https://apis.google.com/js/platform.js", async, defer)
   script(src="//platform.linkedin.com/in.js")
@@ -17,6 +18,7 @@ block content
         h1 Blog Article
         .col-xs-12.col-sm-12.col-md-3.col-lg-3.pull-right
           if blog
+            
             +blogViews(blog.notice)
         .col-xs-12.col-sm-12.col-md-9.col-lg-9.pull-left
           +blog()

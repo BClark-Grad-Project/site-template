@@ -5,10 +5,15 @@
     FB.init({
       appId      : '868098053257714',
       xfbml      : true,
+      status     : true,
       version    : 'v2.1'
     });
+  FB.ui(
+		  {
+		   method: 'share_open_graph'
+		 }, function(response){});
   };
-
+  
   (function(d, s, id){
      var js, fjs = d.getElementsByTagName(s)[0];
      if (d.getElementById(id)) {return;}

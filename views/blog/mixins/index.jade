@@ -1,14 +1,22 @@
 mixin article(blog)
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     h2(style='margin-bottom:0px;') #{blog.article.title}
+    block head
+      meta(property='og:title' content=blog.article.title)
+      meta(property='og:site_name' content='Project Mind Research') 
     small.text-muted(style='margin-top:0px;') #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()}
     br      
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     br
     if blog.article.image
       img.img-rounded.pull-left(src=blog.article.image, style='max-width:25%;height:auto;margin-right:20px;margin-bottom:20px;')
+      block head
+        meta(property='og:image', content=blog.article.image)    
     article
       != blog.article.description
+      block head
+        meta(name='description', content=blog.article.description) 
+        meta(property='og:description', content=blog.article.description)   
     br
   .col-xs-6.col-sm-7.col-md-8.col-lg-8(style='padding-top:35px;')
     |    
@@ -18,7 +26,7 @@ mixin article(blog)
     |    
     .g-plusone.pull-left(data-size="medium", data-annotation="none", style='margin:5px;float:left;')
     |    
-    .fb-like.pull-left(data-send="true",  data-show-faces="false", data-layout="button", style='margin:0px 3px;')
+    .fb-share-button.pull-left(data-send="true",  data-show-faces="false", data-layout="button", style='margin:0px 3px;')
     |   
   .col-xs-12.col-sm-5.col-md-4.col-lg-4
     .panel.panel-default(style='padding:0px;')
@@ -29,7 +37,9 @@ mixin article(blog)
             h6 Edited
         .col-xs-10.col-sm-7.col-md-7.col-lg-7
           h5.text-muted 
-            a.text-muted(href='#') #{blog.author} 
+            a.text-muted(href='#') #{blog.author}
+            block head
+              meta(property='article:author', content=blog.author)    
           if blog.edit.last
             h6.text-muted #{blog.edit.last}
     br
