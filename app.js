@@ -16,6 +16,10 @@ module.exports = function (data) {
 	
 	var app = express();
 	
+	// App description
+	app.locals.service_code = 'gradhome';
+	app.locals.service_name = 'Brandon\'s Graduate Project';
+	
 	// view engine setup
 	app.set('views', path.join(__dirname, 'views'));
 	app.set('view engine', 'jade');
