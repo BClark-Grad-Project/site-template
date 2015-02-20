@@ -8,7 +8,7 @@ module.exports = function (data) {
 		data.profile.read(req.session.user.id, function(err, user){
 			res.render('user/profile', {title:"Manage Account", user: user });
 		});
-	}).post('/', data.auth.grantOwner, data.auth.grantAdmin, function(req, res, next) {
+	}).post('/', data.auth.grantOwner, function(req, res, next) {
 		var userObj = createObj.getUserObj(req);
 		
 		data.profile.update(req.session, userObj, function(err, user){

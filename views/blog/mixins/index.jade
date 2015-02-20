@@ -68,7 +68,7 @@ mixin articleShort(blog)
   br  
   
 mixin newComment()
-  if user.credentials.type != 'guest'
+  if userType(user.authorizations) != 'guest'
     form(action='/blog/create/comment', method='POST', role='form')
       .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding:0 50px;')
         hr

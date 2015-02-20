@@ -1,6 +1,6 @@
 script(src='/js/misc/uuid.js')
 script(src='/js/forms.js')
-if user.credentials.type == 'guest'
+if userType(user.authorizations) == 'guest'
   script(src='/js/authentication.js')
 block js-bottom
 

@@ -147,11 +147,13 @@ var getContactsObj = function(req){
 	return contacts;
 };
 
-var getAuthentication = function(req){
+var getAuthorization = function(req){
 	var auth = {};
-	var service = req.locals.service_code;
-	var access  = req.body.user_type ? req.body.user_type : 'general';
+	var service = req.app.locals.service_code;
+	var level   = req.body.user_type_level ? req.body.user_type_level : 0;
+	var access  = req.body.user_type ? {type:req.body.user_type} : {type:'general'};
 	
+	access.level = level;
 	auth.service = service;
 	auth.access  = access;
 	
@@ -175,9 +177,9 @@ module.exports.getRegistrationObj = function(req){
 	var user = getUserObj(req);
 	var detail = getDetailObj(req);
 	var contacts = getContactsObj(req);
-	var authentication = getAuthentication(req);
+	var authorization = getAuthorization(req);
 	
-	registration.authentication = authentication;
+	registration.authorization = authorization;
 	registration.credentials = user;
 	registration.detail = detail;
 	registration.contact = contacts;

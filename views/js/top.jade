@@ -1,6 +1,14 @@
 - user = typeof(user) != 'undefined' ? user : { };
 - site = typeof(site) != 'undefined' ? site : { };
 - var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+- var userType = function(auths){ 
+-   for(var i in auths){
+-     if(auths[i].service.code == service_code){ 
+-       return auths[i].access.type;
+-     }
+-   }
+-   return 'guest';
+- };
 script(src='/js/jquery/jquery-2.1.1.js')
 script(src='/js/bootstrap/bootstrap.js')
 script(src="/js/javascript.js")

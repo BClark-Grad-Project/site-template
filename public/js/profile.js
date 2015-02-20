@@ -1,9 +1,18 @@
 $(document).ready(function(){
+	 var userType = function(auths){ 
+	   for(var i in auths){
+	     if(auths[i].service.code == service_code){ 
+	       return auths[i].access.type;
+	     }
+	   }
+	   return 'guest';
+	 };
+	
 	function toggleSubmit(form, toggle){
 		$(form + ' button[type=submit]').disable(toggle);
 	}	
 	$('#edit-profile-form :input[name=gender]').val(data.detail.gender);	
-	$('#edit-profile-form :input[name=auth_type]').val(data.user.type);	
+	$('#edit-profile-form :input[name=auth_type]').val(userType(data.authorizations));	
 	// Contact state field propagate. 
 	for(var i in data.contact){
 		$('#edit-profile-form select[name=state'+ data.contact[i].type +']').val(data.contact[i].state);

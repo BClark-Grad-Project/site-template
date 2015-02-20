@@ -8,9 +8,9 @@ mixin userHeader()
       .media-body.col-xs-8.col-sm-8.col-md-12.col-lg-12(style='padding-left: 25px;padding-right:25px;')
         br
         h3.media-heading #{user.credentials.alias.charAt(0).toUpperCase() + user.credentials.alias.slice(1)} 
-        if user.type == 'admin'
+        if userType(user.authorizations) === 'admin'
           h5 Administrator
-        else if user.credentials.type == 'general'
+        else if userType(user.authorizations) === 'general'
           h5 Standard User
         hr
         br        
@@ -322,16 +322,16 @@ mixin navLinks()
           
 mixin userOptions()
   ul.dropdown-menu(role='menu')
-    if user.credentials.type == 'admin' 
+    if userType(user.authorizations) === 'admin' 
       +adminNav()
-    else if user.credentials.type == 'general'
+    else if userType(user.authorizations) === 'general'
       +generalUserNav()
     else
       li
         +signIn()
       li.divider
       +guestNav()
-    if user.credentials.type != 'guest'
+    if userType(user.authorizations) !== 'guest'
       li.divider  
       li.dropdown-header Options
       +navItem('/account', 'My Profile')
@@ -340,7 +340,7 @@ mixin userOptions()
         
 mixin navUser()
   ul.nav.navbar-nav.navbar-right(style='float:right;')
-    if user.credentials.type != 'guest'
+    if userType(user.authorizations) !== 'guest'
       li.dropdown(style='margin:0px;padding:0px;float:right;')
         a.nav-button.dropdown-toggle(data-toggle='dropdown', style='padding:0px 15px;padding-top:0px;padding-bottom:0px;margin:0px;')
           .nav-profile-name.pull-left(style='margin:0px;padding:4px 0px;')
@@ -350,7 +350,7 @@ mixin navUser()
             .nav-profile-icon(style='padding:0px;margin:0px;')
               +userIcon() 
         +userOptions()
-    if user.credentials.type == 'guest'   
+    if userType(user.authorizations) === 'guest'   
       li.navbar-right(style='float:right;margin:0px;')
         a(role='menuitem', tabindex='-1', data-toggle='modal', data-target='#register-form-modal')
           small Sign up

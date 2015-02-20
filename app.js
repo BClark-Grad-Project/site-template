@@ -7,18 +7,19 @@ module.exports = function (data) {
 	var bodyParser   = require('body-parser');
 	var multer       = require('multer');
 	
+	
+	var app = express();
+	
+	// App description
+	app.locals.service_code = 'gradhome';
+	app.locals.service_name = 'Brandons Graduate Project';
+	
 	var routeHome    = require('./routes/index')(data);
 	var routeAuth    = require('./routes/auth')(data);
 	var routeAcct    = require('./routes/account')(data);
 	var routeManager = require('./routes/manager')(data);
 	var routeBlog    = require('./routes/blog')(data);
 	var routeProject = require('./routes/project')(data);
-	
-	var app = express();
-	
-	// App description
-	app.locals.service_code = 'gradhome';
-	app.locals.service_name = 'Brandon\'s Graduate Project';
 	
 	// view engine setup
 	app.set('views', path.join(__dirname, 'views'));

@@ -66,7 +66,7 @@ module.exports = function (data) {
 	});
 
 	/* POST blog comment form. */
-	router.post('/create/comment', data.auth.grantAdmin, function(req, res) {		
+	router.post('/create/comment', data.auth.grantUsers, function(req, res) {		
 		var comment = createObj.newComment(req);
 		data.blog.create(comment, function(err, blog){	
 			if(err){console.error(err);}	
