@@ -1,13 +1,12 @@
 var getUserObj = function(req){
-	var alias     = req.body.alias     ? req.body.alias     : undefined;
+	var alias    = req.body.alias    ? req.body.alias    : undefined;
 	var email    = req.body.email    ? req.body.email    : undefined;
 	var password = req.body.password ? req.body.password : undefined;
 	
 	return {
 			alias:    alias,
 			email:    email,
-			password: password,
-			type:     'general'
+			password: password
 		};
 };
 var getDetailObj = function(req){
@@ -148,6 +147,17 @@ var getContactsObj = function(req){
 	return contacts;
 };
 
+var getAuthentication = function(req){
+	var auth = {};
+	var service = req.locals.service_code;
+	var access  = req.body.user_type ? req.body.user_type : 'general';
+	
+	auth.service = service;
+	auth.access  = access;
+	
+	return auth;
+};
+
 module.exports.getAuthenticationObj = function(req){		
 	var user     = req.body.user     ? req.body.user     : undefined;
 	var password = req.body.password ? req.body.password : undefined;
@@ -165,7 +175,9 @@ module.exports.getRegistrationObj = function(req){
 	var user = getUserObj(req);
 	var detail = getDetailObj(req);
 	var contacts = getContactsObj(req);
+	var authentication = getAuthentication(req);
 	
+	registration.authentication = authentication;
 	registration.credentials = user;
 	registration.detail = detail;
 	registration.contact = contacts;
@@ -188,10 +200,8 @@ module.exports.getUserObj = function(req){
 module.exports.getNewAuthObj = function(req){
 	var auth = {};
     var id      = req.body.userId;
-    var type    = req.body.auth_type;	
     var active  = req.body.auth_active ? true : false;	
     auth.id		= id;
-    auth.type   = type;
     auth.active = active;
     
 	return auth;
