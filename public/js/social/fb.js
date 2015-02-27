@@ -5,7 +5,9 @@
     FB.init({
       appId      : '868098053257714',
       xfbml      : true,
-      status     : true,
+      oauth      : true,
+      status     : true, // check login status
+      cookie     : true, // enable cookies to allow the server to access the session
       version    : 'v2.1'
     });
 /*  FB.ui(
@@ -13,7 +15,7 @@
 		   method: 'share_open_graph'
 		 }, function(response){});*/
   };
-  
+	
   (function(d, s, id){
      var js, fjs = d.getElementsByTagName(s)[0];
      if (d.getElementById(id)) {return;}
@@ -21,12 +23,3 @@
      js.src = "//connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
-  
-  window.twttr=(function(d,s,id){
-	  var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};
-	  if(d.getElementById(id))return;js=d.createElement(s);
-	  js.id=id;js.src="https://platform.twitter.com/widgets.js";
-	  fjs.parentNode.insertBefore(js,fjs);t._e=[];
-	  t.ready=function(f){t._e.push(f);};
-	  return t;
-  }(document,"script","twitter-wjs"));

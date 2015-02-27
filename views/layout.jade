@@ -2,11 +2,17 @@ doctype html
 html
   head
     title= title
+    
+    block meta
+    
     include ./css/index.jade
     include ./js/top.jade
     block head
     
   body
+    script(src='/js/social/fb.js')
+    script(src='/js/social/twitter.js')
+    script(src='/js/social/general.js')
     include ./components/navbar.jade
     block content
     
