@@ -6,3 +6,10 @@ window.twttr=(function(d,s,id){
 	  t.ready=function(f){t._e.push(f);};
 	  return t;
 }(document,"script","twitter-wjs"));
+
+//function we link to the click on the custom login button through Twitter  
+function twAuth() {  
+  twttr.anywhere(function (T) {  
+      T.signIn();  
+  });  
+}  

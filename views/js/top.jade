@@ -11,12 +11,16 @@
 - };
 script(src='/js/jquery/jquery-2.1.1.js')
 script(src='/js/bootstrap/bootstrap.js')
-script(src="/js/javascript.js")
-script(src="https://apis.google.com/js/platform.js", async, defer)
-script(src="/js/social/gplus.js")
-script(src="//platform.linkedin.com/in.js").
+script(src='/js/social/general.js')
+script(src='/js/javascript.js')
+script(src='https://apis.google.com/js/platform.js', async, defer)
+script(src='/js/social/gplus.js')
+script(src='//platform.linkedin.com/in.js').
   api_key:   75oc8w7sqi4q4e
   authorize: true
   lang: en_US
-  onLoad: onLinkedInLoad
+  scope: r_emailaddress
+  onLoad: onLinkedInLoad  
+script(src='/js/social/in.js')
+script(src='/js/social/twitter.js')
 block js-top

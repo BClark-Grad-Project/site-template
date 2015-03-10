@@ -1,14 +1,16 @@
 var getUserObj = function(req){
+	var auth = {};
 	var alias    = req.body.alias    ? req.body.alias    : undefined;
 	var email    = req.body.email    ? req.body.email    : undefined;
 	var password = req.body.password ? req.body.password : undefined;
 	
-	return {
-			alias:    alias,
-			email:    email,
-			password: password
-		};
+	auth.alias = alias;
+	auth.email = email;
+	auth.password = password;
+	
+	return auth;
 };
+
 var getDetailObj = function(req){
 	var detail = {};
     var id     = req.body.detailId ? req.body.detailId : undefined;
@@ -39,6 +41,7 @@ var getDetailObj = function(req){
     
 	return detail;
 };
+
 var getMobileContactObj = function(req){
 	var contact = {};
 	contact.type = 'mobile';
@@ -137,6 +140,7 @@ var getOfficeContactObj = function(req){
     
 	return contact;
 };
+
 var getContactsObj = function(req){
 	var contacts = [];
 	
@@ -145,6 +149,59 @@ var getContactsObj = function(req){
 	contacts.push(getMobileContactObj(req));
 	
 	return contacts;
+};
+
+var getLinkedInRegistration = function(req){
+	var lin = {};
+	var user = req.body.linkedin_user ? req.body.linkedin_user : undefined;
+	
+	if(req.body.linkedin_user){
+		lin = {
+			user:  user
+		};
+	} 
+
+	return lin;
+};
+
+var getGPlusRegistration = function(req){
+	var gplus = {};
+	var user  = req.body.gplus_user  ? req.body.gplus_user  : undefined;
+	var token = req.body.gplus_token ? req.body.gplus_token : undefined;
+	
+	if(req.body.gplus_user){
+		gplus = {
+			token: token,
+			user:  user
+		};
+	} 
+	
+	return gplus;
+};
+
+var getFacebookRegistration = function(req){	
+	var fb = {};
+	var user  = req.body.facebook_user  ? req.body.facebook_user  : undefined;
+	var token = req.body.facebook_token ? req.body.facebook_token : undefined;
+	
+	if(req.body.facebook_user){
+		fb = {
+			token: token,
+			user:  user
+		};
+	} 
+	
+	return fb;
+};
+
+var getSocialRegistration = function(req){
+	var social = {};
+	
+	social.linkedin = getLinkedInRegistration(req);
+	social.gplus = getGPlusRegistration(req);
+	social.facebook = getFacebookRegistration(req);
+	
+	return social;
 };
 
 var getAuthorization = function(req){
@@ -178,11 +235,14 @@ module.exports.getRegistrationObj = function(req){
 	var detail = getDetailObj(req);
 	var contacts = getContactsObj(req);
 	var authorization = getAuthorization(req);
-	
+	console.log(user, detail, contacts, authorization);
+	var social = getSocialRegistration(req);
+	console.log(social);
 	registration.authorization = authorization;
 	registration.credentials = user;
 	registration.detail = detail;
 	registration.contact = contacts;
+	registration.social = social;
 	
 	return registration;
 };
@@ -198,14 +258,14 @@ module.exports.getUserObj = function(req){
 	return user;
 };
 
-
 module.exports.getNewAuthObj = function(req){
 	var auth = {};
     var id      = req.body.userId;
-    var active  = req.body.auth_active ? true : false;	
+    var active  = req.body.auth_active ? true : false;
+
     auth.id		= id;
     auth.active = active;
-    
+
 	return auth;
 };
 
@@ -240,6 +300,6 @@ module.exports.getSeachObj = function(req){
     if(last){
       user.detail.last = last;
     }
-    
+
 	return user;
 };

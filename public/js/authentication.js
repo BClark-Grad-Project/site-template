@@ -6,6 +6,7 @@ $(document).ready(function() {
 		var field = $(form + ' input[name=' + name + ']').notEmpty();
 		return field;
 	}	
+
 	// Register profile detail options. 
 	$('.profile-option-group > a').on('click', function(e){
 		var $this = $(this);
@@ -15,10 +16,25 @@ $(document).ready(function() {
 			$this.html($this.html().replace('- ','+'));
 		}
 	});
+
 	toggleSubmit('#login-form', true);
 	toggleSubmit('#register-form', true);
 	$('#register-form input[name=password_2]').parent().hide(); // If js disabled, show verification field anyway.
 	$('.collapse.fade').collapse('hide');// Because we want to use these as normal methods in other views.
+
+	// Social Registration
+	var hideSocialRegistration = function(){
+		$('#social-registration').collapse('hide');
+		$('#more-user-detail').collapse('show');
+		$('#normal-registration').collapse('show');
+	};
+
+	var showSocialRegistration = function(){
+		$('#social-registration').collapse('show');
+		$('#more-user-detail').collapse('hide');
+		$('#normal-registration').collapse('show');
+	};
+
 
 	// Login Form Validation
 	var validateLoginFields = {
@@ -38,11 +54,11 @@ $(document).ready(function() {
 				
 			}
 	};
-	
+
 	// Register Form Validation
 	var validateRegisterFields = {
 			name: function(){
-				var empty_name   = isFieldEmpty('#register-form', 'name');
+				var empty_name   = isFieldEmpty('#register-form', 'alias');
 				if(!empty_name){return false;}
 
 				return true;
@@ -114,7 +130,7 @@ $(document).ready(function() {
 				return empty_agree;
 			}
 	};
-	
+
 	// Start Validation Event Listeners
 	$('#login-form :input').on('keyup change', function(){
 		var user = validateLoginFields.user();
@@ -129,18 +145,25 @@ $(document).ready(function() {
 		
 		validateLoginFields.remember();
 	});
+
 	function requiredRegisterFields(){
 		// When minimum requirements are met for creating a account enable submit button. Else disable.
 		var name  = validateRegisterFields.name();
 		var email = validateRegisterFields.email();
 		var pass  = validateRegisterFields.password();
 		var accept= validateRegisterFields.agree();		
+		if(name && email){
+			hideSocialRegistration();
+		} else {
+			showSocialRegistration();
+		}
 		if(name && email && pass && accept){
 			toggleSubmit('#register-form', false);
 		} else {
 			toggleSubmit('#register-form', true);
 		}
 	}
+
 	$('#register-form :input').on('keyup change', function(){
 		requiredRegisterFields();
 		
@@ -152,6 +175,7 @@ $(document).ready(function() {
 		validateRegisterFields.zip();
 		validateRegisterFields.phone();
 	});
+
 	$('#register-form :input').click(function(){
 		requiredRegisterFields();
 	});

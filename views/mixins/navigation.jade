@@ -83,7 +83,7 @@ mixin userCredentialFields()
     .input-group.has-feedback
       .input-group-addon Email &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
       input.form-control(name='email', type='email', required)
-      span.form-control-feedback.glyphicon.glyphicon-ok-sign(style='display:none;', aria-hidden='true', data-toggle='tooltip', data-placement='top', title='Valid email.  We won\'t send you junk, promise.')
+      span.form-control-feedback.glyphicon.glyphicon-ok-sign(style='display:none;padding-top:25px;', aria-hidden='true', data-toggle='tooltip', data-placement='top', title='Valid email.  We won\'t send you junk, promise.')
     br
   .col-xs-12.col-sm-6.col-md-6.col-lg-6
     .input-group
@@ -94,14 +94,14 @@ mixin userCredentialFields()
     .input-group.has-feedback
       .input-group-addon Password &nbsp; &nbsp;
       input.form-control(name='password', type='password', required)
-      span.glyphicon.glyphicon-ok-sign.form-control-feedback(style='display:none;', aria-hidden='true', data-toggle='tooltip', data-placement='bottom', title='This is a valid password. Now try to retype it.')
+      span.glyphicon.glyphicon-ok-sign.form-control-feedback(style='display:none;padding-top:25px;', aria-hidden='true', data-toggle='tooltip', data-placement='bottom', title='This is a valid password. Now try to retype it.')
     small.pull-right Minimum of five characters and no spaces.
     br
   .retype-pass.col-xs-12.col-sm-6.col-md-6.col-lg-6
     .input-group.has-feedback
       .input-group-addon Retype Pass
       input.form-control(name='password_2', type='password', required)
-      span.form-control-feedback.glyphicon.glyphicon-ok-sign(style='display:none;', aria-hidden='true', data-toggle='tooltip', data-placement='bottom', title='Match! Good job, you have a 3 second memory.')
+      span.form-control-feedback.glyphicon.glyphicon-ok-sign(style='display:none;padding-top:25px;', aria-hidden='true', data-toggle='tooltip', data-placement='bottom', title='Match! Good job, you have a 3 second memory.')
     br
 
 mixin userNameFields(data)
@@ -374,7 +374,7 @@ mixin registerAcceptButtons()
           a(href='#') Terms.
     .col-xs-7.col-sm-6.col-md-4.col-lg-4(style='padding:0px;')
       .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='padding:0px 10px 0px 0px;')
-        button.btn.btn-lg.btn-inverse.pull-right(type='button', data-dismiss='modal', style='width:100%;') Cancel
+        button.btn.btn-lg.btn-inverse.pull-right(type='reset', data-dismiss='modal', style='width:100%;') Cancel
       .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='padding:0px 0px 0px 10px;')
         button.btn.btn-lg.btn-default.pull-right(type='submit', style='width:100%;') Register
         

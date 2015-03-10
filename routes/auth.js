@@ -26,6 +26,7 @@ module.exports = function (data) {
 	/* Register */
 	router.post('/register', function(req, res, next) {
 		var authorization = createObj.getRegistrationObj(req);
+		console.log('registering', authorization);
 		data.profile.create(req.session, authorization,function(err, user){
 			if(err){console.log('error : ', err, user);}
 			backURL=req.header('Referer') || '/';

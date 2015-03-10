@@ -37,7 +37,7 @@ $(function () {
 		  return false;
 		});
 	
-	$('input[name=name], input[name=user]').keypress(function(e){
+	$('input[name=name], input[name=alias], input[name=user]').keypress(function(e){
 		  var ew = e.which;
 		  if(ew == 46)
 			  // period

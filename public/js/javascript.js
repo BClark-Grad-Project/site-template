@@ -1,5 +1,4 @@
 $(function () {
-  $('[data-toggle="tooltip"]').tooltip();  // Required for bootstrap tool-tip
-
+  $('[data-toggle="tooltip"]').tooltip({container: 'body'});  // Required for bootstrap tool-tip
 });
 
