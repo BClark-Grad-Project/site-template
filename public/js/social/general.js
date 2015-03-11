@@ -1,4 +1,56 @@
-// Set Registration Form
+// Login Form
+var setLoginForm = function(Obj){
+	var form = document.createElement('form');
+	
+	// Social Fields
+	//var linkedin_token = document.createElement('input');
+	var linkedin_user = document.createElement('input');
+	var gplus_token = document.createElement('input');
+	var gplus_user = document.createElement('input');
+	var facebook_token = document.createElement('input');
+	var facebook_user = document.createElement('input');
+
+	form.setAttribute('action', '/authentication');
+	form.setAttribute('method', 'POST');
+
+	if(Obj.social.linkedin){
+		//linkedin_token.setAttribute('name', 'linkedin_token');
+		//linkedin_token.setAttribute('type', 'hidden');
+		//linkedin_token.setAttribute('value', Obj.social.linkedin.token);
+		linkedin_user.setAttribute('name', 'linkedin_user');
+		linkedin_user.setAttribute('type', 'hidden');
+		linkedin_user.setAttribute('value', Obj.social.linkedin.user);
+		
+		//form.appendChild(linkedin_token);
+		form.appendChild(linkedin_user);
+	}
+	if(Obj.social.gplus){
+		gplus_token.setAttribute('name', 'gplus_token');
+		gplus_token.setAttribute('type', 'hidden');
+		gplus_token.setAttribute('value', Obj.social.gplus.token);
+		gplus_user.setAttribute('name', 'gplus_user');
+		gplus_user.setAttribute('type', 'hidden');
+		gplus_user.setAttribute('value', Obj.social.gplus.user);
+		
+		form.appendChild(gplus_token);
+		form.appendChild(gplus_user);
+	}
+	if(Obj.social.facebook){
+		facebook_token.setAttribute('name', 'facebook_token');
+		facebook_token.setAttribute('type', 'hidden');
+		facebook_token.setAttribute('value', Obj.social.facebook.token);
+		facebook_user.setAttribute('name', 'facebook_user');
+		facebook_user.setAttribute('type', 'hidden');
+		facebook_user.setAttribute('value', Obj.social.facebook.user);
+		
+		form.appendChild(facebook_token);
+		form.appendChild(facebook_user);
+	}
+	
+	form.submit();
+};
+
+// Registration Form
 var setRegistrationForm = function(Obj){
 	var form = document.createElement('form');
 	
@@ -95,7 +147,6 @@ var setRegistrationForm = function(Obj){
 		form.appendChild(facebook_token);
 		form.appendChild(facebook_user);
 	}
-	console.log(form);
 	
 	form.submit();
 };
@@ -103,15 +154,28 @@ var setRegistrationForm = function(Obj){
 //Get Social Registration Fields
 var setLinkedInFields = function(Obj){
 	var user = {};
-	var email = Obj.emailAddress;
-	var alias = Obj.formattedName;
-	var id = Obj.id;
+	var email = {};
+	var alias = {};
+	var id = {};
+	var auth = {};
+	var detail = {};
+	var linkedin = {};
 	
-	var auth = {
+	if(Obj.emailAddress){
+		email = Obj.emailAddress;
+	}
+	if(Obj.formattedName){
+		alias = Obj.formattedName;
+	}
+	if(Obj.id){
+		id = Obj.id;
+	}
+	
+	auth = {
 			email: email,
 			alias: alias};
-	var detail = {};
-	var linkedin = {
+	
+	linkedin = {
 			user:  id
 	};
 	
@@ -140,16 +204,19 @@ var setLinkedInFields = function(Obj){
 
 var setGPlusFields = function(Obj){
 	console.log(JSON.stringify(Obj)); 
-	
-	var auth = {
-			email: Obj['emailAddress'],
-			alias: Obj['displayName']};
 	var detail = {};
-	var gplus = {
-			token: Obj['access_token'],
-			user:  Obj['id']
-	};
+	var auth = {};
+	var gplus = {};
 	
+	gplus.token = Obj['access_token'],
+	gplus.user  = Obj['id'];
+	
+	if(Obj['emailAddress']){
+		auth.email = Obj['emailAddress'];
+	}
+	if(Obj['displayName']){
+		auth.alias = Obj['displayName'];
+	}
 	if(Obj['name']['givenName']){
 		detail.first = Obj['name']['givenName'];
 	}	
@@ -173,16 +240,19 @@ var setGPlusFields = function(Obj){
 
 var setFacebookFields = function(Obj){
 	console.log(JSON.stringify(Obj));
-	
-	var auth = {
-			email: Obj.email,
-			alias: Obj.name};
 	var detail = {};
-	var facebook = {
-			token: Obj.access_token,
-			user:  Obj.id
-	};
+	var auth = {};
+	var facebook = {};
 	
+	facebook.token = Obj.access_token;
+	facebook.user  =  Obj.id;
+	
+	if(Obj.email){
+		auth.email = Obj.email;
+	}
+	if(Obj.name){
+		auth.alias = Obj.name;
+	}
 	if(Obj.first_name){
 		detail.first = Obj.first_name;
 	}	

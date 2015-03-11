@@ -194,7 +194,7 @@ var getFacebookRegistration = function(req){
 	return fb;
 };
 
-var getSocialRegistration = function(req){
+var getSocialCredentials = function(req){
 	var social = {};
 	
 	social.linkedin = getLinkedInRegistration(req);
@@ -217,16 +217,22 @@ var getAuthorization = function(req){
 	return auth;
 };
 
-module.exports.getAuthenticationObj = function(req){		
-	var user     = req.body.user     ? req.body.user     : undefined;
-	var password = req.body.password ? req.body.password : undefined;
-	var remember = req.body.remember ? true : false;
+module.exports.getAuthenticationObj = function(req){
+	var cred = {};
+	var social = getSocialCredentials(req);		
 	
-	return {
-			user:     user,
-			password: password,
-			remember: remember
-		};
+	if(social.facebook || social.linkedin || social.gplus){
+		cred.social = social;
+	} else {
+		var user     = req.body.user     ? req.body.user     : undefined;
+		var password = req.body.password ? req.body.password : undefined;
+		var remember = req.body.remember ? true : false;
+		
+		cred.user     =     user;
+		cred.password = password;
+		cred.remember = remember;
+	}	
+	return cred;
 };
 
 module.exports.getRegistrationObj = function(req){
@@ -235,9 +241,8 @@ module.exports.getRegistrationObj = function(req){
 	var detail = getDetailObj(req);
 	var contacts = getContactsObj(req);
 	var authorization = getAuthorization(req);
-	console.log(user, detail, contacts, authorization);
-	var social = getSocialRegistration(req);
-	console.log(social);
+	var social = getSocialCredentials(req);
+	
 	registration.authorization = authorization;
 	registration.credentials = user;
 	registration.detail = detail;

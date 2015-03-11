@@ -33,3 +33,18 @@ function liAuth(){
 	   });
    });
 }
+
+function liLogin(){
+   if(IN.User.isAuthorized()){
+	   var fieldObj = {};
+		  
+	   console.log('LinkedIn Login');
+	   
+	   fieldObj.social = {linkedin:{}};
+	   fieldObj.social.linkedin.user = setLinkedInFields(data.values[0].id);
+	   
+	   setLoginForm(fieldObj);
+   } else {
+	   liAuth();   
+   }
+}
