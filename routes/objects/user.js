@@ -157,7 +157,7 @@ var getLinkedInRegistration = function(req){
 	
 	if(req.body.linkedin_user){
 		lin = {
-			user:  user
+			id:  user
 		};
 	} 
 
@@ -172,7 +172,7 @@ var getGPlusRegistration = function(req){
 	if(req.body.gplus_user){
 		gplus = {
 			token: token,
-			user:  user
+			id:  user
 		};
 	} 
 	
@@ -187,7 +187,7 @@ var getFacebookRegistration = function(req){
 	if(req.body.facebook_user){
 		fb = {
 			token: token,
-			user:  user
+			id:  user
 		};
 	} 
 	

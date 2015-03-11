@@ -97,7 +97,7 @@ var setRegistrationForm = function(Obj){
 	}
 	console.log(form);
 	
-	//form.submit();
+	form.submit();
 };
 
 //Get Social Registration Fields
