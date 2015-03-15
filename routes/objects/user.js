@@ -154,7 +154,6 @@ var getContactsObj = function(req){
 var getLinkedInRegistration = function(req){
 	var lin = {};
 	var user = req.body.linkedin_user ? req.body.linkedin_user : undefined;
-	
 	if(req.body.linkedin_user){
 		lin = {
 			id:  user

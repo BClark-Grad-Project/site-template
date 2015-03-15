@@ -143,9 +143,9 @@ a, a:link, a:visited{
 .show-sm{
 	display:none;
 }
-#navbar-signin{
+/* #navbar-signin{
 		display:none;
-}
+} */
 	
 @media (min-width:991px) {
 	 #usernavigation {
@@ -157,9 +157,9 @@ a, a:link, a:visited{
 	.hide-md{
 		display:none;
 	}
-	#navbar-signin{
+/* 	#navbar-signin{
 		display:block;
-	}
+	} */
 }
 @media (max-width: 768px) {
 	.hide-sm{

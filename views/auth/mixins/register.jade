@@ -1,0 +1,45 @@
+#register-form-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='registerLabel', aria-hidden='true')
+  .modal-dialog.modal-lg
+    .modal-content
+      form#register-form(role='form', method='POST', action='/authentication/register')
+        .modal-header
+          button.close(type='button', data-dismiss='modal')
+            span(aria-hidden='true') &times;
+            span.sr-only Close
+          h4#registerLabel.modal-title Register Account
+        .modal-body.row
+          #normal-registration.col-xs-12.col-sm-12.col-md-12.col-lg-12.collapse.fade.active
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12
+              h5
+                b Create account:
+            +userCredentialFields()        
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12
+            #more-user-detail.col-xs-12.col-sm-12.col-md-12.col-lg-12.collapse.fade.in.active
+              small Add More Detail (optional)              
+              .profile-option-group(style='margin:0px;padding:0px;')
+                a.btn.profile-option.pull-left(href='#', data-toggle='collapse', data-target='#user-name') +  Real Name 
+                  span.glyphicon.glyphicon-user 
+                a.btn.profile-option.pull-left(href='#', data-toggle='collapse', data-target='#user-detail') +  Demographic Detail 
+                  span.glyphicon.glyphicon-info-sign 
+                a.btn.profile-option.pull-left(href='#', data-toggle='collapse', data-target='#user-contact') +  Contact Information 
+                  span.glyphicon.glyphicon-envelope 
+            +userNameFields()
+            +userDetail()
+            +userContact()
+            #social-registration.col-xs-12.col-sm-12.col-md-12.col-lg-12.collapse.fade.active
+              h5
+                b Create account with:
+              //.fb-login-button(data-size="icon", data-show-faces="false", data-auto-logout-link="false")
+              ul.list-inline
+                li
+                  a.btn.btn-social-icon.btn-linkedin(onclick="liAuth();")
+                    i.fa.fa-linkedin
+                li
+                  a.btn.btn-social-icon.btn-facebook(onclick="fbAuth();")
+                    i.fa.fa-facebook
+                li
+                  a.btn.btn-social-icon.btn-googl-plus(onclick="gplusAuth();")
+                    i.fa.fa-google-plus
+        .modal-footer
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12
+            +registerAcceptButtons()

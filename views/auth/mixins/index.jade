@@ -1,69 +1,75 @@
-mixin userHeader()
-  .row
-    .media
-      .media-left.profile-image.col-xs-4.col-sm-4.col-md-12.col-lg-12
-        +userIcon()
-        a.profile-image-btn(data-target='#profile-image-change', data-toggle='modal')
-          img(src='/images/user/profile-image-btn.png')
-      .media-body.col-xs-8.col-sm-8.col-md-12.col-lg-12(style='padding-left: 25px;padding-right:25px;')
-        br
-        h3.media-heading #{user.credentials.alias.charAt(0).toUpperCase() + user.credentials.alias.slice(1)} 
-        if userType(user.authorizations) === 'admin'
-          h5 Administrator
-        else if userType(user.authorizations) === 'general'
-          h5 Standard User
+mixin resetRegistrationFields()
+  if retry.detail
+    if retry.detail.first
+      input.form-control(type='hidden', name='first', value=retry.detail.first)
+    if retry.detail.middle
+      input.form-control(type='hidden', name='middle', value=retry.detail.middle)
+    if retry.detail.last
+      input.form-control(type='hidden', name='last', value=retry.detail.last)
+    if retry.detail.gender
+      input.form-control(type='hidden', name='gender', value=retry.detail.gender)
+    if retry.detail.birth
+      input.form-control(type='hidden', name='birth', value=retry.detail.birth)
+//  if retry.contact
+//    if retry.contact.
+//      input.form-control(type='hidden', value=retry.contact.)
+      
+  
+mixin fixEmail()
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    if retry.credential.email
+      p Try a different email.
+    else 
+      p No login name was provided.
+    label(for='email') Email 
+    input.form-control(type='input', name='email', value=retry.credential.email)    
+    br
+    button.btn.btn-lg(type='submit' value='Submit')
+    hr
+    p 
+      a(data-toggle='modal', data-target='#login-form-modal') Sign-in or reset password
+      | for user account.
+    if retry.social
+      if retry.social.facebook || retry.social.linkedin | retry.social.gplus
         hr
-        br        
-        i Please do not falsify information if you choose to provide it.
-  block
-  
-mixin navItem(target, title)
-  li
-    a(href=target) #{title}  &nbsp; 
-      block
+        p Add social services to user account:
+        br
+        button.btn.btn-lg(value='Add Account')
+        
+mixin fixAlias()
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    if retry.credential.alias
+      p The name you have chosen is taken.  
+    else 
+      p No login name was provided.
+    label(for='alias') Login Name
+    input.form-control(type='input', name='alias', value=retry.credential.alias)
+    br
+    button.btn.btn-lg(type='submit' value='Submit')
+    
+mixin setEmail()
+  input.form-control(type='hidden', value=retry.credential.email, name='email')
 
-mixin adminNav()
-  block
-  li.dropdown-header(style='padding:0px 10px;margin-bottom:0px;background:#f9f9f9;') Administrator Menu  
-  li.divider(style='padding-top:0px;margin-top:0px;')
-  li.dropdown-header Site Management
-  +navItem('/manager/content', 'Module Organizer')
-  +navItem('/manager/users', 'User Administration')
-  li.divider(style='padding-top:0px;margin-top:0px;')
-  li.dropdown-header Site Management
-  +navItem('/blog/create', 'Blog Administration')
-  +navItem('/project/manage', 'Project Manager')
-  block adminNav
-
-mixin generalUserNav()
-  block
-  li.dropdown-header(style='padding:0px 10px;margin-bottom:0px;background:#f9f9f9;') User Menu
-  li.divider(style='padding-top:0px;margin-top:0px;')
-  block generalUserNav
-
-mixin guestNav()
-  block
-  li
-    +register()
-
-mixin signIn()
-  a(role='menuitem', tabindex='-1', data-toggle='modal', data-target='#login-form-modal') Sign In
+mixin setAlias()
+  input.form-control(type='hidden', value=retry.credential.alias, name='alias')
   
-mixin register()
-  a(role='menuitem', tabindex='-1', data-toggle='modal', data-target='#register-form-modal') Register Account
-  
-mixin userIcon()
-  if user.detail.img
-    //-TODO File server requirement
-  else
-    if user.detail.gender == 'male'
-      img.img-rounded(src='/images/user/default-male.png', style='margin:0px;padding:0px;')
-    else if user.detail.gender == 'female'
-      img.img-rounded(src='/images/user/default-female.png', style='margin:0px;padding:0px;')
-    else
-      img.img-rounded(src='/images/user/default-profile.png', style='margin:0px;padding:0px;')
-  block
-  
+mixin fixEmailAlias()
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    if retry.credential.alias
+      p The name you have chosen is taken.  
+    else 
+      p No login name was provided.
+    label(for='email') Email
+    input.form-control(type='input', name='email', value=retry.credential.email, required)  
+    if retry.credential.alias
+      p The name you have chosen is taken.  
+    else  
+      p No login name was provided.
+    label(for='alias') Login Name
+    input.form-control(type='input', name='alias', value=retry.credential.alias, required)
+    br
+    button.btn.btn-lg(type='submit' value='Submit')
+
 mixin idField(name, id)
   if id != undefined
     input.form-control(name=name + 'Id', type='hidden', value=id)
@@ -303,64 +309,6 @@ mixin userContact(data)
           +officeContactFields(i)
         if i.type == 'mobile'
           +mobileContactFields(i)
-  
-mixin navLinks()
-  ul.nav.navbar-nav(style='margin:0px,padding:0px;')
-    li
-      a(href='/project') About
-    li
-      a(href='/blog') Blog
-    li
-      a(href='/project/status') Status
-    li.disabled
-      a(href='/mind-research') 
-        img(src='/images/site/logo-ico.png', style='margin:0px;padding0px;height:20px;opacity:0.4;')   
-        |   Beta
-          
-mixin userOptions()
-  ul.dropdown-menu(role='menu')
-    if userType(user.authorizations) === 'admin' 
-      +adminNav()
-    else if userType(user.authorizations) === 'general'
-      +generalUserNav()
-    else
-      li
-        +signIn()
-      li.divider
-      +guestNav()
-    if userType(user.authorizations) !== 'guest'
-      li.divider  
-      li.dropdown-header Options
-      +navItem('/account', 'My Profile')
-      +navItem('/authentication/logout','Sign Out')
-        span.glyphicon.glyphicon-log-out
-        
-mixin navUser()
-  ul.nav.navbar-nav.navbar-right(style='float:right;')
-    if userType(user.authorizations) !== 'guest'
-      li.dropdown(style='margin:0px;padding:0px;float:right;')
-        a.nav-button.dropdown-toggle(data-toggle='dropdown', style='padding:0px 15px;padding-top:0px;padding-bottom:0px;margin:0px;')
-          .nav-profile-name.pull-left(style='margin:0px;padding:4px 0px;')
-            small(style='color:#ffffff;') Signed in as: 
-            .nav-user #{user.credentials.alias} &nbsp;  
-          button.btn-link(type='button', style='padding:3px 0px;margin:0px;')
-            .nav-profile-icon(style='padding:0px;margin:0px;')
-              +userIcon() 
-        +userOptions()
-    if userType(user.authorizations) === 'guest'   
-      li.navbar-right(style='float:right;margin:0px;')
-        a(role='menuitem', tabindex='-1', data-toggle='modal', data-target='#register-form-modal')
-          small Sign up
-      li#navbar-signin.navbar-right(style='float:right;margin:0px;padding:0px;')
-        a(role='menuitem', tabindex='-1', data-toggle='modal', data-target='#login-form-modal')
-          small Sign in
-      //li.navbar-right(style='float:right;margin:0px;padding:0px;padding-top:8px;')
-      //  form.navbar-form.hide-md(role='form', method='POST', action='/authentication', style='margin:0px;padding:0px;')
-      //    input.form-control(name='user', type='input', placeholder='user', style='margin:0px;width:125px;')
-      //    |  
-      //    input.form-control(name='password', type='password', placeholder='pass', style='margin:0px;width:125px;')  
-      //    |  
-      //    button.btn.navbar-btn(type='submit', style='margin:0px;') Sign-in
 
 mixin registerAcceptButtons()
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
@@ -377,42 +325,3 @@ mixin registerAcceptButtons()
         button.btn.btn-lg.btn-inverse.pull-right(type='reset', data-dismiss='modal', style='width:100%;') Cancel
       .col-xs-6.col-sm-6.col-md-6.col-lg-6(style='padding:0px 0px 0px 10px;')
         button.btn.btn-lg.btn-default.pull-right(type='submit', style='width:100%;') Register
-        
-mixin selectProfilePhoto()
-  .btn.btn-default.btn-file.btn-lg.pull-right
-    p(style='margin:0px;') Select 
-    input.form-control(type='file', value=user.detail.img)
-  button.btn.btn-inverse.btn-lg.pull-left(type='button', data-dismiss='modal') Cancel
-  
-mixin adminProfileOptions()
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12
-    hr
-    br
-    h4(style="margin-top:0px;") Administration Only
-    input.form-control(type='hidden', name='userId', value=user.id) 
-    h6
-      b User Account Options
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
-    .col-xs-2.col-sm-2.col-md-2.col-lg-1              
-      .checkbox(style='margin-left:20px;')
-        if user.credentials.active == 'true'
-          input(type='checkbox', name='auth_active', checked) 
-        else
-          input(type='checkbox', name='auth_active') 
-        | Active
-      br
-      br
-    .col-xs-10.col-sm-10.col-md-10.col-lg-11
-      .input-group
-        .input-group-addon User Type
-        select.form-control(name='auth_type')
-          option(value='user') User
-          option(value='admin') Admin
-      br
-      br
-mixin saveEdits()
-  br
-  hr
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12
-    button.btn.btn-default.btn-lg.pull-right(type='submit') Save 
-    button.btn.btn-inverse.btn-lg.pull-right(type='reset', style='margin-right: 10px;') Undo 

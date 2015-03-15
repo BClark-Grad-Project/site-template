@@ -37,14 +37,17 @@ function liAuth(){
 function liLogin(){
    if(IN.User.isAuthorized()){
 	   var fieldObj = {};
-		  
-	   console.log('LinkedIn Login');
-	   
 	   fieldObj.social = {linkedin:{}};
-	   fieldObj.social.linkedin.user = setLinkedInFields(data.values[0].id);
-	   
-	   setLoginForm(fieldObj);
-   } else {
-	   liAuth();   
-   }
+	   IN.User.authorize(function(){
+		   IN.API.Profile("me")
+			   .fields("id")
+			   .result(function(data){
+				   console.log('LinkedIn Login');
+				   
+				   fieldObj.social.linkedin.user = data.values[0].id;
+				   
+				   setLoginForm(fieldObj);
+		   });
+	   });
+   } 
 }
