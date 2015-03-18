@@ -48,7 +48,7 @@ function fbLogin(){
 	      var fieldObj = {};
 	      
 	      access_token   = response.authResponse.accessToken; 
-	      access_user    = response.authResponse.userId;
+	      access_user    = response.authResponse.userID;
 	      fieldObj.social = {facebook:{}};
 	      fieldObj.social.facebook.user  = access_user;
 	      fieldObj.social.facebook.token = access_token;

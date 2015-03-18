@@ -15,30 +15,26 @@ block content
   section#fixfields.container
     .row
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        form#fix-form(method='POST', action='/authentication/register')
-          if err.type == 'email_null'
-            h4 No email provided.
-            hr
-            p err.description
-            +setAlias()
-            +fixEmail()
-          else if err.type == 'email_taken'
-            h4 Email exist as user.
-            hr
-            +setAlias()
-            +fixEmail()
-          else if err.type == 'alias_null'
-            h4 No login alias.
-            hr
-            p Please provide a login alias.
-          else if err.type == 'alias_taken'
-            h4 Login alias taken.
-            hr
-          +setEmail()
+        if err.type == 'email_null'
+          h4 No email provided.
+          hr
+          p err.description
+          +fixEmail()
+        else if err.type == 'email_taken'
+          h4 Email exist as user.
+          hr
+          +fixEmail()
+        else if err.type == 'alias_null'
+          h4 No login alias.
+          hr
           +fixAlias()
-          else if err.type == 'null'
-            h4 No authentication values.
-            hr
-            +fixEmailAlias()
+        else if err.type == 'alias_taken'
+          h4 Login alias taken.
+          hr
+          +fixAlias()
+        else if err.type == 'null'
+          h4 No authentication values.
+          hr
+          +fixEmailAlias()
         
 block js-bottom

@@ -1,3 +1,4 @@
+// Credential object funtions
 var getUserObj = function(req){
 	var auth = {};
 	var alias    = req.body.alias    ? req.body.alias    : undefined;
@@ -11,6 +12,88 @@ var getUserObj = function(req){
 	return auth;
 };
 
+var getLinkedInRegistration = function(req){
+	var lin = {};
+	var user = req.body.linkedin_user ? req.body.linkedin_user : undefined;
+	if(req.body.linkedin_user){
+		lin = {
+			id:  user
+		};
+	} 
+
+	return lin;
+};
+
+var getGPlusRegistration = function(req){
+	var gplus = {};
+	var user  = req.body.gplus_user  ? req.body.gplus_user  : undefined;
+	var token = req.body.gplus_token ? req.body.gplus_token : undefined;
+	
+	if(req.body.gplus_user){
+		gplus = {
+			token: token,
+			id:  user
+		};
+	} 
+	
+	return gplus;
+};
+
+var getFacebookRegistration = function(req){	
+	var fb = {};
+	var user  = req.body.facebook_user  ? req.body.facebook_user  : undefined;
+	var token = req.body.facebook_token ? req.body.facebook_token : undefined;
+	
+	if(req.body.facebook_user){
+		fb = {
+			token: token,
+			id:  user
+		};
+	} 
+	
+	return fb;
+};
+
+var getSocialCredentials = function(req){
+	var social = {};
+	
+	social.service = req.app.locals.service_code;
+	
+	social.linkedin = getLinkedInRegistration(req);
+	social.gplus = getGPlusRegistration(req);
+	social.facebook = getFacebookRegistration(req);
+	
+	return social;
+};
+
+var getAuthorization = function(req){
+	var auth = {};
+	var service = req.app.locals.service_code;
+	var level   = req.body.user_type_level ? req.body.user_type_level : 0;
+	var access  = req.body.user_type ? {type:req.body.user_type} : {type:'general'};
+	
+	access.level = level;
+	auth.service = service;
+	auth.access  = access;
+	
+	return auth;
+};
+
+var registrationObj = function(req){
+	var user    = {};
+    var id      = req.body.userId ? req.body.userId : undefined;
+    var email   = req.body.email  ? req.body.email  : undefined;
+	
+	if(id){
+		user.id = id;
+	} else if(email){
+		user.email = email;
+	}	
+	
+	return user;
+};
+
+// User detailed information object functions
 var getDetailObj = function(req){
 	var detail = {};
     var id     = req.body.detailId ? req.body.detailId : undefined;
@@ -151,76 +234,12 @@ var getContactsObj = function(req){
 	return contacts;
 };
 
-var getLinkedInRegistration = function(req){
-	var lin = {};
-	var user = req.body.linkedin_user ? req.body.linkedin_user : undefined;
-	if(req.body.linkedin_user){
-		lin = {
-			id:  user
-		};
-	} 
-
-	return lin;
-};
-
-var getGPlusRegistration = function(req){
-	var gplus = {};
-	var user  = req.body.gplus_user  ? req.body.gplus_user  : undefined;
-	var token = req.body.gplus_token ? req.body.gplus_token : undefined;
-	
-	if(req.body.gplus_user){
-		gplus = {
-			token: token,
-			id:  user
-		};
-	} 
-	
-	return gplus;
-};
-
-var getFacebookRegistration = function(req){	
-	var fb = {};
-	var user  = req.body.facebook_user  ? req.body.facebook_user  : undefined;
-	var token = req.body.facebook_token ? req.body.facebook_token : undefined;
-	
-	if(req.body.facebook_user){
-		fb = {
-			token: token,
-			id:  user
-		};
-	} 
-	
-	return fb;
-};
-
-var getSocialCredentials = function(req){
-	var social = {};
-	
-	social.linkedin = getLinkedInRegistration(req);
-	social.gplus = getGPlusRegistration(req);
-	social.facebook = getFacebookRegistration(req);
-	
-	return social;
-};
-
-var getAuthorization = function(req){
-	var auth = {};
-	var service = req.app.locals.service_code;
-	var level   = req.body.user_type_level ? req.body.user_type_level : 0;
-	var access  = req.body.user_type ? {type:req.body.user_type} : {type:'general'};
-	
-	access.level = level;
-	auth.service = service;
-	auth.access  = access;
-	
-	return auth;
-};
-
+// Module exports
 module.exports.getAuthenticationObj = function(req){
 	var cred = {};
 	var social = getSocialCredentials(req);		
 	
-	if(social.facebook || social.linkedin || social.gplus){
+	if(social.facebook.id || social.linkedin.id || social.gplus.id){
 		cred.social = social;
 	} else {
 		var user     = req.body.user     ? req.body.user     : undefined;
@@ -262,15 +281,24 @@ module.exports.getUserObj = function(req){
 	return user;
 };
 
-module.exports.getNewAuthObj = function(req){
-	var auth = {};
-    var id      = req.body.userId;
-    var active  = req.body.auth_active ? true : false;
+module.exports.getSocialRegistrationObj = function(req){
+	var user    = registrationObj(req);
+	var social  = getSocialCredentials(req);
+	
+	user.social = social;
+	
+	return user;
+};
 
-    auth.id		= id;
-    auth.active = active;
-
-	return auth;
+module.exports.getServiceRegistrationObj = function(req){
+	var user    = registrationObj(req);
+	var social  = getSocialCredentials(req);
+	
+	if(social.facebook.id || social.linkedin.id || social.gplus.id){
+		user.social = social;
+	}
+	
+	return user;
 };
 
 module.exports.getSeachObj = function(req){
