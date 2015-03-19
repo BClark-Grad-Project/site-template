@@ -75,11 +75,15 @@ module.exports = function (data) {
 	}).post('/register/add/social', function(req, res, next) {
 		var authorization = createObj.getSocialRegistrationObj(req);
 		
-		console.log('registering new social', authorization);
 		data.profile.create(req.session, authorization,function(err, user){
+			console.log('social returned', err, user);
 			if(err){
-				console.log('social registration error : ', err);
-				next(err);
+				if(err.type == 'social_taken'){				
+					var errType = {type:'social_taken', detail:'The social account being registered is taken for this service.'};
+					res.render('auth/fixregistration', {title: 'Please Retry Registration', user: req.session.user, retry: user, err: errType});
+				} else {
+					next(err);
+				}
 			} else {
 				console.log('social registration success: ', user);
 				res.redirect('/account');

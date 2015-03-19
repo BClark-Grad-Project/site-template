@@ -36,5 +36,10 @@ block content
           h4 No authentication values.
           hr
           +fixEmailAlias()
+        else if err.type == 'social_taken'
+          h4 Cannot Register Social Account
+          p This may be because it is already associated to a service account.
+          br
+          a(href='/') Home »
         
 block js-bottom
