@@ -43,8 +43,9 @@ mixin editUserDetail()
       hr(style="margin-top:0px;")
       .col-xs-12.col-sm-6.col-md-6.col-lg-6
         .input-group
+          - var birth = user.detail ? user.detail.birth.toISOString().substr( 0, 10 ) : '';
           .input-group-addon Born &nbsp; &nbsp;
-          input.form-control(name='birth', type='date', value=user.detail.birth.toISOString().substr( 0, 10 ))
+          input.form-control(name='birth', type='date', value=birth)
         br
       .col-xs-12.col-sm-6.col-md-6.col-lg-6
         .input-group

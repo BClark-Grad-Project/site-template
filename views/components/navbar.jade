@@ -1,5 +1,9 @@
 include ../mixins/navigation.jade
 
+if userType(user.authentications) === 'guest'
+  include login.jade
+  include register.jade
+
 nav.navbar.navbar-inverse(role='navigation',style='margin:0px;padding:0px;')
   .container-fluid(style='margin:0px;padding-left:0px;')
     .navbar-header.navbar-left.col-xs-8.col-sm-3.col-md-3.col-lg-2(style='padding:0px; margin:0px;')
@@ -13,7 +17,3 @@ nav.navbar.navbar-inverse(role='navigation',style='margin:0px;padding:0px;')
       +navLinks()
     #usernavigation.navbar-right.col-xs-4.col-sm-5.col-md-6.col-lg-5(style='padding:0px; margin:0px;float:right;')  
       +navUser()
-                      
-if userType(user.authentications) === 'guest'
-  include login.jade
-  include register.jade

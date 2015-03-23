@@ -135,8 +135,9 @@ mixin userDetail(data)
         b Personal Details
     .col-xs-12.col-sm-6.col-md-6.col-lg-6
       .input-group
+        - var birth = data.birth ? data.birth.toISOString().substr( 0, 10 ) : '';
         .input-group-addon Born &nbsp; &nbsp;
-        input.form-control(name='birth', type='date', value=data.birth.toISOString().substr( 0, 10 ))
+        input.form-control(name='birth', type='date', value=birth)
       br
     .col-xs-12.col-sm-6.col-md-6.col-lg-6
       .input-group

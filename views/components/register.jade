@@ -29,7 +29,6 @@
             #social-registration.col-xs-12.col-sm-12.col-md-12.col-lg-12.collapse.fade.active
               h5
                 b Create account with:
-              //.fb-login-button(data-size="icon", data-show-faces="false", data-auto-logout-link="false")
               ul.list-inline
                 li
                   a.btn.btn-social-icon.btn-linkedin(onclick="liAuth();")
@@ -37,9 +36,9 @@
                 li
                   a.btn.btn-social-icon.btn-facebook(onclick="fbAuth();")
                     i.fa.fa-facebook
-                li
-                  a.btn.btn-social-icon.btn-googl-plus(onclick="gplusAuth();")
-                    i.fa.fa-google-plus
+               // li
+               //   a.btn.btn-social-icon.btn-googl-plus(onclick="gplusAuth();")
+               //     i.fa.fa-google-plus
         .modal-footer
           .col-xs-12.col-sm-12.col-md-12.col-lg-12
             +registerAcceptButtons()
