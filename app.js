@@ -37,18 +37,6 @@ module.exports = function (data) {
 	app.use(data.secure.create());
 	app.use(data.secure.register);
 	
-	// Force HTTPS connections
-	function ensure(req, res, next){
-		var port = app.get('port') === 80 ? '' : ':' + app.get('secure'); // Only for testing under local ENV
-		
-		if(req.secure){
-		  // OK, continue
-		  return next();
-		};
-		res.redirect('https://' + req.hostname + port + req.url); 
-	};
-	app.all('*', ensure); // Top of routes. (Required to push HTTPS on all routes.)
-	
 	// Route to data manipulation and content
 	app.use('/', routeHome);
 	app.use('/authentication', routeAuth);
