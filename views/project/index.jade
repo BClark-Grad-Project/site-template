@@ -1,90 +1,5 @@
 // Begin Jade template.
 extends ../layout
-
-mixin skills()
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-bottom:10px;')
-    ul.skills-section.compact-view
-      span.skill-pill.hide-sm
-        span.endorse-item-name
-          span.endorse-item-name-text 
-            b Software Development »
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text Agile Methodologies
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text CMM Practices
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text UML Practices
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text Database Design
-      br
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-bottom:10px;')
-    ul.skills-section.compact-view
-      span.skill-pill.hide-sm
-        span.endorse-item-name
-          span.endorse-item-name-text
-            b Software »
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text MongoDB
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text Linux
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text Visio
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text Numerious Integrated Development Environments
-      br
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-bottom:10px;')
-    ul.skills-section.compact-view
-      span.skill-pill.hide-sm
-        span.endorse-item-name
-          span.endorse-item-name-text
-            b Programming »
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text Node.js
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text JavaScript
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text CSS
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text HTML
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text C / C++
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text SQL
-      br
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-bottom:10px;')
-    ul.skills-section.compact-view
-      span.skill-pill.hide-sm
-        span.endorse-item-name
-          span.endorse-item-name-text
-            b Management »
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text Analysis
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text Budgets
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text Marketing
-      span.skill-pill
-        span.endorse-item-name
-          span.endorse-item-name-text Team Leadership
-      br
-  
 //-HTML content to display.
 block content
   #main.jumbotron
@@ -92,84 +7,19 @@ block content
       .row
         .col-xs-12.col-sm-12.col-md-12.col-lg-12
           h1 About Project 
-          p(style='margin-bottom:0px;padding-bottom:0px;') Project Mind Research is being developed by Brandon Laurence Clark for his Master in Software Engineering degree at California State University Fullerton.
+          p(style='margin-bottom:0px;padding-bottom:0px;') Its a great project.
           ul.nav.nav-pills(role="tablist", style='margin-top:0px;padding-top:0px;')
             li(role="presentation", style='padding:0px; padding-right:20px;')
               h4 About      
             li(role="presentation")
-              a.text-muted(href="#project") » Mind Research
+              a.text-muted(href="#project") » Project
             li(role="presentation")
               a.text-muted(href="#author") » Author
-            li(role="presentation")
-              a.text-muted(href="#amse",style='margin-left:0px;padding-left:0px;') » Degree
   section
     #project.container
       .row
         .col-xs-12.col-sm-12.col-md-12.col-lg-12
-          h3 About Project Mind Research
-          h4  
-            img(src='/images/site/mind-research.png', style='width:200px;float:left;margin-bottom:2px;margin-right:10px;')  
-            |  Vision  
-          p This product is intended for researchers to compose, conduct and analyze survey questionnaires. Users will be accessing web based services in both desktop and mobile environments. In addition to providing visual interface service a Web Application Program Interface ( Web API ) should be provided to developers.  
-          p Architecture for this software should be cloud based to maximize resource availability. This architecture is to support a software base that communicates between services offered to users. Software is to built by component when possible to maximize modifiability and scalability.  
-          p This service is to include a statistical formula tool for designing data measurements based on a questionnaires feedback. Features of the product should include real-time data interaction and an ability to add additional analysis tools and services to an existing account. Social integrations should be made where possible to enhance the user experience.
-          p A project deadline has been set for May 10, 2015 and will be managed though a modified Agile process known as SCRUM.
-          br
-          br
-        .col-xs-12.col-sm-6.col-md-6.col-lg-6
-          h4
-            span.glyphicon.glyphicon-cloud  
-            |  Cloud Management Plan 
-          p An in house cloud management system will be setup to use the Ubuntu Server 14.04 LTS operating system to implement the product. MAAS bare metal provision software and Juju service orchestration software will be integrated to manage the cloud service environment. 
-          p Amazon web services will be used in place of MAAS during development.  Amazon works well out of the box for the projects overall management, testing and work product deliveries.  
-          br
-          br
-        .col-xs-12.col-sm-6.col-md-6.col-lg-6
-          h4  
-            span.glyphicon.glyphicon-retweet  
-            |   Project Management Plan  
-          p To aid in the process of fulfilling the requirements a project management component will be developed to manage time and task based on the SCRUM Life Cycle principles. Project management will provide progress and schedule statistics.  
-          p The project management component will be integrated with Github services for version and source control of project components source code. 
-          br
-          br
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12
-          h4 Questionnaire Management Plan
-          .col-xs-12.col-sm-4.col-md-4.col-lg-4
-            h5 
-            span.glyphicon.glyphicon-leaf  
-            |   Create  
-            p Users will generate questionnaires based on a three question type model. Question models will be single response, multiple response and open response.
-            p Single and multiple response question will be used to produce quantitative data.  Open response questions are used to create qualitative measurements.
-            p Questionnaire responses can be limited to a confined period or open ended.
-            br 
-          .col-xs-12.col-sm-4.col-md-4.col-lg-4
-            h5 
-            span.glyphicon.glyphicon-globe  
-            |   Conduct  
-            p Send survey questionnaires out to desired user pools over Facebook, Twitter, LinkedIn, email and text communication channels.
-            p Survey takers will have an option to keep their response anonymous.
-            p All survey responses will be open to the public while survey management is limited to conductor or the survey questionnaires.
-            br 
-          .col-xs-12.col-sm-4.col-md-4.col-lg-4
-            h5 
-            span.glyphicon.glyphicon-eye-open  
-            |   Analyze  
-            p Users view real-time statistics responses.  A standard report format will be provided and available in XLS or PDF format.
-            p A descriptive statistic formulation tool will allow users to write statistical formulas based on response data.  
-            P Qualitative analysis will currently provide a built in Sentiment analysis using the AFINN-111 standard word list.
-            br 
-            br
-            br
-            br
-          br
-          br
-          br
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12
-          small Want to learn more?  Follow the project 
-            a(href='/blog') blog 
-            | or read the 
-            a(href='/docs') documents  
-            | (Docs require CSUF account).
+          h3 About Project
           br
           br
           br
@@ -178,48 +28,20 @@ block content
     #author.container
       .row
         .col-xs-12.col-sm-12.col-md-12.col-lg-12
-          h3 About Brandon Laurence Clark
+          h3 About Author
         .col-xs-12.col-sm-4.col-md-3.col-lg-3.pull-right
           br      
           .panel.panel-default(style='padding:5px;')
             img(src='/images/author.jpg', style='width:100%;') 
           .col-xs-4.col-sm-4.col-md-4.col-lg-4.middle
-            a(href='http://www.linkedin.com/in/clarkbrandon')
+            a(href='')
               img(src='/images/social/li.png')     
           .col-xs-4.col-sm-4.col-md-4.col-lg-4.middle
-            a(href='https://github.com/BClark-Grad-Project')
+            a(href='')
               img(src='/images/social/gh.png')
           .col-xs-4.col-sm-4.col-md-4.col-lg-4.middle
-            a(href='https://stackexchange.com/users/1331603/brandon-clark')
+            a(href='')
               img(src='/images/social/so.png')
         .col-xs-12.col-sm-8.col-md-9.col-lg-9.pull-left
           h4 Summary
-          p My bachelors degree is in Business Information Systems and Decision Systems. 
-          p I have a strong management background that has provided me with a great number of skill sets. My professional history contains five plus years of team management and self management positions.
-          p My programming history has been hobby based since 1996. I have worked with numerous programming languages and and have gained a strong understanding of language and software paradigms. Currently my proficiency is in using the Node.js framework and many of its packages.
-          p My software engineering experience has been primarily academic with focuses on the Compatibility Maturity Model and Agile principles and processes.
-          p I enjoy traveling with my wife around the world. Scuba diving is one of my favorite activities along with Frisbee Golf. I love the outdoors just as much as my geeky passions for technology.
-        .col-xs-12.col-sm-12.col-md-12.col-lg-9(style='padding-bottom:20px;')
-          h4 Skills
-          +skills()
-  section
-    hr(style='margin-top:0px;padding-top:0px;')
-    #amse.container
-      .row
-        .col-xs-3.col-sm-3.col-md-2.col-lg-2
-          img(src='/images/csuf.png', style='float:left;width:100%;padding-top:20%;')
-          br
-        .col-xs-9.col-sm-9.col-md-10.col-lg-10
-          h3 Accelerated MS in Software Engineering
-          h4 CSU Fullerton
-          br
-          p Cal State Fullerton's College of Engineering and Computer Science has been producing successful Software Engineers for many years with its award-winning online program. Building on this success, the new Accelerated MS in Software Engineering (AMSE) has been developed as an on-campus degree program that can be completed in just 17 months. The program is designed to prepare individuals for careers as software engineers and managers in the industry or government agencies and for advanced study as researchers.
-          p The program curriculum is designed with the following learning goals: comprehension of software standards, implementation and management of software process, assessment/appraisal of software process, management of legal and ethical issues, collaboration and team work, critical thinking and problem solving, research, and communication.
-          br
-        .col-xs-12.col-sm-12.col-md-12.col-lg-10(style='padding-bottom:20px;')
-          h4 
-            span.glyphicon.glyphicon-copy(style='margin-left:10px;')     
-            |    Project Specification
-          p The AMSE program requires each student to follow research and development practices of software engineering to a engineer a project of their choice.  Research is approved by 
-            a(href='http://tryu.ecs.fullerton.edu/') Professor Christopher Ryu
-            |   and then developed with a written report for final review. 
+          p 

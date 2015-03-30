@@ -1,86 +1,25 @@
 // Begin Jade template.
 extends layout
-   
-block js-top
-  script(type='text/javascript').
-    var projectObj = !{JSON.stringify(project)}   
 
-block js-bottom
-  script(src='/js/stats.js')
-   
-mixin articleShort(blog)
-  a(href='/blog/' + blog.id, style='margin:0px;padding-top:0px;')
-    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding:0px;margin:0px;')
-      h3(style='margin-bottom:0px;') #{blog.article.title}
-      small.text-muted #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()} 
-      br
-      br
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-left:0px;')
-    if blog.article.description.length > 899
-      p.text-muted
-        if blog.article.image
-          img.img-rounded.pull-left(src=blog.article.image, style='max-width:100%;height:auto;margin-right:10px;margin-bottom:10px;')
-        != blog.article.description.substring(0, 900)
-        | ...  
-        a(href='/blog/' + blog.id, style='white-space:nowrap;') [ + more ]
-    else
-      p.text-muted
-        if blog.article.image
-          img.img-rounded.pull-left(src=blog.article.image, style='max-width:100%;height:auto;margin-right:10px;margin-bottom:10px;')
-        != blog.article.description
-    br
-  br  
-  
+include ./blog/mixins/index.jade
+
 //-HTML content to display.
 block content
   #main.jumbotron
     .container
       .row
-        .col-xs-12.col-sm-12.col-md-6.col-lg-7
-          h2(style='margin-bottom:0px;') Project
-          h1(style='margin-top:0px;') Mind Research
-          p A web service that provides survey research tools. Services will offer researchers an all-in-one toolset to create, conduct, analyze and report questionnaire responses. The analysis portion of this service will distinguish it from others by allowing users create customized mathematical formulas for analyzing and reporting real-time data. 
-          p
-            a.btn.btn-default.btn-lg(href="/project",role="button") Learn more »
-        .col-xs-0.col-sm-0.col-md-6.col-lg-5.hide-md(style='padding-top:50px;height:400px;')
-          img(src='/images/site/mind-research.png', style='width:100%;position:absolute;bottom:0;')
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          h1 Hello
   section#news.container
     .row
-      .col-xs-12.col-sm-6.col-md-7.col-lg-8
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
         a(href='/blog')
-          h3(style='margin-bottom:0px;') Mind Research Activity Blog      
-        for j in blog
-          +articleShort(j)     
-      .col-xs-12.col-sm-6.col-md-5.col-lg-4
-        .panel.panel-default(style='padding:15px;')
-          a(href='https://github.com/BClark-Grad-Project')
-            h4 
-              img(src='/images/social/gh.png')  
-              |  Git Updates
-          hr
-          .col-xs-8
-            p.pull-left
-              b Project Name
-          .col-xs-4
-            p.pull-right
-              b Updated
-          for i in git
-            .col-xs-8
-              small 
-                if i.payload.commits
-                  a(href='https://github.com/' + i.repo.name + '/commit/' + i.payload.commits[0].sha) #{i.repo.name.split("/")[1]}
-                else
-                  a(href='https://github.com/' + i.repo.name) #{i.repo.name.split("/")[1]}
-            .col-xs-4
-              small.pull-right #{new Date(i.created_at).getMonth() + 1}-#{new Date(i.created_at).getDate()}-#{new Date(i.created_at).getFullYear()}
-            br
-          br
-          br
+          h3(style='margin-bottom:0px;') Updates 
+        // Loop is used incase backend request 1 < n       
         .col-xs-12.col-sm-12.col-md-12.col-lg-12
           br
           h4 Social Media Feeds
-        .col-xs-2.col-sm-2.col-md-2.col-lg-2
-        
+          br        
         .col-xs-2.col-sm-2.col-md-2.col-lg-2
           a(href='http://www.linkedin.com/in/clarkbrandon')
             img(src='/images/social/li.png')
@@ -92,6 +31,9 @@ block content
             img(src='/images/social/gp.png')          
         .col-xs-2.col-sm-2.col-md-2.col-lg-2
         .col-xs-2.col-sm-2.col-md-2.col-lg-2
+        .col-xs-2.col-sm-2.col-md-2.col-lg-2
+        for j in blog
+          +titlePageShort(j)     
     br
     br
   section(style='background:#fdfdfd;')
@@ -99,116 +41,6 @@ block content
     #about.container
       .row
         .col-xs-12.col-sm-12.col-md-12.col-lg-12
-          h1 
-            img(src='/images/progress.png', style='width:50px;')
-            |  Project Status
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12
-            .col-xs-12.col-sm-3.col-md-3.col-lg-3
-              h5 State
-              p.big-text(style='color:#64a964;text-align:left;') #{project.status}
-              small.text-muted Completion Date: 
-                |  #{monthNames[project.stop.getMonth()]} #{project.stop.getDate()} #{project.stop.getFullYear()} 
-              br
-              br
-            .col-xs-12.col-sm-9.col-md-9.col-lg-9
-              small Project Plan Products
-              br
-              br
-              .col-xs-6.col-sm-4.col-md-4.col-lg-4
-                .panel.panel-default(style='padding:5px 20px;')
-                  h5 Total Sprints
-                  p#total-sprints.big-text 0            
-              .col-xs-6.col-sm-4.col-md-4.col-lg-4
-                .panel.panel-default(style='padding:5px 20px;')
-                  h5 Task
-                  p#total-task.big-text 0   
-              .col-xs-12.col-sm-4.col-md-4.col-lg-4
-                .panel.panel-default(style='padding:5px 20px;')
-                  h5 User Stories
-                  p#total-stories.big-text 0   
-            .col-xs-12.col-sm-3.col-md-3.col-lg-3
-              
-            .col-xs-12.col-sm-9.col-md-9.col-lg-9
-              small Current Work Products
-              br
-              br
-              .col-xs-6.col-sm-4.col-md-4.col-lg-4
-                .panel.panel-default(style='padding:5px 20px;background:#f9f9f9;')
-                  h5 Sprint
-                  p#sprint-name.big-text One            
-              .col-xs-6.col-sm-4.col-md-4.col-lg-4
-                .panel.panel-default(style='padding:5px 20px;background:#f9f9f9;')
-                  h5 Task
-                  p#total-sprint-task.big-text 0   
-              .col-xs-12.col-sm-4.col-md-4.col-lg-4
-                .panel.panel-default(style='padding:5px 20px;background:#f9f9f9;')
-                  h5 User Stories
-                  p#total-sprint-stories.big-text 0   
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12
-            h3 Burn Downs
-          .col-xs-12.col-sm-6.col-md-6.col-lg-6    
-            .col-xs-12.col-sm-12.col-md-12.col-lg-12       
-              h5 Current Sprint Life Cycle
-              .progress.progress-bar-striped(style='background: rgba(245, 245, 245, 1); border: 1px solid rgba(245, 245, 245, 1); border-radius: 7px; height: 34px;')
-                #sprint-completion.progress-bar.progress-bar-custom.active(role="progressbar", aria-valuenow="0", aria-valuemin="0", aria-valuemax="100", style="width: 0%;background-color: rgba(77, 77, 77, 1); background-image: -webkit-gradient(linear,0 100%,100% 0,color-stop(0.25,rgba(255, 255, 255, 0.15),color-stop(0.25,transparent),color-stop(0.5,transparent),color-stop(0.5,rgba(255, 255, 255, 0.15)),color-stop(0.75,rgba(255, 255, 255, 0.15)),color-stop(0.75,transparent),to(transparent))); background-image: -webkit-linear-gradient(45deg,rgba(255, 255, 255, 0.15) 25%,transparent 25%,transparent 50%,rgba(255, 255, 255, 0.15) 50%,rgba(255, 255, 255, 0.15) 75%,transparent 75%,transparent); background-image: linear-gradient(45deg,rgba(255, 255, 255, 0.15) 25%,transparent 25%,transparent 50%,rgba(255, 255, 255, 0.15) 50%,rgba(255, 255, 255, 0.15) 75%,transparent 75%,transparent); background-size: 40px 40px;padding:5px;")
-                  span.sprint-completion.sr-only 0%
-                  small.sprint-completion 0% 
-              .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle 
-                small
-                  b Remaining Task
-              .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle 
-                small
-                  b Remaining Stories
-              .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle
-                small#remaining-sprint-task 0 
-              .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle
-                small#remaining-sprint-stories 0
-              .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle 
-                small
-                  b Time Estimate
-              .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle 
-                small
-                  b On Schedule
-              .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle
-                small#remaining-sprint-time 0 hours
-              .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle
-                small#status-sprint-time Early
-              br
-              br
-              br
-              
-          .col-xs-12.col-sm-6.col-md-6.col-lg-6
-            .col-xs-12.col-sm-12.col-md-12.col-lg-12   
-              h5 Project Life Cycle    
-              .progress.progress-bar-striped(style='background: rgba(245, 245, 245, 1); border: 1px solid rgba(245, 245, 245, 1); border-radius: 7px; height: 34px;')
-                #project-completion.project.progress-bar.progress-bar-custom.active(role="progressbar", aria-valuenow="0", aria-valuemin="0", aria-valuemax="100", style="width: 0%;background-color: rgba(77, 77, 77, 1); background-image: -webkit-gradient(linear,0 100%,100% 0,color-stop(0.25,rgba(255, 255, 255, 0.15),color-stop(0.25,transparent),color-stop(0.5,transparent),color-stop(0.5,rgba(255, 255, 255, 0.15)),color-stop(0.75,rgba(255, 255, 255, 0.15)),color-stop(0.75,transparent),to(transparent))); background-image: -webkit-linear-gradient(45deg,rgba(255, 255, 255, 0.15) 25%,transparent 25%,transparent 50%,rgba(255, 255, 255, 0.15) 50%,rgba(255, 255, 255, 0.15) 75%,transparent 75%,transparent); background-image: linear-gradient(45deg,rgba(255, 255, 255, 0.15) 25%,transparent 25%,transparent 50%,rgba(255, 255, 255, 0.15) 50%,rgba(255, 255, 255, 0.15) 75%,transparent 75%,transparent); background-size: 40px 40px;padding:5px;")
-                  span.project-completion.sr-only 0% Complete       
-                  small.project-completion 0% 
-              .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle 
-                small
-                  b Remaining Task
-              .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle 
-                small
-                  b Remaining Stories
-              .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle
-                small#remaining-task 0
-              .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle
-                small#remaining-stories 0
-              .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle 
-                small
-                  b Time Estimate
-              .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle 
-                small
-                  b On Schedule
-              .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle
-                small#remaining-time 0 hours
-              .col-xs-6.col-sm-6.col-md-6.col-lg-6.middle
-                small#status-time Early
-              br
-              br
-              br
-              br
-              
-          
+
           
 // End Jade Template

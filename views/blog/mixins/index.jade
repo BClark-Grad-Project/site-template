@@ -1,3 +1,26 @@
+mixin titlePageShort(blog)
+  a(href='/blog/' + blog.id, style='margin:0px;padding-top:0px;')
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding:0px;margin:0px;')
+      h3(style='margin-bottom:0px;') #{blog.article.title}
+      small.text-muted #{monthNames[blog.written.getMonth()]} #{blog.written.getDate()}, #{blog.written.getFullYear()} 
+      br
+      br
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding-left:0px;')
+    if blog.article.description.length > 899
+      p.text-muted
+        if blog.article.image
+          img.img-rounded.pull-left(src=blog.article.image, style='max-width:100%;height:auto;margin-right:10px;margin-bottom:10px;')
+        != blog.article.description.substring(0, 900)
+        | ...  
+        a(href='/blog/' + blog.id, style='white-space:nowrap;') [ + more ]
+    else
+      p.text-muted
+        if blog.article.image
+          img.img-rounded.pull-left(src=blog.article.image, style='max-width:100%;height:auto;margin-right:10px;margin-bottom:10px;')
+        != blog.article.description
+    br
+  br  
+  
 mixin article(blog)
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     h2(style='margin-bottom:0px;') #{blog.article.title}

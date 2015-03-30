@@ -6,13 +6,14 @@ module.exports = function (data) {
 	var cookieParser = require('cookie-parser');
 	var bodyParser   = require('body-parser');
 	var multer       = require('multer');
-	
+	var fs           = require('fs');
 	
 	var app = express();
 	
 	// App description
-	app.locals.service_code = 'gradhome';
-	app.locals.service_name = 'Brandons Graduate Project';
+	var appAuth = require('/opt/site/site-template.json');
+	app.locals.service_code = appAuth.service_code;
+	app.locals.service_name = appAuth.service_name;
 	
 	var routeHome    = require('./routes/index')(data);
 	var routeAuth    = require('./routes/auth')(data);
@@ -36,6 +37,18 @@ module.exports = function (data) {
 	//For session handling.
 	app.use(data.secure.create());
 	app.use(data.secure.register);
+
+	// Force HTTPS connections
+	//function ensure(req, res, next){
+	//	var port = app.get('port') === 80 ? '' : ':' + app.get('secure'); // Only for testing under local ENV
+	//	
+	//	if(req.secure){
+	//	  // OK, continue
+	//	  return next();
+	//	};
+	//	res.redirect('https://' + req.hostname + port + req.url); 
+	//};
+	//app.all('*', ensure); // Top of routes. (Required to push HTTPS on all routes.)
 	
 	// Route to data manipulation and content
 	app.use('/', routeHome);

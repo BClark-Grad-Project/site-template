@@ -10,16 +10,17 @@ module.exports = function (data) {
 		    });
 		  }
 		});
+    // Gitrepo updates
 	var git = [];
-	var client = github.client('OAUTHKEYENTRY');
+	var gitAuth = require('/opt/githib/github.json');
+	var client = github.client(gitAuth.secretKey);
 	var ghme   = client.user('BClark-Grad-Project');
 	var runGitCheck = function(){
 		ghme.events(1,10,["PushEvent", "CreateEvent"], function (err, gitdata, headers) {
 			if(err){console.error(err);}
 			git = gitdata;
 		});
-	};
-	
+	};	
 	runGitCheck();
 	setInterval(function(){
 		runGitCheck();
