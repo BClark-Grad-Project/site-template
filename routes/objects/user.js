@@ -19,7 +19,7 @@ var getLinkedInRegistration = function(req){
 		lin = {
 			id:  user
 		};
-	} 
+	}
 
 	return lin;
 };
@@ -56,9 +56,7 @@ var getFacebookRegistration = function(req){
 
 var getSocialCredentials = function(req){
 	var social = {};
-	
-	social.service = req.app.locals.service_code;
-	
+		
 	social.linkedin = getLinkedInRegistration(req);
 	social.gplus = getGPlusRegistration(req);
 	social.facebook = getFacebookRegistration(req);
@@ -286,6 +284,7 @@ module.exports.getSocialRegistrationObj = function(req){
 	var social  = getSocialCredentials(req);
 	
 	user.social = social;
+	user.social.service = req.app.locals.service_code;
 	
 	return user;
 };
@@ -293,10 +292,16 @@ module.exports.getSocialRegistrationObj = function(req){
 module.exports.getServiceRegistrationObj = function(req){
 	var user    = registrationObj(req);
 	var social  = getSocialCredentials(req);
+	var authorization = getAuthorization(req);
+	var password = req.body.password ? req.body.password : undefined;
 	
 	if(social.facebook.id || social.linkedin.id || social.gplus.id){
 		user.social = social;
 	}
+	if(password){
+		user.password = password;		
+	}
+	user.authorization = authorization;
 	
 	return user;
 };

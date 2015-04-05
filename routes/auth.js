@@ -5,9 +5,7 @@ module.exports = function (data) {
 	var backURL;
 	
 	var registrationError = function(err){
-		if(err.type == 'email_taken'){
-			return {type:'email_taken', detail:'The email address has already been registered.'};
-		} else if(err.type == 'email_null'){
+		if(err.type == 'email_null'){
 			return {type:'email_null', detail:'The email adrress was not provided by social registration.'};
 		} else if(err.type == 'alias_taken'){
 			return {type:'alias_taken', detail:'The login name has already been registered.'};
@@ -62,11 +60,18 @@ module.exports = function (data) {
 			res.render('auth/fixregistration', retry);
 		} else {
 			console.log('registering', authorization);
-			data.profile.create(req.session, authorization,function(err, user){
+			data.profile.create(req.session, authorization, function(err, user){
 				if(err){
 					console.log('error : ', err);
-					retry =	fixRegistration(req, err, user);
-					res.render('auth/fixregistration', retry);
+					if(err.type == 'forgot_account_login'){	
+						var errType = {type:'service_auth_request', detail:'You have an account in our system, add service to account?'};
+						res.render('auth/fixregistration', {title: 'Account Exist', user: req.session.user, retry: user, err: errType});
+					} else if(err.type == 'service_auth_request'){				
+						var errType = {type:'service_auth_request', detail:'You have an account in our system, add service to account?'};
+						res.render('auth/addservice', {title: 'Add service to account.', user: req.session.user, retry: user, err: errType});
+					} else {
+						res.redirect('/');
+					}
 				} else {
 					res.redirect('/account');
 				}
@@ -97,8 +102,7 @@ module.exports = function (data) {
 		data.profile.create(req.session, authorization,function(err, user){
 			if(err){
 				console.log('error : ', err);
-				retry =	fixRegistration(req, err, user);
-				res.render('auth/fixregistration', retry);
+				res.redirect('/');
 			} else {
 				res.redirect('/account');
 			}

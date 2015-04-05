@@ -23,35 +23,52 @@ mixin resetRegistrationFields()
 //    if retry.contact.
 //      input.form-control(type='hidden', value=retry.contact.)
   
+mixin addSocial()
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    form#add-social-form(method='POST', action='/authentication/register/add/social')
+      p Add social services to  
+        b #{retry.credentials.email}   
+        |   account.
+      br
+      label(for='password') Password
+      br
+      input(name='password', type='password')
+      +setUserId()
+      +setAlias()
+      +setEmail()
+      +resetRegistrationFields()       
+      button.btn.btn-lg(type='submit') Add To Account
+          
+mixin addService()
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    form#add-service-form(method='POST', action='/authentication/register/add/service')
+      p Add services to  
+        b #{retry.credentials.email}   
+        | account.
+      br
+      .col-xs-12.col-sm-10.col-md-7.col-lg-6
+        if retry.social.facebook || retry.social.linkedin 
+          
+        else
+          label(for='password') Password
+          input.form-control(name='password', type='password')
+        br
+        +setUserId()
+        +setAlias()
+        +setEmail()
+        +resetRegistrationFields()
+        button.btn.btn-lg(type='submit') Add To Account
+
 mixin fixEmail()
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     form#fix-form-email(method='POST', action='/authentication/register')
-      if retry.credentials.email
-        p Try a different email.
-      else 
-        p No login name was provided.
+      p No login name was provided.
       +resetRegistrationFields()
       +setAlias()
-      - var email = retry.credentials.email ? retry.credentials.email : '';
       label(for='email') Email 
-      input.form-control(type='input', name='email', value=email)    
+      input.form-control(type='input', name='email')    
       br
       button.btn.btn-lg(type='submit') Submit
-    hr
-    p 
-      a(data-toggle='modal', data-target='#login-form-modal') Sign-in or reset password   
-      |    for user account.
- //   if retry.social
- //     if retry.social.facebook.id || retry.social.linkedin.id || retry.social.gplus.id
- //       hr
- //       p Add social services to user account:
- //       br        
- //       form#fix-form-social-addition(method='POST', action='/authentication/register/add/social')
- //         +setUserId()
- //         +setAlias()
- //         +setEmail()
- //         +resetRegistrationFields()       
- //         button.btn.btn-lg(type='submit') Add Account
 
 mixin fixAlias()
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
@@ -64,7 +81,7 @@ mixin fixAlias()
       +setEmail()
       - var alias = retry.credentials.alias ? retry.credentials.alias : '';
       label(for='alias') Login Name
-      input.form-control(type='input', name='alias', value=alias)
+      input.form-control(type='input', name='alias', value=alias, required)
       br
       button.btn.btn-lg(type='submit') Submit
       
@@ -72,20 +89,12 @@ mixin fixEmailAlias()
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     form#fix-form-email-alias(method='POST', action='/authentication/register')
       +resetRegistrationFields()
-      if retry.credentials.alias
-        p The name you have chosen is taken.  
-      else 
-        p No login name was provided.
-      - var email = retry.credentials.email ? retry.credentials.email : '';
+      p No email was provided.
       label(for='email') Email
-      input.form-control(type='input', name='email', value=email, required)  
-      if retry.credentials.alias
-        p The name you have chosen is taken.  
-      else  
-        p No login name was provided.
-      - var alias = retry.credentials.alias ? retry.credentials.alias : '';
+      input.form-control(type='input', name='email', required)  
+      p No login name was provided.
       label(for='alias') Login Name
-      input.form-control(type='input', name='alias', value=alias, required)
+      input.form-control(type='input', name='alias', required)
       br
       button.btn.btn-lg(type='submit') Submit
     

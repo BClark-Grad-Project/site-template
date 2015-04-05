@@ -1,0 +1,18 @@
+// Begin Jade template.
+extends ../layout
+ 
+include ./mixins/index.jade
+
+block css
+    
+//-HTML content to display.
+block content
+  #main.jumbotron
+    .container
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          h1 Add Service?
+  section#add_account.container
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        +addService()
