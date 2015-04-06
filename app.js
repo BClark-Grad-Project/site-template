@@ -18,7 +18,6 @@ module.exports = function (data) {
 	var routeHome    = require('./routes/index')(data);
 	var routeAuth    = require('./routes/auth')(data);
 	var routeAcct    = require('./routes/account')(data);
-	var routeManager = require('./routes/manager')(data);
 	var routeBlog    = require('./routes/blog')(data);
 	var routeSurvey    = require('./routes/survey')(data);
 	
@@ -54,7 +53,6 @@ module.exports = function (data) {
 	app.use('/', routeHome);
 	app.use('/authentication', routeAuth);
 	app.use('/account', routeAcct);
-	app.use('/manager', routeManager);
 	app.use('/blog', routeBlog);
 	app.use('/survey', routeSurvey);
 	

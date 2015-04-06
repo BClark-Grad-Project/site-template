@@ -21,17 +21,8 @@ module.exports = function (data) {
 				for(var i in blog){
 			    	blog[i].article.description = marked(blog[i].article.description);
 			    }
-				data.project.read({active:true},function(err, project){
-					if(err){console.error(err);}
-					/*if(project.description){
-					project.description = marked(project.description);
-					}
-					if(project.vision){
-						project.vision = marked(project.vision);
-					}*/
-					
-					res.render('index', {project:project, blog:blog, title:req.app.locals.service_name, user: req.session.user });
-				});
+				res.render('index', {blog:blog, title:req.app.locals.service_name, user: req.session.user });
+
 			});
 	});
 	
