@@ -21,29 +21,35 @@ body {
 body h1 {
 	font-weight: bold;
 	color: #000000;
+	text-decoration: none;
 }
 
 body h2 {
 	font-weight: bold;
 	color: #161616;
+	text-decoration: none;
 }
 
 body h3 {
 	font-weight: bold;
 	color: #222222;
+	text-decoration: none;
 }
 
 body h4 {
 	font-weight: bold;
 	color: #383838;
+	text-decoration: none;
 }
 
 body h5 {
 	color: #494949;
+	text-decoration: none;
 }
 
 body h6 {
 	color: #5a5a5a;
+	text-decoration: none;
 }
 
 .text-muted{
@@ -100,24 +106,14 @@ body h6 {
 	border-radius:3px;
 }
 
-ul.nav.navbar-nav > li > a:link,ul.nav.navbar-nav > li > a:visited{
-	font-weight: normal;
-	color: #f1f1f1;
-}
-
-ul.nav.navbar-nav > li.disabled > a:link,ul.nav.navbar-nav > li.disabled > a:visited{
-	font-weight: normal;
-	color: #686868;
-}
-
-ul.nav.navbar-nav > li > a:hover,ul.nav.navbar-nav li > a:active{
-	color: #989898;
-}
-
-
 a, a:link, a:visited{
 	color: #000000;
 	font-weight: bold;
+	text-decoration: none;
+}
+
+a:hover, a:focus{
+	text-decoration: none;
 }
 
 .middle {

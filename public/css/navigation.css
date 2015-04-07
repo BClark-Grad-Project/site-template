@@ -1,4 +1,31 @@
 @CHARSET "UTF-8";
+
+.navbar-brand > a > h4,
+.navbar-brand > a:link > h4,
+.navbar-brand > a:visited > h4,
+.navbar-inverse .navbar-nav > li > a ,
+.navbar-inverse .navbar-nav > li > a:link,
+.navbar-inverse .navbar-nav > li > a:visited {	
+	text-decoration: none;
+	font-weight: normal;
+	color: #f1f1f1;
+	cursor:pointer;
+}
+
+.navbar-brand > a:hover > h4,
+.navbar-brand > a:focus > h4,
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {	
+	text-decoration: none;
+	color: #989898;
+}
+
+
+.navbar-brand > a:hover > h4 > img,
+.navbar-brand > a:focus > h4 > img{
+	opacity:0.3;
+}
+
 .nav-button{
 	height: auto;
 	width:auto;

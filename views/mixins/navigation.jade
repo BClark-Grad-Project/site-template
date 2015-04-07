@@ -42,10 +42,10 @@ mixin guestNav()
     +register()
 
 mixin signIn()
-  a(role='menuitem', tabindex='-1', data-toggle='modal', data-target='#login-form-modal') Sign In
+  a(role='menuitem', data-toggle='modal', data-target='#login-form-modal') Sign In
   
 mixin register()
-  a(role='menuitem', tabindex='-1', data-toggle='modal', data-target='#register-form-modal') Register Account
+  a(role='menuitem', data-toggle='modal', data-target='#register-form-modal') Register Account
   
 mixin userIcon()
   if user.detail.img
@@ -303,7 +303,7 @@ mixin userContact(data)
 mixin navLinks()
   ul.nav.navbar-nav(style='margin:0px,padding:0px;')
     li
-      a(href='/about.html') About
+      a.navbar-links(href='/about.html') About
           
 mixin userOptions()
   ul.dropdown-menu(role='menu')
@@ -324,7 +324,7 @@ mixin userOptions()
         span.glyphicon.glyphicon-log-out
         
 mixin navUser()
-  ul.nav.navbar-nav.navbar-right(style='float:right;')
+  ul.nav.navbar-nav.navbar-right
     if userType(user.authorizations) !== 'guest'
       li.dropdown(style='margin:0px;padding:0px;float:right;')
         a.nav-button.dropdown-toggle(data-toggle='dropdown', style='padding:0px 15px;padding-top:0px;padding-bottom:0px;margin:0px;')
@@ -336,12 +336,10 @@ mixin navUser()
               +userIcon() 
         +userOptions()
     if userType(user.authorizations) === 'guest'   
-      li.navbar-right(style='float:right;margin:0px;')
-        a(role='menuitem', tabindex='-1', data-toggle='modal', data-target='#register-form-modal')
-          small Sign up
-      li#navbar-signin.navbar-right(style='float:right;margin:0px;padding:0px;')
-        a(role='menuitem', tabindex='-1', data-toggle='modal', data-target='#login-form-modal')
-          small Sign in
+      li(style='margin:0px;')
+        a.navbar-links(data-toggle='modal', data-target='#register-form-modal') Sign up  
+      li(style='margin:0px;padding:0px;')
+        a.navbar-links(data-toggle='modal', data-target='#login-form-modal') Sign in   
       //li.navbar-right(style='float:right;margin:0px;padding:0px;padding-top:8px;')
       //  form.navbar-form.hide-md(role='form', method='POST', action='/authentication', style='margin:0px;padding:0px;')
       //    input.form-control(name='user', type='input', placeholder='user', style='margin:0px;width:125px;')

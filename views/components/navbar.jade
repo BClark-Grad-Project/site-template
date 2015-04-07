@@ -5,17 +5,18 @@ if userType(user.authentications) === 'guest'
   include register.jade
   include app.jade
 
-nav.navbar.navbar-inverse(role='navigation',style='margin:0px;padding:0px;')
+nav.navbar.navbar-inverse(role='navigation',style='margin:0px;padding:0px;position:relitive;')
+  div(style='position:absolute;top:0;bottom:0;left:0;right:0;background-image:url("/images/survey/analysis-bg.jpg");background-attachment:fixed;background-size:cover;opacity:0.3;')
   .container-fluid(style='margin:0px;padding-left:0px;')
     .navbar-header.navbar-left.col-xs-8.col-sm-3.col-md-3.col-lg-2(style='padding:0px; margin:0px;')
       a.collapsed.navbar-toggle(data-toggle='collapse', data-target='#navigation', style='float:left;border:0px;padding:0px;padding-top:10px;margin:0px;')
-        h4(style='margin:0px;padding:10px;color:white;white-space:nowrap;')
+        h4(style='margin:0px;padding:10px;white-space:nowrap;')
           img(src='/images/site/logo-ico.png', style='margin-top:0px;padding-top:0px;height:30px;')
           |  Mind Research 
           span.caret.text-muted(style='margin:0px;padding:0px;margin-right:10px;')
       .navbar-brand.hide-sm(style='float:left;padding:0px;border:0px;margin:0px;margin-top:0px;padding-top:0px;')
         a(href='/', style='margin:0px;padding:0px;margin-top:0px;padding-top:0px;')
-          h4(style='margin:0px;padding:10px;color:white;white-space:nowrap;')
+          h4(style='margin:0px;padding:10px;white-space:nowrap;')
             img(src='/images/site/logo-ico.png', style='margin-top:0px;padding-top:0px;height:30px;')
             |  Mind Research  
     #navigation.collapse.navbar-collapse.navbar-left.col-xs-12.col-sm-4.col-md-4.col-lg-6(style='padding:0px; margin:0px;')
