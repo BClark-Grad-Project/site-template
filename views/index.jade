@@ -5,16 +5,18 @@ include ./blog/mixins/index.jade
 
 //-HTML content to display.
 block content
-  #main.jumbotron(style='background-image:url("/images/survey/analysis-bg.jpg");background-attachment:fixed;background-size:cover;')
+  #main.jumbotron(style='position:relative;')
+    div(style='position:absolute;height:100%;top:0;right:0;bottom:0;left:0;background-image:url("/images/survey/digital-bg.png");background-attachment:fixed;background-size:cover;opacity:0.3;')
     .container
       .row
         .col-xs-12.col-sm-12.col-md-12.col-lg-12
           br
-          h1 Giving you the egde on consumer information the way you need it!  
+          h1(style='color:url("/images/survey/digital-bg.png");background-attachment:fixed;background-size:cover;') Easy Developer Access 
+          h1(style='color:url("/images/survey/digital-bg.png");background-attachment:fixed;background-size:cover;') for Mind Rearch Data
           .col-xs-8.col-sm-9.col-md-10.col-lg-10.middle
-            h4.pull-right(style='text-align:right;') Mind Research Questionaire Analysis Tools    
+            h4.pull-right(style='text-align:right;color:url("/images/survey/digital-bg.png");background-attachment:fixed;background-size:cover;') Mind Research Questionaire Analysis Tools    
           .col-xs-4.col-sm-3.col-md-2.col-lg-2.middle  
-            a.btn.btn-default.btn-lg.pull-right.btn-success(href="/create",role="button") Get Started »  
+            a.btn.btn-default.btn-lg.pull-right(href="/create",role="button") Start Coding »  
           br
           
   section#how-it-works.container
@@ -22,37 +24,36 @@ block content
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
         h2 How It Works
         .col-xs-6.col-sm-6.col-md-4.col-lg-4.middle
-          img(src='/images/survey/create-growth.png', style='width:200px;')
+          //img(src='/images/survey/create-key.png', style='width:200px;')
           hr
-          small Create a questionnaire for the topic of your choice with questions that have meaning to your organization.
+          small 
           br
           br
           br
         .col-xs-6.col-sm-6.col-md-4.col-lg-4.middle
-          img(src='/images/survey/conduct-growth.png', style='width:200px;')
+          //img(src='/images/survey/read-api.png', style='width:200px;')
           hr          
-          small Get consumer response by conducting questionnaire request with email, text and social platforms.
+          small 
           br
           br
           br
         .col-xs-3.col-sm-3.col-md-0.col-lg-0
         .col-xs-6.col-sm-6.col-md-4.col-lg-4.middle
-          img(src='/images/survey/analyze-growth.png', style='width:200px;')
+          //img(src='/images/survey/analyze-data.png', style='width:200px;')
           hr
-          small Wait for consumers to respond to your request and make your numbers valuable to your organization with Mind Research tools.
+          small 
           br
           br
           br
         .col-xs-3.col-sm-3.col-md-0.col-lg-0
   section(style='position:relative;')
-    div(style='position:absolute;height:100%;top:0;right:0;bottom:0;left:0;background-image:url("/images/survey/analysis-bg.jpg");background-attachment:fixed;background-size:cover;opacity:0.3;')
+    div(style='position:absolute;height:100%;top:0;right:0;bottom:0;left:0;background-image:url("/images/survey/digital-bg.png");background-attachment:fixed;background-size:cover;opacity:0.3;')
     hr(style='margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;')
     #about.container(style='z-index:100;')
       .row
         .col-xs-12.col-sm-12.col-md-12.col-lg-12   
           .col-xs-12.col-sm-8.col-md-8.col-lg-8
             br
-            h4 Recent Questionnaire's
             br
             br
             br
@@ -68,7 +69,7 @@ block content
             br
           .col-xs-12.col-sm-4.col-md-4.col-lg-4
             br
-            h4 Mind Research Update's
+            h4 Developer News
             br
             br
             br

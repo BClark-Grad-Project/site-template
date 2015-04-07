@@ -303,7 +303,9 @@ mixin userContact(data)
 mixin navLinks()
   ul.nav.navbar-nav(style='margin:0px,padding:0px;')
     li
-      a.navbar-links(href='/about.html') About
+      a.navbar-links(href='/howto') Guide
+    li
+      a.navbar-links(href='/api') API
           
 mixin userOptions()
   ul.dropdown-menu(role='menu')
@@ -337,9 +339,9 @@ mixin navUser()
         +userOptions()
     if userType(user.authorizations) === 'guest'   
       li(style='margin:0px;')
-        a.navbar-links(data-toggle='modal', data-target='#register-form-modal') Sign up  
+        a.pull-right(data-toggle='modal', data-target='#register-form-modal') Sign up  
       li(style='margin:0px;padding:0px;')
-        a.navbar-links(data-toggle='modal', data-target='#login-form-modal') Sign in   
+        a.pull-right(data-toggle='modal', data-target='#login-form-modal') Sign in   
       //li.navbar-right(style='float:right;margin:0px;padding:0px;padding-top:8px;')
       //  form.navbar-form.hide-md(role='form', method='POST', action='/authentication', style='margin:0px;padding:0px;')
       //    input.form-control(name='user', type='input', placeholder='user', style='margin:0px;width:125px;')
