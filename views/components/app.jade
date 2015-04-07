@@ -1,0 +1,24 @@
+mixin appLinks()
+  ul.nav.navbar-nav(style='margin:0px,padding:0px;')
+    li
+      a(href='/create')   
+        span.glyphicon.glyphicon-leaf   
+        |   Create    
+    li
+      a(href='/conduct')   
+        span.glyphicon.glyphicon-grain  
+        |   Conduct   
+    li
+      a(href='/analyze')   
+        span.glyphicon.glyphicon-tree-deciduous   
+        |   Analyze   
+        
+mixin appUserLinks()
+  li
+    a(href='/survey/user') Overview  &nbsp; 
+  li
+    a(href='/survey/user/inprogress') In Progress  &nbsp; 
+  li
+    a(href='/survey/open/user') Open  &nbsp; 
+  li
+    a(href='/survey/closed/user') Closed  &nbsp; 

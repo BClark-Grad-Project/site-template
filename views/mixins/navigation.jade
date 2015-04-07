@@ -32,9 +32,9 @@ mixin adminNav()
 
 mixin generalUserNav()
   block
-  li.dropdown-header(style='padding:0px 10px;margin-bottom:0px;background:#f9f9f9;') User Menu
+  li.dropdown-header(style='padding:0px 10px;margin-bottom:0px;background:#f9f9f9;') Questionnaire Management
   li.divider(style='padding-top:0px;margin-top:0px;')
-  block generalUserNav
+  +appUserLinks()
 
 mixin guestNav()
   block
@@ -329,7 +329,7 @@ mixin navUser()
       li.dropdown(style='margin:0px;padding:0px;float:right;')
         a.nav-button.dropdown-toggle(data-toggle='dropdown', style='padding:0px 15px;padding-top:0px;padding-bottom:0px;margin:0px;')
           .nav-profile-name.pull-left(style='margin:0px;padding:4px 0px;')
-            small(style='color:#ffffff;') Signed in as: 
+            small(style='color:#ffffff;') Signed in as:    &nbsp;  
             .nav-user #{user.credentials.alias} &nbsp;  
           button.btn-link(type='button', style='padding:3px 0px;margin:0px;')
             .nav-profile-icon(style='padding:0px;margin:0px;')
