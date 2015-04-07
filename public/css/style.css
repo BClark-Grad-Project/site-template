@@ -116,6 +116,17 @@ a:hover, a:focus{
 	text-decoration: none;
 }
 
+a.btn-success,
+a.btn-success:link,
+a.btn-success:visited {
+	color:#ececec;
+}
+
+a.btn-success:hover,
+a.btn-success:focus {
+	color:#d9d9d9;
+}
+
 .middle {
 	text-align: center;
 	verticle-align:middle;
