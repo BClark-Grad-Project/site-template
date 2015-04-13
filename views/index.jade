@@ -16,7 +16,7 @@ block content
           .col-xs-8.col-sm-9.col-md-10.col-lg-10.middle
             h4.pull-right(style='text-align:right;color:url("/images/survey/digital-bg.png");background-attachment:fixed;background-size:cover;') Mind Research Questionnaire Analysis Tools    
           .col-xs-4.col-sm-3.col-md-2.col-lg-2.middle  
-            a.btn.btn-default.btn-lg.pull-right(href="/create",role="button") Start Coding »  
+            a.btn.btn-default.btn-lg.pull-right(href="/guide",role="button") Start Coding »  
           br
   section#how-it-works.container
     .row
@@ -26,9 +26,10 @@ block content
           h3 Step
           img(src='/images/survey/step-1.png', style='width:150px;margin:0px;padding:0px;')
           hr
-          p Create an application key. 
           br
-          a.btn.btn-default.btn-md(href='/survey/user/key',role="button") Create App 
+          p(style='min-height:50px;') Create an application for an access key. 
+          br
+          a.btn.btn-default.btn-md(href='/app/new',role="button") Create App 
           br
           br
           br
@@ -37,9 +38,10 @@ block content
           h3 Step
           img(src='/images/survey/step-2.png', style='width:150px;margin:0px;padding:0px;')
           hr
-          p Integrate api request to your application.
           br
-          a.btn.btn-default.btn-md(href='/api',role="button") API Docs 
+          p(style='min-height:50px;') Integrate api request to your application. Share your libraries!
+          br
+          a.btn.btn-default.btn-md(href='/apidocs',role="button") API Docs 
           br
           br
           br
@@ -49,9 +51,10 @@ block content
           h3 Step
           img(src='/images/survey/step-3.png', style='width:150px;margin:0px;padding:0px;')
           hr
-          p Enjoy your services!
           br
-          a.btn.btn-default.btn-md(href='/survey/user/keyaccess',role="button") My Apps 
+          p(style='min-height:50px;') Begin creating questionnaires to analyze!
+          br
+          a.btn.btn-default.btn-md(href='http://themindspot.com',role="button") Begin Research 
           br
           br
           br
@@ -65,37 +68,33 @@ block content
         .col-xs-12.col-sm-12.col-md-12.col-lg-12   
           .col-xs-12.col-sm-8.col-md-8.col-lg-8
             br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
+            .panel.panel-default(style='opacity:0.5;padding:10px;')
+              .panel-body
+                br
+                br
+                br
+                br
+                h1 Demo Coming
+                br
+                br
+                br
+                br
+                br
           .col-xs-12.col-sm-4.col-md-4.col-lg-4
             br
             h4 Developer News
             br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
+            if blog != undefined
+              small No updates...
+            else
+              ul.nav.nav-pills.nav-stacked
+                for j in blog
+                  li(role="presentation") 
+                    small
+                      a(href='/blog/'+j.id) #{j.title}
             br
             br
           .col-xs-12.col-sm-12.col-md-12.col-lg-12.middle
-            br
             h5 
               b Follow #{title}    
               |    

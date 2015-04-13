@@ -1,0 +1,136 @@
+// Begin Jade template.
+extends layout
+
+//-HTML content to display.
+block content
+  #main.jumbotron(style='position:relative;')
+    div(style='position:absolute;height:100%;top:0;right:0;bottom:0;left:0;background-image:url("/images/survey/digital-bg.png");background-attachment:fixed;background-size:cover;opacity:0.3;')
+    .container
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          h1 API Documents
+  section#how-it-works.container
+    .row
+      .col-xs-0.col-sm-12.col-md-12.col-lg-12.hide-sm
+        .panel
+          br
+          h2 Contributing!
+          p If you have created a library for accessing 
+            b  Mind Research 
+            |  please share your work with us at 
+            i 
+              b  bclark10@csu.fullerton.edu
+            | .  
+          br
+          br
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        .col-xs-12.col-sm-3.col-md-3.col-lg-3
+          br
+          h4
+           b Navigation
+          ul.nav.nav-pills.nav-stacked
+            li(role="presentation") 
+              a(href='#web-apps') Web Apps
+            li(role="presentation") 
+              a(href='#other-libraries') Other Libraries
+          br
+          br
+        .col-xs-12.col-sm-9.col-md-9.col-lg-9
+          h2#web-apps Web App Access
+          hr
+          br
+          p Data is delivered though JSON objects and can only communicate with the data associated to its 
+            b  Mind Research 
+            |  account. 
+          br
+          br  
+          br  
+          h3 Making Request
+          br      
+          h4 Getting Data
+          br
+          .panel.panel-default
+            .panel-body
+              | Request can be made of HTTPS using both GET and POST methods.          
+          br
+          h5
+            b My Questionnaire Id's
+          pre(style='padding: 0px 30px;') 
+            code
+              .panel.panel-default
+                .panel-body
+                  i https://api.themindspot.com/r/*AccessKey*
+              p
+                b returns  
+                |  [{
+              p(style='text-indent:20px;') id : String, 
+              p(style='text-indent:20px;') name : String 
+              | }]
+              br
+              br
+          h5 Example
+          .panel.panel-default(style='padding: 0px 30px;') 
+            .panel-body
+              i GET https://api.themindspot.com/r/dc06376e-d658-4d27-bff7-ae04733fe412
+          br
+          br
+          h5
+            b Questionnaire Information
+          pre(style='padding: 0px 30px;') 
+            code 
+              .panel.panel-default
+                .panel-body
+                  i https://api.themindspot.com/r/*QuestionnaireId*/*AccessKey*
+              p
+                b returns  
+                |  {
+              p(style='text-indent:20px;') id : String, name : String, 
+              p(style='text-indent:20px;') description : String, 
+              p(style='text-indent:20px;') questionnaire : Object, 
+              p(style='text-indent:20px;') responseNumber : Integer, 
+              p(style='text-indent:20px;') active : Boolean 
+              | }
+              br
+              br
+          h5 Example
+          .panel.panel-default(style='padding: 0px 30px;') 
+            .panel-body
+              i GET https://api.themindspot.com/r/response/5521559bdb41e8b51b21e96e/dc06376e-d658-4d27-bff7-ae04733fe412
+          br
+          br
+          h5
+            b Response Facts
+          pre(style='padding: 0px 30px;') 
+            code 
+              .panel.panel-default
+                .panel-body
+                  i https://api.themindspot.com/r/response/*start*/*end*/*QuestionnaireId*/*AccessKey*
+              small Responses can only be gathered in batches of 
+                i  50
+                | .
+              br
+              br
+              p
+                b returns  
+                |  {
+              p(style='text-indent:20px;') id : String,
+              p(style='text-indent:20px;') userInfo : Object,
+              p(style='text-indent:20px;') response : Object,
+              p(style='text-indent:20px;') responded : Date 
+              | }
+              br
+              br
+          h5 Example
+          .panel.panel-default(style='padding: 0px 30px;') 
+            .panel-body
+              i GET https://api.themindspot.com/r/response/0/49/5521559bdb41e8b51b21e96e/dc06376e-d658-4d27-bff7-ae04733fe412
+          br
+          br
+          br
+          br
+          h2#other-libraries Other Libraries
+          hr
+          br
+          p Please contribute.
+          br
+          p 

@@ -1,0 +1,109 @@
+// Begin Jade template.
+extends layout
+
+//-HTML content to display.
+block content
+  #main.jumbotron(style='position:relative;')
+    div(style='position:absolute;height:100%;top:0;right:0;bottom:0;left:0;background-image:url("/images/survey/digital-bg.png");background-attachment:fixed;background-size:cover;opacity:0.3;')
+    .container
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          h1 Developers Guide
+  section#how-it-works.container
+    .row
+      .col-xs-12.col-sm-3.col-md-3.col-lg-3
+        ul.nav.nav-pills.nav-stacked
+          li(role="presentation") 
+            a(href='#new-apps') New App
+          li(role="presentation") 
+            a(href='#new-keys') Re-key App
+          li(role="presentation") 
+            a(href='#delete-apps') Delete App
+        br
+        br
+      .col-xs-12.col-sm-9.col-md-9.col-lg-9
+        h2#new-apps Create Application
+        hr
+        br
+        p Getting access for an application is easy.  From your user menu you can access 
+          b New App 
+          | link or you can access the 
+          b New Application 
+          | button from 
+          b My Apps 
+          | page.  
+        br
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          br
+          b.pull-left Step One
+          br
+          .panel.panel-default
+            .panel-body
+              img(src='/images/survey/app-demo-2.png')
+          br
+          br
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          br
+          b.pull-left Step Two
+          br
+          .panel.panel-default
+            .panel-body
+              img(src='/images/survey/app-demo-3.png')
+          br
+          br
+        br
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          br
+          b.pull-left Step Three
+          | : Copy Key and Hash
+          br
+          br
+          p If you desire the hash key for security reasons it will only be available each time a key is generated.
+          br      
+          .panel.panel-default
+            .panel-body  
+              img(src='/images/survey/app-demo-4.png', style='margin:0px 20px;')
+          br
+          br
+          br
+          br
+        br
+        br
+        br  
+        h2#new-keys Re-key Application
+        hr
+        br
+        p If your application key has been compromised you may want to 
+          b Re-key 
+          | your application.  This feature can be found from editing an application from your 
+          b My Apps 
+          | page.
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          br
+          .panel.panel-default
+            .panel-body
+              img(src='/images/survey/app-demo-5.png')
+          br
+          br
+          br
+          br
+        br
+        br  
+        h2#delete-apps Delete Application
+        br
+        p If for some reason you desire to 
+          b delete 
+          | an application you can do this from your 
+          b My Apps 
+          | page.
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          br
+          .panel.panel-default
+            .panel-body
+              img(src='/images/survey/app-demo-6.png')
+          br
+          br
+          br
+          br
+        br
+        br  

@@ -1,0 +1,39 @@
+extends ../layout
+
+include ./mixins/index.jade
+
+//-HTML content to display.
+block content
+  #main.jumbotron(style='position:relative;')
+    div(style='position:absolute;height:100%;top:0;right:0;bottom:0;left:0;background-image:url("/images/survey/digital-bg.png");background-attachment:fixed;background-size:cover;opacity:0.3;')
+    .container
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          h1.pull-left My Application Authorizations
+          a.btn.btn-lg.btn-inverse.pull-right(href='/app/new', style='color:white;position:absolute;bottom:0;right:0;') New Application
+  section#my-apps.container
+    .row
+      if !apps.length 
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          small You have not setup any applications.
+          br
+          br
+      else
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          br
+          .col-xs-7.col-sm-8.col-md-5.col-lg-5
+            b Name
+          .col-xs-0.col-sm-0.col-md-4.col-lg-4.hide-md
+            b Created 
+          .col-xs-5.col-sm-4.col-md-3.col-lg-3
+            b Options
+          br
+          hr
+          for n in apps
+            .col-xs-7.col-sm-8.col-md-5.col-lg-5(style='margin-bottom:10px;')
+              p #{n.name}
+            .col-xs-0.col-sm-0.col-md-4.col-lg-4.hide-md(style='margin-bottom:10px;')
+              small #{monthNames[n.created.getMonth()]}  #{n.created.getDate()}, #{n.created.getFullYear()}
+            .col-xs-5.col-sm-4.col-md-3.col-lg-3(style='margin-bottom:10px;')
+              a.btn-md.btn.btn-default.pull-left(role='button', style='width:45%;', href='/app/edit/' + n.id) Edit
+              a.btn-md.btn.btn-inverse.pull-right(role='button', style='width:45%;color:white;', href='/app/delete/' + n.id) Delete

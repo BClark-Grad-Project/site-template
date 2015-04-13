@@ -1,0 +1,29 @@
+extends ../layout 
+
+include ./mixins/index.jade
+
+//-HTML content to display.
+block content
+  #main.jumbotron(style='position:relative;')
+    div(style='position:absolute;height:100%;top:0;right:0;bottom:0;left:0;background-image:url("/images/survey/digital-bg.png");background-attachment:fixed;background-size:cover;opacity:0.3;')
+    .container
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          h1 Add Application Key
+  section#add-app.container
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        form#form-add-appkey(method='POST', action='/app/new')
+          .col-xs-12.col-sm-6.col-md-6.col-lg-6
+            label(for='name') Application Name
+            input.form-control(name='name', type='text', required)
+            br
+            br
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12
+            label(for='description') Application Description
+            textarea.form-control(name='description', type='textarea', style='min-height:150px;width:100%;', required)
+            br
+            br
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12
+            a.btn.btn-lg.btn-inverse.pull-right(role='button', href='/app', style='color:white;margin-left:10px;') Cancel   
+            button.btn.btn-lg.btn-default.pull-right(type='submit') Create   

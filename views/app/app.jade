@@ -1,0 +1,77 @@
+extends ../layout
+
+include ./mixins/index.jade
+
+//-HTML content to display.
+block content
+  if app.hash != undefined
+    #new-access.modal.fade(tabindex='-1', role='dialog', aria-labelledby='accessLabel', aria-hidden='true')
+      .modal-dialog.modal-lg
+        .modal-content
+            .modal-header
+              button.close(type='button', data-dismiss='modal')
+                span(aria-hidden='true') &times;
+                span.sr-only Close
+              h3#accessLabel.modal-title New Access Key
+            .modal-body
+              br
+              p You will only be able to obtain the access key while this window is open.  To obtain it again you will need to re-key your application.
+              br
+              label Access Key
+              br
+              small #{app.token}
+              br
+              br
+              label Access Hash
+              br
+              small #{app.hash.hash}
+              br
+              br  
+            .modal-footer
+              button.btn.btn-lg.btn-block.btn-inverse(type='button', data-dismiss='modal') Close
+    script.
+      $('#new-access').modal('show');
+  #main.jumbotron(style='position:relative;')
+    div(style='position:absolute;height:100%;top:0;right:0;bottom:0;left:0;background-image:url("/images/survey/digital-bg.png");background-attachment:fixed;background-size:cover;opacity:0.3;')
+    .container
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          br
+          h1 #{app.name}
+          br
+  section#my-app.container
+    .row
+      .col-xs-12.col-sm-9.col-md-9.col-lg-9
+          form(role='form', method='POST', action='/app/edit')
+            br
+            input.form-control(type='hidden', name='id', value=app.id)
+            .col-xs-12.col-sm-6.col-md-6.col-lg-6
+              label(for='name') Application Name
+              input.form-control(type='text', name='name', value=app.name, required)
+              br
+            .col-xs-12.col-sm-6.col-md-6.col-lg-6
+              label(for='name') Access Key
+              br
+              small #{app.token}
+              br
+              br
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12
+              label(for='description') Description
+              textarea.form-control(name='description', type='textarea', style='min-height:150px;width:100%;', required) #{app.description}
+              br
+              br
+              hr
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12
+              br
+              button.btn.btn-lg.btn-inverse.pull-right(type='clear', style='margin-left:10px;') Undo
+              button.btn.btn-lg.btn-default.pull-right(type='submit') Change
+      .col-xs-12.col-sm-3.col-md-3.col-lg-3
+        br
+        h5 
+          b Application Options
+        hr
+        ul.nav.nav-pills.nav-stacked
+          li(role="presentation") 
+            a(href='/app/rekey/'+ app.id) Re-Key App
+          li(role="presentation") 
+            a(href='/app/delete/' + app.id, style='color:red;') Delete App
