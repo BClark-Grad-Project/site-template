@@ -8,8 +8,8 @@ if userType(user.authentications) === 'guest'
 nav.navbar.navbar-inverse(role='navigation',style='margin:0px;padding:0px;position:relitive;')
   div(style='position:absolute;top:0;bottom:0;left:0;right:0;background-image:url("/images/survey/analysis-bg.jpg");background-attachment:fixed;background-size:cover;opacity:0.3;')
   .container-fluid(style='margin:0px;padding-left:0px;')
-    .navbar-header.navbar-left.col-xs-8.col-sm-3.col-md-3.col-lg-2(style='padding:0px; margin:0px;')
-      a.collapsed.navbar-toggle(data-toggle='collapse', data-target='#navigation', style='float:left;border:0px;padding:0px;padding-top:10px;margin:0px;')
+    .navbar-header.navbar-left.col-xs-8.col-sm-3.col-md-2.col-lg-2(style='padding:0px; margin:0px;')
+      a.collapsed.navbar-toggle(data-toggle='collapse', data-target='#navigation', style='float:left;border:0px;padding:7px 0px;margin:0px;')
         h4(style='margin:0px;padding:10px;white-space:nowrap;')
           img(src='/images/site/logo-ico.png', style='margin-top:0px;padding-top:0px;height:30px;')
           |  Mind Research 
@@ -19,9 +19,9 @@ nav.navbar.navbar-inverse(role='navigation',style='margin:0px;padding:0px;positi
           h4(style='margin:0px;padding:10px;white-space:nowrap;')
             img(src='/images/site/logo-ico.png', style='margin-top:0px;padding-top:0px;height:30px;')
             |  Mind Research  
-    #navigation.collapse.navbar-collapse.navbar-left.col-xs-12.col-sm-4.col-md-4.col-lg-6(style='padding:0px; margin:0px;')
-      +navLinks()
+    #navigation.collapse.navbar-collapse.navbar-left.col-xs-12.col-sm-5.col-md-6.col-lg-6(style='padding:0px; margin:0px;')
       if userType(user.authorizations) !== 'guest'
         +appLinks()
-    #usernavigation.navbar-right.col-xs-4.col-sm-4.col-md-5.col-lg-4(style='padding:0px; margin:0px;float:right;')  
+      +navLinks()
+    #usernavigation.navbar-right.col-xs-4.col-sm-3.col-md-4.col-lg-4(style='padding:0px; margin:0px;float:right;')
       +navUser()

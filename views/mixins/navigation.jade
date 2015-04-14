@@ -25,15 +25,15 @@ mixin navItem(target, title)
 mixin adminNav()
   block
   li.dropdown-header(style='padding:0px 10px;margin-bottom:0px;background:#f9f9f9;') Administrator Menu  
-  li.divider(style='padding-top:0px;margin-top:0px;')
+  li.divider(style='padding:0px auto;margin:0px auto;')
   li.dropdown-header Site Management
   +navItem('/blog/create', 'Blog Administration')
   block adminNav
 
 mixin generalUserNav()
   block
-  li.dropdown-header(style='padding:0px 10px;margin-bottom:0px;background:#f9f9f9;') Questionnaire Management
-  li.divider(style='padding-top:0px;margin-top:0px;')
+  li.dropdown-header(style='padding:0px 10px;margin:0px auto;background:#f9f9f9;') Questionnaire Management
+  li.divider(style='padding:0px auto;margin:0px auto;')
   +appUserLinks()
 
 mixin guestNav()
@@ -313,7 +313,7 @@ mixin navLinks()
         span.glyphicon.glyphicon-education
           
 mixin userOptions()
-  ul.dropdown-menu(role='menu')
+  ul.dropdown-menu(role='menu', style='margin:0px auto;padding:0px auto;')
     if userType(user.authorizations) === 'admin' 
       +adminNav()
     else if userType(user.authorizations) === 'general'
@@ -324,8 +324,9 @@ mixin userOptions()
       li.divider
       +guestNav()
     if userType(user.authorizations) !== 'guest'
-      li.divider  
-      li.dropdown-header Options
+      li.divider(style='padding:0px auto;margin:0px auto;')
+      li.dropdown-header(style='padding:0px 10px;margin:0px;background:#f9f9f9;') User Options
+      li.divider(style='padding:0px auto;margin:0px auto;')
       +navItem('/account', 'My Profile')
       +navItem('/authentication/logout','Sign Out')
         span.glyphicon.glyphicon-log-out

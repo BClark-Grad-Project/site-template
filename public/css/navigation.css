@@ -70,29 +70,3 @@
 .agree-check {
 	margin-right:10px;
 }
-
-#register-form .tab-content{
-  height:250px;
-}
-
-@media (max-width: 768px) {
-	#register-form .no-padding{
-	  padding:0px;
-	}
-	#register-form .no-padding-left{
-	  padding-left:0px;
-	}
-	#register-form .tab-content{
-	  height:350px;
-	}
-}
-
-#register-form .profile-option{
-	margin:0px 15px 0px 0px;
-}
-
-@media (max-width: 600px) {
-	#register-form .profile-option{
-		margin:0px -10px 0px -10px;
-	}
-}
