@@ -70,18 +70,14 @@ block content
             br
             h4 Mind Research Update's
             br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
+            if blog != undefined
+              small No updates...
+            else
+              ul.nav.nav-pills.nav-stacked
+                for j in blog
+                  li(role="presentation") 
+                    small
+                      a(href='/blog/'+j.id) #{j.title}
           .col-xs-12.col-sm-12.col-md-12.col-lg-12.middle
             br
             h5 

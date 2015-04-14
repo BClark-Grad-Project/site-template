@@ -1,0 +1,19 @@
+extends ../layout
+
+include ./mixins/index.jade
+
+//-HTML content to display.
+block content
+  #main.jumbotron(style='background-image:url("/images/survey/analysis-bg.jpg");background-attachment:fixed;background-size:cover;')
+    .container
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          h2.pull-left Questionnaire Dashboard
+          br
+          p.pull-right Manage your data!   
+            |    
+            a.btn.btn-default.btn-md(href="/guide",role="button") Guide Me »  
+          
+  section#create.container
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12

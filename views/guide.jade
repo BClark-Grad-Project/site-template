@@ -1,0 +1,30 @@
+// Begin Jade template.
+extends layout
+
+include ./blog/mixins/index.jade
+
+//-HTML content to display.
+block content
+  #main.jumbotron(style='background-image:url("/images/survey/analysis-bg.jpg");background-attachment:fixed;background-size:cover;')
+    .container
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          br
+          h1 User Guide
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12.middle
+            h4.pull-left(style='text-align:left;') Need help using the tools?  Read this, it might help!  
+          br
+          
+  section#guide.container
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        .col-xs-12.col-sm-4.col-md-3.col-lg-3
+          .panel.panel-default
+            .panel-body
+              h5 User Guide's  
+              hr            
+              ul.nav.nav-pills.nav-stacked
+                li(role="presentation") 
+                  a(href='#getting-started') Getting Started
+        .col-xs-12.col-sm-8.col-md-9.col-lg-9
+        

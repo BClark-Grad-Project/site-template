@@ -1,0 +1,29 @@
+// Begin Jade template.
+extends layout
+
+include ./blog/mixins/index.jade
+
+//-HTML content to display.
+block content
+  #main.jumbotron(style='background-image:url("/images/survey/analysis-bg.jpg");background-attachment:fixed;background-size:cover;')
+    .container
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          br
+          h1 About Mind Research
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12
+            h4.pull-left(style='text-align:left;') Questionnaire Analysis Tools
+          br          
+  section#about.container
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        h2 Mind Research Provides
+        p 
+  section(style='position:relative;')
+    div(style='position:absolute;height:100%;top:0;right:0;bottom:0;left:0;background-image:url("/images/survey/analysis-bg.jpg");background-attachment:fixed;background-size:cover;opacity:0.3;')
+    hr(style='margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;')
+    #about.container(style='z-index:100;')
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12   
+          .col-xs-12.col-sm-8.col-md-8.col-lg-8
+            br

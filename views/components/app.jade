@@ -1,24 +1,22 @@
 mixin appLinks()
   ul.nav.navbar-nav(style='margin:0px,padding:0px;')
     li
-      a(href='/create')   
-        span.glyphicon.glyphicon-leaf   
+      a(href='/survey/create')   
         |   Create    
+        span.glyphicon.glyphicon-leaf   
     li
-      a(href='/conduct')   
-        span.glyphicon.glyphicon-grain  
+      a(href='/survey/conduct')   
         |   Conduct   
+        span.glyphicon.glyphicon-grain  
     li
-      a(href='/analyze')   
-        span.glyphicon.glyphicon-tree-deciduous   
+      a(href='/survey/analyze')   
         |   Analyze   
+        span.glyphicon.glyphicon-tree-deciduous   
         
 mixin appUserLinks()
   li
     a(href='/survey/user') Overview  &nbsp; 
   li
-    a(href='/survey/user/inprogress') In Progress  &nbsp; 
+    a(href='/survey/open/user') Conducting  &nbsp; 
   li
-    a(href='/survey/open/user') Open  &nbsp; 
-  li
-    a(href='/survey/closed/user') Closed  &nbsp; 
+    a(href='/survey/closed/user') Not Conducting  &nbsp; 

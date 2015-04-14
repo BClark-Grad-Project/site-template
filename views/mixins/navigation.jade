@@ -302,8 +302,15 @@ mixin userContact(data)
   
 mixin navLinks()
   ul.nav.navbar-nav(style='margin:0px,padding:0px;')
+    if userType(user.authorizations) == 'guest'
+      li
+        a.navbar-links(href='/about')   
+          |   About    
+          span.glyphicon.glyphicon-question-sign
     li
-      a.navbar-links(href='/about.html') About
+      a.navbar-links(href='/guide')   
+        |   Guide    
+        span.glyphicon.glyphicon-education
           
 mixin userOptions()
   ul.dropdown-menu(role='menu')
