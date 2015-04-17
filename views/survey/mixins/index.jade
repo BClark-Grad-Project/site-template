@@ -1,0 +1,75 @@
+mixin newSurvey()
+  small.pull-right(style='opacity:0.5;') Required Fields
+  hr(style='opacity:0.5;')
+  br
+  form#form-survey-detail(action='/survey/create', method='POST')
+    .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='margin:0px;padding:0px;')
+      label(for='name') Name
+      input.form-control(type='text', name='name')
+      br
+    .col-xs-0.col-sm-1.col-md-1.col-lg-1.hide-sm(style='margin:0px;padding:0px;')
+      |  
+    .col-xs-12.col-sm-5.col-md-5.col-lg-5(style='margin:0px;padding:0px;')
+      label(for='catagory') Catagory
+      select.form-control(type='text', name='catagory')
+        - var cats = ['Generic','Food','Business','Academic','Economic','Science','News','Retail', 'Romance','Music','Television','Opinion','World'];
+        for z in cats
+          option.active #{z}
+      br
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+      label(for='description') Short Description
+      textarea.form-control(type='textarea', name='description', style='height:100px;') 
+      br
+      br
+    #more-detail.collapse.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+      small.pull-right(style='opacity:0.5;') Optional Fields
+      hr(style='opacity:0.5;')
+      br          
+      .col-xs-12.col-sm-4.col-md-4.col-lg-4(style='margin:0px;padding:0px;')
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+          small.pull-left(style='opacity:0.5;') Conductor Information
+          hr(style='opacity:0.5;')
+        label(for='conductor') Name
+        input.form-control(type='text', name='conductor')
+        br
+        label(for='website') Web Site
+        input.form-control(type='text', name='website')
+        br
+        label(for='email') Email
+        input.form-control(type='text', name='email')
+        br
+        br
+      .col-xs-0.col-sm-1.col-md-1.col-lg-1.hide-sm(style='margin:0px;padding:0px;')
+        |  
+      .col-xs-12.col-sm-7.col-md-7.col-lg-7(style='margin:0px;padding:0px;')
+        br
+        br
+        .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='margin:0px;padding:0px;')
+          label(for='end') End Date
+          input.form-control(type='Date', name='end')
+          small.pull-right Default 4 weeks from start.
+          br
+        .col-xs-0.col-sm-1.col-md-1.col-lg-1.hide-sm(style='margin:0px;padding:0px;')
+          |   
+        .col-xs-12.col-sm-5.col-md-5.col-lg-5(style='margin:0px;padding:0px;')
+          label(for='header') Header Image
+          input.form-control(type='file', name='header')
+          br
+        label(for='response') Finished Response
+        textarea.form-control(type='textarea', name='response', style='height:120px;')
+        br
+        br
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+      hr(style='opacity:0.5;')
+      br     
+      .col-xs-0.col-sm-2.col-md-3.col-lg-6.hide-sm(style='margin:0px;padding:0px;')
+        |  
+      .col-xs-0.col-sm-1.col-md-1.col-lg-1.hide-sm(style='margin:0px;padding:0px;')
+        |  
+      .col-xs-12.col-sm-9.col-md-8.col-lg-5(style='margin:0px;padding:0px;')              
+        button.btn.btn-md.btn-default.pull-right(type='submit', style='width:30%;') Next
+        button.btn.btn-md.btn-inverse.pull-right(type='button', data-toggle="collapse", data-target="#more-detail", aria-expanded="false", aria-controls="more-detail", style='width:30%;margin-right:10px;') Questions
+        br
+        br
+        br
+        br

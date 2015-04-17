@@ -9,9 +9,68 @@ block content
       .row
         .col-xs-12.col-sm-12.col-md-12.col-lg-12
           h2 Create Questionnaire Content
-          p Create a questionnaire with one of three choices, give those choices content and prefferences. 
-          a.btn.btn-default.btn-md(href="/guide",role="button") Guide Me »  
-          
+          p Create a questionnaire, give it content and prefferences. 
+          a.btn.btn-default.btn-md(href="/guide",role="button") Guide Me »            
   section#create.container
     .row
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        #add-detail.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+          script $('#add-detail').on('shown.bs.collapse', function() {$('#what-to-do').collapse('hide');});
+          br
+          h3 Lets get started!
+          p Start with giving your questionnaire some detail.
+          br
+          +newSurvey()
+        if surveys.length
+          script $('#add-detail').collapse();
+          #what-to-do.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+            br
+            h3 Welcome Back!
+            p What would you like to do?
+            hr
+            br
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+              .col-xs-9.col-sm-8.col-md-5.col-lg-5(style='margin:0px;padding:0px;')
+                p(style='padding: 10px 0px;text-indent:20px;') 
+                  b Start new questionnaire.
+                br
+              .col-xs-3.col-sm-4.col-md-7.col-lg-7(style='margin:0px;padding:0px;')
+                button.btn.btn-md.btn-default(type='button', data-toggle="collapse", data-target="#add-detail", aria-expanded="false", aria-controls="add-detail") Start Creating » 
+                br
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+              .col-xs-9.col-sm-8.col-md-5.col-lg-5(style='margin:0px;padding:0px;')
+                p(style='padding: 10px 0px;text-indent:20px;') 
+                  b Continue working on a previous questionnaire.
+                br
+              .col-xs-3.col-sm-4.col-md-7.col-lg-7(style='margin:0px;padding:0px;')
+                a.btn.btn-md.btn-default(type='button', data-toggle="collapse", data-target="#select-detail", aria-expanded="false", aria-controls="select-detail") Continue Work » 
+                br
+              br
+              br
+              br
+              br
+          #select-detail.collapse.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+            script $('#select-detail').on('shown.bs.collapse', function() {$('#what-to-do').collapse();});
+            br
+            h2 Still Working    
+              span.glyphicon.glyphicon-briefcase   
+            br
+            br
+            table.table
+              thead
+                tr
+                  th Questionnaire Name 
+                  th Options 
+              tbody
+                for n in surveys
+                  tr(style='padding-top:20px;padding-bottom:20px;')
+                    th(style='padding-top:20px;padding-bottom:20px;')
+                      p #{n.name}
+                    td(style='padding-top:20px;padding-bottom:20px;')
+                      a.btn.btn-md.btn-inverse(role='button', style='width:30%;margin-right:10px;color:white;', href='/survey/delete/' + n.id) Delete 
+                      a.btn.btn-md.btn-default(role='button', style='width:30%;margin-right:10px;', onclick= 'setFormDetails(' + JSON.stringify(n) + ');', data-toggle="collapse", data-target="#add-detail", aria-expanded="false", aria-controls="add-detail") Detail
+                      a.btn.btn-md.btn-default(role='button', style='width:30%;', href='/survey/create/question/' + n.id) Questions 
+            br
+            br
+            br
+            br

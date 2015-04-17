@@ -1,0 +1,28 @@
+a > .question-btn, a > .question-btn:link, a > .question-btn:visited {
+	background: #ffffff;
+	background: -moz-radial-gradient(center, ellipse cover,  #ffffff 52%, #ffffff 52%, #f7f7f7 100%);
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(52%,#ffffff), color-stop(52%,#ffffff), color-stop(100%,#f7f7f7));
+	background: -webkit-radial-gradient(center, ellipse cover,  #ffffff 52%,#ffffff 52%,#f7f7f7 100%);
+	background: -o-radial-gradient(center, ellipse cover,  #ffffff 52%,#ffffff 52%,#f7f7f7 100%);
+	background: -ms-radial-gradient(center, ellipse cover,  #ffffff 52%,#ffffff 52%,#f7f7f7 100%);
+	background: radial-gradient(ellipse at center,  #ffffff 52%,#ffffff 52%,#f7f7f7 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f7f7f7',GradientType=1 );
+	cursor:pointer;
+	-webkit-box-shadow: -1px 2px 10px -2px rgba(0,0,0,0.19);
+	-moz-box-shadow: -1px 2px 10px -2px rgba(0,0,0,0.19);
+	box-shadow: -1px 2px 10px -2px rgba(0,0,0,0.19);
+}
+a > .question-btn:hover, a > .question-btn:active, a > .question-btn:focus {
+	opacity:0.7;
+	background: #fcfcfc;
+	background: -moz-radial-gradient(center, ellipse cover,  #fcfcfc 52%, #ededed 100%);
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(52%,#fcfcfc), color-stop(100%,#ededed));
+	background: -webkit-radial-gradient(center, ellipse cover,  #fcfcfc 52%,#ededed 100%);
+	background: -o-radial-gradient(center, ellipse cover,  #fcfcfc 52%,#ededed 100%);
+	background: -ms-radial-gradient(center, ellipse cover,  #fcfcfc 52%,#ededed 100%);
+	background: radial-gradient(ellipse at center,  #fcfcfc 52%,#ededed 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=1 );
+	-webkit-box-shadow: -1px 0px 10px -2px rgba(0,0,0,0.1);
+	-moz-box-shadow: -1px 0px 10px -2px rgba(0,0,0,0.1);
+	box-shadow: -1px 0px 10px -2px rgba(0,0,0,0.1);
+}
