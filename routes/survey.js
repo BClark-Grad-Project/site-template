@@ -2,6 +2,7 @@ module.exports = function (data) {
 	var express = require('express');
 	var router = express.Router();
 	var surveyObjs = require('./objects/survey.js');
+	var imageObj = require('./objects/images.js');
 	
 	/* GET home page. */
 	/* Note: For now the following three routes can lead to the same page so long as it filters 
@@ -27,6 +28,10 @@ module.exports = function (data) {
 		});
 	}).post('/create', function(req, res, next) {    // POST Create
 		var form = surveyObjs.getNewSurvey(req);
+		if(req.files.header){
+			imageObj.saveAWS(req);
+			form.header = 'https://s3.amazonaws.com/789234rbsdcbs8fwiwfwiuygc/' + imageObj.generateFileName(form.user, form.name, req.files.header);
+		}
 		data.survey.create(form, function(err, survey){
 			if(err){
 				console.log('Creating questionnaire detail error: ', err);
@@ -50,7 +55,7 @@ module.exports = function (data) {
 			if(err){
 				console.log(err);
 				res.redirect('/survey/create/question/' + id);
-			} else res.redirect('/survey/create/question/' + id);			
+			} else res.redirect('/survey/create/question/' + id);
 		});
 	});
 	router.get('/conduct', function(req, res, next) { // GET Conduct
