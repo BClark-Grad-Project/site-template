@@ -8,12 +8,12 @@ var newQuestionnaireForm = function(req){
 	form.catagory    = req.body.catagory;
 	
 	// Optional
-	form.conductor   = req.body.conductor;
-	form.website     = req.body.website;
-	form.email       = req.body.email;
-	form.response    = req.body.response;
-	form.end         = req.body.end;
-	form.header      = '';// req.body.header;
+	if(req.body.conductor) form.conductor = req.body.conductor;
+	if(req.body.website) form.website     = req.body.website;
+	if(req.body.email) form.email         = req.body.email;
+	if(req.body.response) form.response   = req.body.response;
+	if(req.body.end) form.end             = req.body.end;
+	// need one fore header?
 	
 	return form; 
 };

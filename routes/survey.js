@@ -68,7 +68,11 @@ module.exports = function (data) {
 	});
 	router.post('/update/:id', function(req, res, next) { // Delete survey.
 		var form = surveyObjs.getNewSurvey(req);
-		form.id = req.params.id;
+		form.id = req.params.id;		
+		if(req.files.header){
+			imageObj.saveAWS(req);
+			form.header = 'https://s3.amazonaws.com/789234rbsdcbs8fwiwfwiuygc/' + imageObj.generateFileName(form.user, form.name, req.files.header);
+		}
 		data.survey.update(form, function(err, response){
 			if(err){
 				console.log(err);
