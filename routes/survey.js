@@ -44,21 +44,33 @@ module.exports = function (data) {
 		data.survey.read({id:id}, function(err, survey){
 			if(err){
 				console.log('getting question error: ', err);
-				res.redirect('/survey/create/question/' + id);
+				res.redirect('/survey/create');
 			} else res.render('survey/questions', {title:req.app.locals.service_name, user: req.session.user, survey: survey[0] });			
 		});
 	}).post('/create/question/:id', function(req, res, next) {    // POST Create Question
 		var id = req.params.id;
-		var form = surveyObjs.getUpdateQuestion(req);
+		var form = surveyObjs.getUpdatedQuestion(req);
 		form.survey = id;
 		data.survey.update({question:form}, function(err, question){
 			if(err) {
 				console.log('error creating new question.', err);
-				return cb(err, form);
+				res.redirect('/create/question/' + id);
 			} else res.redirect('/create/question/' + id);
 		});
 	});
 	
+	router.post('/create/question/add/:id', function(req, res, next) {
+		var id = req.params.id;
+		var form = surveyObjs.getNewQuestion(req);
+		form.survey = id;
+		console.log('sending form',form);
+		data.survey.create({question:form}, function(err, question){
+			if(err) {
+				console.log('error creating new question.', err);
+				res.redirect('/create/question/' + id);// + '/' + question.id);
+			} else res.redirect('/create/question/' + id);// + '/' + question.id);
+		});
+	});
 	router.get('/create/question/:id/:question', function(req, res, next) {
 		// make sure question being edited is pulled up.
 		var question = req.params.question;
@@ -72,23 +84,12 @@ module.exports = function (data) {
 	}).post('/create/question/:id/:question', function(req, res, next) {
 		// update question.
 		var id = req.params.id;
-		var form = surveyObjs.getUpdateQuestion(req);
+		var form = surveyObjs.getUpdatedQuestion(req);
 		form.survey = id;
 		data.survey.update({question:form}, function(err, question){
 			if(err) {
 				console.log('error creating new question.', err);
-				return cb(err, form);
-			} else res.redirect('/create/question/' + id + '/' + question.id);
-		});
-	});
-	router.post('/create/question/add/:id', function(req, res, next) {
-		var id = req.params.id;
-		var form = surveyObjs.getNewQuestion(req);
-		form.survey = id;
-		data.survey.create({question:form}, function(err, question){
-			if(err) {
-				console.log('error creating new question.', err);
-				return cb(err, form);
+				res.redirect('/create/question/' + id + '/' + question.id);
 			} else res.redirect('/create/question/' + id + '/' + question.id);
 		});
 	});

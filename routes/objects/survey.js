@@ -26,9 +26,11 @@ var newQuestionForm = function(req){
 	if(req.body.question) form.question = req.body.question;
 	
 	//
+	if(req.body.option) form.option = req.body.option;
 	if(req.body.label) form.label = req.body.label;
 	if(req.body.response) form.response = req.body.response;
 	if(req.body.placeholder) form.placeholder = req.body.placeholder;
+	if(req.body.label_placeholder) form.label_placeholder = req.body.label_placeholder;
 	
 	return form;
 };
@@ -44,6 +46,7 @@ var updateQuestionForm = function(req){
 	if(req.body.label) form.label = req.body.label;
 	if(req.body.response) form.response = req.body.response;
 	if(req.body.placeholder) form.placeholder = req.body.placeholder;
+	if(req.body.label_placeholder) form.label_placeholder = req.body.label_placeholder;
 	
 	return form;
 };

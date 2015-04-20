@@ -29,7 +29,7 @@ mixin submitQuestionBtns()
 
     
 mixin questionForm(type)
-  input.form-control(type='hidden', value=type)
+  input.form-control(type='hidden', name='type', value=type)
   br
   label(for='question') Question
   textarea.form-control(name='question', style='height:75px;')
@@ -66,8 +66,8 @@ mixin questionForm(type)
         br
       .col-xs-0.col-sm-1.col-md-1.col-lg-1(style='margin:0px;padding:0px;')
       .col-xs-12.col-sm-8.col-md-8.col-lg-8(style='margin:0px;padding:0px;')
-        label(for='placeholder') User Written Response
-        input.form-control.disabled(type='text', name='placeholder', placeholder='User provides response here.')
+        label(for='label_placeholder') User Written Response
+        input.form-control.disabled(type='text', name='label_placeholder', placeholder='User provides response here.')
         br
       +submitQuestionBtns()
   .opinion-question.collapse.width.pull-right.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
