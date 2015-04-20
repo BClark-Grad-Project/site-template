@@ -79,10 +79,10 @@ body h6 {
 	float:left;
 }
 .collapse.width {
-    -webkit-transition: width 0.51s ease;
-    -moz-transition: width 0.51s ease;
-    -o-transition: width 0.51s ease;
-    transition: width 0.51s ease;
+    -webkit-transition: width 1s ease;
+    -moz-transition: width 1s ease;
+    -o-transition: width 1s ease;
+    transition: width 1s ease;
 }
 .skill-pill{
 	display:-moz-inline-stack;

@@ -37,6 +37,9 @@ mixin questionForm(type)
   .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
     a.btn.btn-sm.btn-inverse.pull-right(style='color:white;',role='button', data-toggle="collapse", data-target=".question-type-option", aria-expanded="false", aria-controls="question-type-option") + Add Response Option
   .question-type-option.collapse.width.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+    br
+    br
+    hr(style='margin:0px;padding:0px;')
     script $('.question-type-option').on('show.bs.collapse', function() {$('.opinion-question').removeClass('in');$('.user-provided-question').removeClass('in');$('.provide-option-question').removeClass('in');})
     ul.nav.nav-pills(style='margin:0px;padding:0px;max-height:40px;height:40px;min-height:40px;overflow:hidden;opacity:0.5;')
       li(role='presentation', style='margin:0px;')
@@ -46,7 +49,7 @@ mixin questionForm(type)
       if type == 'single'
         li(role='presentation', style='margin:0px;')
           a.middle(style='font-weight:500;', role='button', data-toggle="collapse", data-target=".opinion-question", aria-expanded="false", aria-controls="opinion-question") Opinion 
-    hr(style='margin:0px;width:400px;')
+    hr(style='margin:0px;padding:0px;')
   .provide-option-question.collapse.width.pull-right.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
       input.form-control(type='hidden', name='option', value='provide')
       script $('.provide-option-question').on('show.bs.collapse', function() {$('.question-type-option').removeClass('in');})
@@ -81,27 +84,40 @@ mixin questionForm(type)
 
       
 mixin myQuestions()
-  #my-questions.collapse.in.row
+  #my-questions.collapse.fade.row
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
-      h3 Current Questions
-      table.table
-        thead
-          tr
-            th #
-            th Question
-            th Type
-            th 
-        - var tmpN = 1;
-        tbody 
-          for n in survey.questions
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='opacity:0.7')
+        hr
+        br
+        h4 What you are currently asking.
+        br
+        table.table
+          thead
             tr
-              th #{tmpN}
-              td
-              td
-              th.middle
-                span.glyphicon.glyphicon-arrow-down
-                span.glyphicon.glyphicon-arrow-up
-          - tmpN++;
+              th(style='width:3%;') 
+                small(style='opacity:0.5;') #
+              th(colspan=2, style='width:55%;') Question
+              th(style='width:34%;') 
+          - var tmpN = 1;
+          tbody 
+            for n in survey.questions
+              tr
+                th(style='width:3%;') 
+                  small(style='opacity:0.5;') #{tmpN}
+                td.hide-sm.middle(style='width:1%;whitespace:nowrap;')
+                  if n.type == 'single'
+                    img(src='/images/survey/icon-single.png', style='width:10px;opacity:0.3;')
+                  if n.type == 'multi'
+                    img(src='/images/survey/icon-multi.png', style='width:20px;opacity:0.3;')
+                td(style='width:55%;') 
+                  p(style='white-space:nowrap;overflow:hidden') #{n.question}
+                td(style='width:30%;padding:0px;') 
+                  ul.nav.nav-pills(style='margin:0px;padding:0px;')
+                    li.btn-xs.pull-right(role='presentation', style='margin:0px;')
+                      a(href='/survey/create/question/delete/' + n.survey + '/' + n.id)  Delete
+                    li.btn-xs.pull-right(role='presentation', style='margin:0px;')
+                      a(href='/survey/create/question/' + n.survey + '/' + n.id) Edit
+              - tmpN++;
 
 
 mixin singleQuestionBtn()
@@ -109,7 +125,7 @@ mixin singleQuestionBtn()
     .panel.panel-default.middle(style='width:100px;height:100px;border-radius:15px;padding-top:17px;')
       .panel-body.middle
         img(src='/images/survey/step-1.png', style='width:70%;')
-  h5.middle Single Response
+  h5.middle Choose One
   
 
 mixin multiQuestionBtn()
@@ -121,28 +137,29 @@ mixin multiQuestionBtn()
         img(src='/images/survey/step-2.png', style='width:45%;')
         img(src='/images/survey/step-3.png', style='width:45%;')
         br
-  h5.middle Multiple Response
+  h5.middle All That Apply
 
 
 mixin newQuestionBtns()
-  #select-question.row.collapse.in
+  #select-question.row.collapse.fade
     script $('#select-question').on('shown.bs.collapse', function() {$('.back-btn').addClass('hide');});
     script $('#select-question').on('shown.bs.collapse', function() {$('.provide-option-question').removeClass('in');});
     script $('#select-question').on('shown.bs.collapse', function() {$('.user-provided-question').removeClass('in');});
     script $('#select-question').on('shown.bs.collapse', function() {$('.opinion-question').removeClass('in');});
     script $('#select-question').on('shown.bs.collapse', function() {$('.question-type-option').removeClass('in');});
+    script $('#select-question').on('shown.bs.collapse', function() {$('#my-questions').collapse('show');});
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
       br
       .col-xs-6.col-sm-4.col-md-3.col-lg-2
         +singleQuestionBtn()
       .col-xs-6.col-sm-4.col-md-3.col-lg-2
         +multiQuestionBtn()
-    script $('.question-btn').on('click', function() {$('#select-question').collapse('hide');});
+    script $('.question-btn').on('click', function() {$('#select-question').collapse('hide');$('#my-questions').collapse('hide');});
 
 
 mixin managerMenu()
   .row(style='margin:0px;padding:0px;opacity:0.3;')
-    #manager-menu.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12.pull-right(style='margin:0px;padding:0px;')
+    #manager-menu.collapse.fade.col-xs-12.col-sm-12.col-md-12.col-lg-12.pull-right(style='margin:0px;padding:0px;')
       ul.nav.nav-pills(style='margin:0px;padding:0px;')
         .hr.vr.pull-left  
         if survey || surveys

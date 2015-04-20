@@ -1,4 +1,4 @@
-#Node.js Application Baseline SaaS Network
+#Node.js SaaS Baseline
 This application is intended to be used with the [site-launchpad charm](https://github.com/BClark-Grad-Project/site-template) for OpenStack with Juju.
 
 When running in scaled configuration HTTP is the primary implementation for this application.  SSL termination and load distribution will be handled by [nginx-proxy](https://github.com/BClark-Grad-Project/nginx-proxy).
