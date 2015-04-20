@@ -1,3 +1,187 @@
+mixin newSingleQuestion()
+  .row#new-single-question.collapse
+    script $('#new-single-question').on('shown.bs.collapse', function() {$('.back-btn').removeClass('hide');});
+    script $('#select-question').on('show.bs.collapse', function() {$('#new-single-question').removeClass('in');$('.back-btn').addClass('hide');});
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      br
+      small(style='opacity:0.4;') Single Answer Response
+      form(action='/survey/create/question/add/' + survey.id, method='POST')
+        +questionForm('single')
+      
+    
+mixin newMultiQuestion()
+  .row#new-multi-question.collapse
+    script $('#new-multi-question').on('shown.bs.collapse', function() {$('.back-btn').removeClass('hide');});
+    script $('#select-question').on('show.bs.collapse', function() {$('#new-multi-question').removeClass('in');$('.back-btn').addClass('hide');});
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      br
+      small(style='opacity:0.4;') Multiple Answer Response
+      form(action='/survey/create/question/add/' + survey.id, method='POST')
+        +questionForm('multi')
+        
+
+mixin submitQuestionBtns()
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+    br
+    br
+    button.btn.btn-sm.btn-default.pull-right(type='submit') Add
+    a.btn.btn-sm.btn-inverse.pull-right(role='button',style='margin-right:10px;color:white;', data-toggle="collapse", data-target=".question-type-option", aria-expanded="false", aria-controls="question-type-option") Cancel
+
+    
+mixin questionForm(type)
+  input.form-control(type='hidden', value=type)
+  br
+  label(for='question') Question
+  textarea.form-control(name='question', style='height:75px;')
+  br
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+    a.btn.btn-sm.btn-inverse.pull-right(style='color:white;',role='button', data-toggle="collapse", data-target=".question-type-option", aria-expanded="false", aria-controls="question-type-option") + Add Response Option
+  .question-type-option.collapse.width.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+    script $('.question-type-option').on('show.bs.collapse', function() {$('.opinion-question').removeClass('in');$('.user-provided-question').removeClass('in');$('.provide-option-question').removeClass('in');})
+    ul.nav.nav-pills(style='margin:0px;padding:0px;max-height:40px;height:40px;min-height:40px;overflow:hidden;opacity:0.5;')
+      li(role='presentation', style='margin:0px;')
+        a.middle(style='font-weight:500;',role='button', data-toggle="collapse", data-target=".provide-option-question", aria-expanded="false", aria-controls="provide-option-question") Provide Option 
+      li(role='presentation', style='margin:0px;')
+        a.middle(style='font-weight:500;', role='button', data-toggle="collapse", data-target=".user-provided-question", aria-expanded="false", aria-controls="user-provided-question") User Provided 
+      if type == 'single'
+        li(role='presentation', style='margin:0px;')
+          a.middle(style='font-weight:500;', role='button', data-toggle="collapse", data-target=".opinion-question", aria-expanded="false", aria-controls="opinion-question") Opinion 
+    hr(style='margin:0px;width:400px;')
+  .provide-option-question.collapse.width.pull-right.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+      input.form-control(type='hidden', name='option', value='provide')
+      script $('.provide-option-question').on('show.bs.collapse', function() {$('.question-type-option').removeClass('in');})
+      br
+      label(for='response') Provide Option 
+      textarea.form-control(name='response', style='height:100px;', placeholder='Provide option for your respondent here.')
+      br
+      +submitQuestionBtns()
+  .user-provided-question.collapse.width.pull-right.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+      script $('.user-provided-question').on('show.bs.collapse', function() {$('.question-type-option').removeClass('in');})
+      input.form-control(type='hidden', name='option', value='open')
+      br
+      .col-xs-12.col-sm-3.col-md-3.col-lg-3(style='margin:0px;padding:0px;')
+        label(for='label') Option Label
+        input.form-control(type='text', name='label', placeholder='Other')
+        small.pull-right(style='opacity:0.3;') e.g. Example, Preffered 
+        br
+      .col-xs-0.col-sm-1.col-md-1.col-lg-1(style='margin:0px;padding:0px;')
+      .col-xs-12.col-sm-8.col-md-8.col-lg-8(style='margin:0px;padding:0px;')
+        label(for='placeholder') User Written Response
+        input.form-control.disabled(type='text', name='placeholder', placeholder='User provides response here.')
+        br
+      +submitQuestionBtns()
+  .opinion-question.collapse.width.pull-right.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+      input.form-control(type='hidden', name='option', value='opinion')
+      script $('.opinion-question').on('show.bs.collapse', function() {$('.question-type-option').removeClass('in');})
+      br
+      label(for='placeholder') User Written Response
+      textarea.form-control.disabled(name='placeholder', style='height:150px;', placeholder='User provides response here.')
+      br
+      +submitQuestionBtns()
+
+      
+mixin myQuestions()
+  #my-questions.collapse.in.row
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      h3 Current Questions
+      table.table
+        thead
+          tr
+            th #
+            th Question
+            th Type
+            th 
+        - var tmpN = 1;
+        tbody 
+          for n in survey.questions
+            tr
+              th #{tmpN}
+              td
+              td
+              th.middle
+                span.glyphicon.glyphicon-arrow-down
+                span.glyphicon.glyphicon-arrow-up
+          - tmpN++;
+
+
+mixin singleQuestionBtn()
+  a.question-btn(role='button',data-toggle="collapse", data-target="#new-single-question", aria-expanded="false", aria-controls="new-single-question")
+    .panel.panel-default.middle(style='width:100px;height:100px;border-radius:15px;padding-top:17px;')
+      .panel-body.middle
+        img(src='/images/survey/step-1.png', style='width:70%;')
+  h5.middle Single Response
+  
+
+mixin multiQuestionBtn()
+  a.question-btn(role='button',data-toggle="collapse", data-target="#new-multi-question", aria-expanded="false", aria-controls="new-multi-question")
+    .panel.panel-default.middle(style='width:100px;height:100px;padding:13px;border-radius:15px;')
+      .panel-body.middle
+        img(src='/images/survey/step-1.png', style='width:45%;')
+        br
+        img(src='/images/survey/step-2.png', style='width:45%;')
+        img(src='/images/survey/step-3.png', style='width:45%;')
+        br
+  h5.middle Multiple Response
+
+
+mixin newQuestionBtns()
+  #select-question.row.collapse.in
+    script $('#select-question').on('shown.bs.collapse', function() {$('.back-btn').addClass('hide');});
+    script $('#select-question').on('shown.bs.collapse', function() {$('.provide-option-question').removeClass('in');});
+    script $('#select-question').on('shown.bs.collapse', function() {$('.user-provided-question').removeClass('in');});
+    script $('#select-question').on('shown.bs.collapse', function() {$('.opinion-question').removeClass('in');});
+    script $('#select-question').on('shown.bs.collapse', function() {$('.question-type-option').removeClass('in');});
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      br
+      .col-xs-6.col-sm-4.col-md-3.col-lg-2
+        +singleQuestionBtn()
+      .col-xs-6.col-sm-4.col-md-3.col-lg-2
+        +multiQuestionBtn()
+    script $('.question-btn').on('click', function() {$('#select-question').collapse('hide');});
+
+
+mixin managerMenu()
+  .row(style='margin:0px;padding:0px;opacity:0.3;')
+    #manager-menu.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12.pull-right(style='margin:0px;padding:0px;')
+      ul.nav.nav-pills(style='margin:0px;padding:0px;')
+        .hr.vr.pull-left  
+        if survey || surveys
+          if survey
+            if survey.questions
+              li(role='presentation', style='margin:0px;')
+                a.middle(href='', style='font-weight:500;') Begin Conducting   
+                  span.glyphicon.glyphicon-expand
+            else 
+              li#preview-survey.disabled(role='presentation', style='margin:0px;')
+                a.middle(href='', style='font-weight:500;') Preview   
+                  span.glyphicon.glyphicon-eye-open
+              .hr.vr.pull-left  
+              li#conduct-survey.disabled(role='presentation', style='margin:0px;')
+                a.middle(href='', style='font-weight:500;') Begin Conducting   
+                  span.glyphicon.glyphicon-expand
+          else 
+            li#conduct-survey.disabled(role='presentation', style='margin:0px;')
+              a.middle(href='', style='font-weight:500;') Begin Conducting   
+                span.glyphicon.glyphicon-expand
+            .hr.vr.pull-left  
+            li#conduct-survey.disabled(role='presentation', style='margin:0px;')
+              a.middle(href='', style='font-weight:500;') Begin Conducting   
+                span.glyphicon.glyphicon-expand
+        .hr.vr.pull-left 
+        .hr.vr.pull-right 
+        li#save-btn.pull-right.disabled(role='presentation', style='margin:0px;')
+          a(href='', style='font-weight:500;')  
+            span.glyphicon.glyphicon-floppy-disk  
+            |  Save
+        .hr.vr.pull-right
+        li.back-btn.pull-right.hide(role='presentation', style='margin:0px;')
+          a(role='button',data-toggle="collapse", data-target="#select-question", aria-expanded="false", aria-controls='select-question', onclick'$("#select-question").collapse();', style='font-weight:500;')   
+            span.glyphicon.glyphicon-arrow-left  
+            |  Back
+        .back-btn.hr.vr.pull-right.hide
+      hr(style='margin:0px;padding:0px;')
+
+
 mixin newSurvey()
   small.pull-right(style='opacity:0.5;') Required Fields
   hr(style='opacity:0.5;')
@@ -24,7 +208,7 @@ mixin newSurvey()
     #more-detail.collapse.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
       small.pull-right(style='opacity:0.5;') Optional Fields
       hr(style='opacity:0.5;')
-      br          
+      br
       .col-xs-12.col-sm-4.col-md-4.col-lg-4(style='margin:0px;padding:0px;')
         .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
           small.pull-left(style='opacity:0.5;') Conductor Information

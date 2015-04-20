@@ -4,7 +4,7 @@ include ./mixins/index.jade
 
 //-HTML content to display.
 block content
-  #main.jumbotron(style='background-image:url("/images/survey/analysis-bg.jpg");background-attachment:fixed;background-size:cover;')
+  #main.jumbotron(style='background-image:url("/images/survey/analysis-bg.jpg");background-attachment:fixed;background-size:cover;margin-bottom:0px;')
     .container
       .row
         .col-xs-12.col-sm-12.col-md-12.col-lg-12
@@ -14,41 +14,9 @@ block content
           p Add questions to my questionnaire.
           a.btn.btn-default.btn-md(href="/guide",role="button") Guide Me »            
   section#create.container
-    .row
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12
-            br
-            .col-xs-12.col-sm-6.col-md-6.col-lg-6.middle
-              h5 
-                b Single Response
-              br
-              a
-                .question-btn.panel.panel-default.middle(style='width:200px;height:200px;border-radius:15px;padding-top:30px;')
-                  .panel-body.middle
-                    img(src='/images/survey/step-1.png', style='width:70%;')
-              br
-              p.middle(style='width:225px;') Examples
-                br
-                i True & False 
-                | or 
-                i Open Opinion 
-              br
-              br
-            .col-xs-12.col-sm-6.col-md-6.col-lg-6.middle
-              h5 
-                b Multiple Response
-              br
-              a
-                .question-btn.panel.panel-default.middle(style='width:200px;height:200px;padding:13px;border-radius:15px;')
-                  .panel-body.middle
-                    img(src='/images/survey/step-1.png', style='width:80px;')
-                    br
-                    img(src='/images/survey/step-2.png', style='width:80px;')
-                    img(src='/images/survey/step-3.png', style='width:80px;')
-                    br
-              br
-              p.middle(style='width:225px;') Example
-                br
-                i All That Apply
-              br
-              br
-              
+    +managerMenu()
+    +newQuestionBtns()
+    +newSingleQuestion()
+    +newMultiQuestion()
+    if survey.questions
+      +myQuestions()

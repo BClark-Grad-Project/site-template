@@ -42,22 +42,57 @@ module.exports = function (data) {
 	router.get('/create/question/:id', function(req, res, next) { // GET Create Question
 		var id = req.params.id;
 		data.survey.read({id:id}, function(err, survey){
-			console.log(err, survey);
 			if(err){
-				console.log('Adding question error: ', err);
+				console.log('getting question error: ', err);
 				res.redirect('/survey/create/question/' + id);
 			} else res.render('survey/questions', {title:req.app.locals.service_name, user: req.session.user, survey: survey[0] });			
 		});
 	}).post('/create/question/:id', function(req, res, next) {    // POST Create Question
 		var id = req.params.id;
-		var form = surveyObjs.getNewQuestion(req);
-		data.survey.create(form, function(err, survey){
-			if(err){
-				console.log(err);
-				res.redirect('/survey/create/question/' + id);
-			} else res.redirect('/survey/create/question/' + id);
+		var form = surveyObjs.getUpdateQuestion(req);
+		form.survey = id;
+		data.survey.update({question:form}, function(err, question){
+			if(err) {
+				console.log('error creating new question.', err);
+				return cb(err, form);
+			} else res.redirect('/create/question/' + id);
 		});
 	});
+	
+	router.get('/create/question/:id/:question', function(req, res, next) {
+		// make sure question being edited is pulled up.
+		var question = req.params.question;
+		var id = req.params.id;
+		data.survey.read({id:id}, function(err, survey){
+			if(err){
+				console.log('Adding question error: ', err);
+				res.redirect('/survey/create/question/' + id);
+			} else res.render('survey/questions', {title:req.app.locals.service_name, user: req.session.user, survey: survey[0], question: question });			
+		});
+	}).post('/create/question/:id/:question', function(req, res, next) {
+		// update question.
+		var id = req.params.id;
+		var form = surveyObjs.getUpdateQuestion(req);
+		form.survey = id;
+		data.survey.update({question:form}, function(err, question){
+			if(err) {
+				console.log('error creating new question.', err);
+				return cb(err, form);
+			} else res.redirect('/create/question/' + id + '/' + question.id);
+		});
+	});
+	router.post('/create/question/add/:id', function(req, res, next) {
+		var id = req.params.id;
+		var form = surveyObjs.getNewQuestion(req);
+		form.survey = id;
+		data.survey.create({question:form}, function(err, question){
+			if(err) {
+				console.log('error creating new question.', err);
+				return cb(err, form);
+			} else res.redirect('/create/question/' + id + '/' + question.id);
+		});
+	});
+	
 	router.get('/conduct', function(req, res, next) { // GET Conduct
 		res.render('survey/conduct', {title:req.app.locals.service_name, user: req.session.user });
 	}).post('/conduct', function(req, res, next) {    // POST Conduct
