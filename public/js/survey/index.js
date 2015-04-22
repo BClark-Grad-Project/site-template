@@ -27,4 +27,59 @@ var loadHeaderPreview = function(event) {
       $('#header-preview').css('background-image', 'url(' + reader.result + ')');
     };
     reader.readAsDataURL(event.target.files[0]);
-  };
+};
+
+var resetQuestionForm = function(survey){
+	$('#single-question-form').attr("action", "/survey/create/question/add/" + survey );
+	$('#multi-question-form').attr("action", "/survey/create/question/add/" + survey );
+	$('textarea[name=question]').text('');
+};
+
+var openQuestion = function(content){
+	if(content.type == 'single'){
+		$('#single-question-form').attr("action", "/survey/create/question/" + content.survey + "/" + content.id );
+		$('#new-single-question').collapse('show');
+	} else if(content.type == 'multi'){
+		$('#multi-question-form').attr("action", "/survey/create/question/" + content.survey + "/" + content.id );
+		$('#new-multi-question').collapse('show');
+	}
+    $('.back-btn').removeClass('hide');
+    $('#my-questions').collapse('hide');
+    $('#select-question').collapse('hide');
+    $('textarea[name=question]').text(content.question);
+	var table = $('.option-list');
+	
+	if(content.options){
+		for(var i in content.options){
+			var displayVal = '';
+			if(content.options[i].option == 'provide') displayVal = content.options[i].response;
+			if(content.options[i].option == 'open') displayVal = '<i>User will provide ' + content.options[i].label + ' answer.</i>';
+			if(content.options[i].option == 'opinion') displayVal = '<i>User Opinion Response</i>';
+            var pos = i;
+            pos++;
+			table.append('<tr>');
+			table.append('<th style="width:3%;"><small style="opacity:0.5;">' + pos + '</small></th>');
+			table.append('<td style="width:77%;">' + displayVal + '</td>');
+			table.append('<td style="width:20%;"><ul class="nav nav-pills"><li class="pull-right" role="presentation"><a href="/survey/create/question/delete/' + content.survey + '/' + content.id + '/' + content.options[i].id + '" class="btn-sm">Delete</a></li></ul></td>');
+			table.append('</tr>');
+		}
+		$('.option-selection-choices').collapse('show');
+		$('.option-list').collapse('show');
+	}
+};
+
+var loadQuestion = function(question, survey){
+	var content = {};
+	for(var i in survey.questions){
+		if(survey.questions[i].id == question){
+			content = survey.questions[i];
+			content.options = [];
+			for(var j in survey.options){
+				if(survey.options[j].question == question){
+					content.options.push(survey.options[j]);
+				}
+			}
+		}
+	}
+	openQuestion(content);
+};

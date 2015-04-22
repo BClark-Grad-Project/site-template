@@ -69,7 +69,7 @@ module.exports = function (data) {
 		data.survey.create({question:form}, function(err, question){
 			if(err) {
 				console.log('error creating new question.', err);
-				res.redirect('/survey/create/question/' + id + '/' + question.id);
+				res.redirect('/survey/create/question/' + id );
 			} else res.redirect('/survey/create/question/' + id + '/' + question.id);
 		});
 	});
@@ -82,6 +82,20 @@ module.exports = function (data) {
 				console.log('error deleting question.', err);
 				res.redirect('/survey/create/question/' + id );
 			} else res.redirect('/survey/create/question/' + id );
+		});
+	});
+
+	router.get('/create/question/delete/:id/:question/:option', function(req, res, next) {
+		console.log('running get question');
+		// make sure question being edited is pulled up.
+		var question = req.params.question;
+		var id = req.params.id;
+		var option = req.params.option;
+		data.survey.remove({option:option}, function(err, survey){
+			if(err){
+				console.log('Deleting option error: ', err);
+				res.redirect('/survey/create/question/' + id + '/' + question);
+			} else res.redirect('/survey/create/question/' + id + '/' + question);
 		});
 	});
 	
@@ -101,13 +115,17 @@ module.exports = function (data) {
 	router.post('/create/question/:id/:question', function(req, res, next) {
 		// update question.
 		var id = req.params.id;
+		var question = req.params.question;
+		
 		var form = surveyObjs.getUpdatedQuestion(req);
+		form.id = question;
 		form.survey = id;
-		data.survey.update({question:form}, function(err, question){
+		console.log(form);
+		data.survey.update({question:form}, function(err, questionObj){
 			if(err) {
 				console.log('error creating new question.', err);
-				res.redirect('/survey/create/question/' + id + '/' + question.id);
-			} else res.redirect('/survey/create/question/' + id + '/' + question.id);
+				res.redirect('/survey/create/question/' + id + '/' + question);
+			} else res.redirect('/survey/create/question/' + id + '/' + question);
 		});
 	});
 	

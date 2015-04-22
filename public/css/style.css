@@ -184,6 +184,9 @@ a.btn-success:focus {
 	.hide-sm{
 		display:none;
 	}
+	.show-sm{
+		display:block;
+	}
 }
 
 .big-text{

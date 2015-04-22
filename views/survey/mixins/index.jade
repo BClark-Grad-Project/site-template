@@ -5,7 +5,7 @@ mixin newSingleQuestion()
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
       br
       small(style='opacity:0.4;') Single Answer Response
-      form(action='/survey/create/question/add/' + survey.id, method='POST')
+      form#single-question-form(action='/survey/create/question/add/' + survey.id, method='POST')
         +questionForm('single')
       
     
@@ -16,7 +16,7 @@ mixin newMultiQuestion()
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
       br
       small(style='opacity:0.4;') Multiple Answer Response
-      form(action='/survey/create/question/add/' + survey.id, method='POST')
+      form#multi-question-form(action='/survey/create/question/add/' + survey.id, method='POST')
         +questionForm('multi')
         
 
@@ -24,72 +24,99 @@ mixin submitQuestionBtns()
   .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
     br
     br
-    button.btn.btn-sm.btn-default.pull-right(type='submit') Add
-    a.btn.btn-sm.btn-inverse.pull-right(role='button',style='margin-right:10px;color:white;', data-toggle="collapse", data-target=".question-type-option", aria-expanded="false", aria-controls="question-type-option") Cancel
+    button.btn.btn-md.btn-default.pull-right(type='submit') Add
+    a.cancel-submit-question.btn.btn-md.btn-inverse.pull-right(role='button',style='margin-right:10px;color:white;', data-toggle="collapse", data-target=".question-type-option", aria-expanded="false", aria-controls="question-type-option") Cancel
+    br
+    br
+    if survey.options
+      script $('.cancel-submit-question').on('click', function(){$('.option-selection-choices').collapse('show');});
+
+
+mixin provideQuestion()
+  .provide-option-question.collapse.pull-right.col-xs-12.col-sm-12.col-md-12.col-lg-12
+    script $('.provide-option-question').on('show.bs.collapse', function() {$('.question-type-option').removeClass('in');})
+    br
+    label(for='response') Provide Option 
+    textarea.form-control(name='response', style='height:100px;', placeholder='Provide option for your respondent here.')
+    br
+    +submitQuestionBtns()
+
+
+mixin openQuestion()
+  .user-provided-question.collapse.pull-right.col-xs-12.col-sm-12.col-md-12.col-lg-12
+    script $('.user-provided-question').on('show.bs.collapse', function() {$('.question-type-option').removeClass('in');})
+    br
+    .col-xs-12.col-sm-3.col-md-3.col-lg-3(style='margin:0px;padding:0px;')
+      label(for='label') Option Label
+      input.form-control(type='text', name='label', placeholder='Other')
+      small.pull-right(style='opacity:0.3;') e.g. Example, Preffered 
+      br
+    .col-xs-0.col-sm-1.col-md-1.col-lg-1(style='margin:0px;padding:0px;')
+    .col-xs-12.col-sm-8.col-md-8.col-lg-8(style='margin:0px;padding:0px;')
+      label(for='label_placeholder') User Written Response
+      input.form-control.disabled(type='text', name='label_placeholder', placeholder='User provides response here.', disabled)
+      br
+    +submitQuestionBtns()
+
+
+mixin opinionQuestion()
+  .opinion-question.collapse.pull-right.col-xs-12.col-sm-12.col-md-12.col-lg-12
+    script $('.opinion-question').on('show.bs.collapse', function() {$('.question-type-option').removeClass('in');})
+    br
+    label(for='placeholder') User Written Response
+    textarea.form-control.disabled(name='placeholder', style='height:150px;', placeholder='User provides response here.', disabled)
+    br
+    +submitQuestionBtns()
 
     
 mixin questionForm(type)
   input.form-control(type='hidden', name='type', value=type)
   br
   label(for='question') Question
-  textarea.form-control(name='question', style='height:75px;')
+  textarea.form-control(name='question', style='height:75px;', required)
   br
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
-    a.btn.btn-sm.btn-inverse.pull-right(style='color:white;',role='button', data-toggle="collapse", data-target=".question-type-option", aria-expanded="false", aria-controls="question-type-option") + Add Response Option
-  .question-type-option.collapse.width.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+  br
+  hr.hide-sm(style='margin:0px;padding:0px;')
+  .col-xs-12.col-sm-3.col-md-3.col-lg-2(style='margin:0px;padding:0px;')
+    a.btn.btn-md.btn-inverse.add-new-btn(style='color:white;margin-top:3px;margin-right:5px;',role='button', data-toggle="collapse", data-target=".question-type-option", aria-expanded="false", aria-controls="question-type-option") + Add Option
     br
     br
-    hr(style='margin:0px;padding:0px;')
-    script $('.question-type-option').on('show.bs.collapse', function() {$('.opinion-question').removeClass('in');$('.user-provided-question').removeClass('in');$('.provide-option-question').removeClass('in');})
+  .question-type-option.collapse.col-xs-12.col-sm-9.col-md-9.col-lg-10(style='margin:0px;padding:0px;')
+    hr.show-sm(style='margin:0px;padding:0px;')
+    input.questionOption.form-control(type='hidden', name='option')
+    script $('.question-type-option').on('show.bs.collapse', function() {$('.option-selection-choices').collapse('show');$('.opinion-question').removeClass('in');$('.user-provided-question').removeClass('in');$('.provide-option-question').removeClass('in');})
     ul.nav.nav-pills(style='margin:0px;padding:0px;max-height:40px;height:40px;min-height:40px;overflow:hidden;opacity:0.5;')
       li(role='presentation', style='margin:0px;')
-        a.middle(style='font-weight:500;',role='button', data-toggle="collapse", data-target=".provide-option-question", aria-expanded="false", aria-controls="provide-option-question") Provide Option 
+        a.middle(onclick='$(".questionOption").val("provide")', style='font-weight:500;',role='button', data-toggle="collapse", data-target=".provide-option-question", aria-expanded="false", aria-controls="provide-option-question") Provide Option 
       li(role='presentation', style='margin:0px;')
-        a.middle(style='font-weight:500;', role='button', data-toggle="collapse", data-target=".user-provided-question", aria-expanded="false", aria-controls="user-provided-question") User Provided 
+        a.middle(onclick='$(".questionOption").val("open")', style='font-weight:500;', role='button', data-toggle="collapse", data-target=".user-provided-question", aria-expanded="false", aria-controls="user-provided-question") User Provided 
       if type == 'single'
         li(role='presentation', style='margin:0px;')
-          a.middle(style='font-weight:500;', role='button', data-toggle="collapse", data-target=".opinion-question", aria-expanded="false", aria-controls="opinion-question") Opinion 
-    hr(style='margin:0px;padding:0px;')
-  .provide-option-question.collapse.width.pull-right.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
-      input.form-control(type='hidden', name='option', value='provide')
-      script $('.provide-option-question').on('show.bs.collapse', function() {$('.question-type-option').removeClass('in');})
-      br
-      label(for='response') Provide Option 
-      textarea.form-control(name='response', style='height:100px;', placeholder='Provide option for your respondent here.')
-      br
-      +submitQuestionBtns()
-  .user-provided-question.collapse.width.pull-right.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
-      script $('.user-provided-question').on('show.bs.collapse', function() {$('.question-type-option').removeClass('in');})
-      input.form-control(type='hidden', name='option', value='open')
-      br
-      .col-xs-12.col-sm-3.col-md-3.col-lg-3(style='margin:0px;padding:0px;')
-        label(for='label') Option Label
-        input.form-control(type='text', name='label', placeholder='Other')
-        small.pull-right(style='opacity:0.3;') e.g. Example, Preffered 
-        br
-      .col-xs-0.col-sm-1.col-md-1.col-lg-1(style='margin:0px;padding:0px;')
-      .col-xs-12.col-sm-8.col-md-8.col-lg-8(style='margin:0px;padding:0px;')
-        label(for='label_placeholder') User Written Response
-        input.form-control.disabled(type='text', name='label_placeholder', placeholder='User provides response here.')
-        br
-      +submitQuestionBtns()
-  .opinion-question.collapse.width.pull-right.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
-      input.form-control(type='hidden', name='option', value='opinion')
-      script $('.opinion-question').on('show.bs.collapse', function() {$('.question-type-option').removeClass('in');})
-      br
-      label(for='placeholder') User Written Response
-      textarea.form-control.disabled(name='placeholder', style='height:150px;', placeholder='User provides response here.')
-      br
-      +submitQuestionBtns()
-
+          a.middle(onclick='$(".questionOption").val("opinion")', style='font-weight:500;', role='button', data-toggle="collapse", data-target=".opinion-question", aria-expanded="false", aria-controls="opinion-question") Opinion 
+    script $('.question-type-option > ul > li > a').on('click', function(){$('.option-selection-choices').collapse('hide');});
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    br
+    +provideQuestion()
+    +openQuestion()
+    +opinionQuestion()
+  .option-selection-choices.collapse.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='opacity:0.7;margin:0px;padding:0px;')
+    script $('.add-new-btn').on('click', function(){$('.option-selection-choices').removeClass('in');});
+    br
+    small(style='opacity:0.5;') User Response Choices
+    br
+    br
+    table.col-xs-12.col-sm-12.col-md-12.col-lg-12
+      tbody.option-list.collapse
       
+
+
 mixin myQuestions()
-  #my-questions.collapse.fade.row
+  #my-questions.collapse.in.row
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
       .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='opacity:0.7')
-        hr
         br
-        h4 What you are currently asking.
+        small(style='opacity:0.5;') Questions
+        br
         br
         table.table
           thead
@@ -109,27 +136,28 @@ mixin myQuestions()
                     img(src='/images/survey/icon-single.png', style='width:10px;opacity:0.3;')
                   if n.type == 'multi'
                     img(src='/images/survey/icon-multi.png', style='width:20px;opacity:0.3;')
-                td(style='width:55%;') 
+                td(style='width:66%;') 
                   p(style='white-space:nowrap;overflow:hidden') #{n.question}
                 td(style='width:30%;padding:0px;') 
-                  ul.nav.nav-pills(style='margin:0px;padding:0px;')
+                  ul.nav.nav-pills.pull-right(style='margin:0px;padding:0px;')
                     li.btn-xs.pull-right(role='presentation', style='margin:0px;')
                       a(href='/survey/create/question/delete/' + n.survey + '/' + n.id)  Delete
                     li.btn-xs.pull-right(role='presentation', style='margin:0px;')
-                      a(href='/survey/create/question/' + n.survey + '/' + n.id) Edit
+                      a(onclick='loadQuestion("' + n.id + '",' + JSON.stringify(survey) + ');') Edit
               - tmpN++;
 
 
 mixin singleQuestionBtn()
-  a.question-btn(role='button',data-toggle="collapse", data-target="#new-single-question", aria-expanded="false", aria-controls="new-single-question")
+  a.question-btn(onclick='resetQuestionForm("' + survey.id +'");', role='button',data-toggle="collapse", data-target="#new-single-question", aria-expanded="false", aria-controls="new-single-question")
     .panel.panel-default.middle(style='width:100px;height:100px;border-radius:15px;padding-top:17px;')
       .panel-body.middle
         img(src='/images/survey/step-1.png', style='width:70%;')
-  h5.middle Choose One
+  h5.middle(style='opacity:0.7;') 
+    small Choose One
   
 
 mixin multiQuestionBtn()
-  a.question-btn(role='button',data-toggle="collapse", data-target="#new-multi-question", aria-expanded="false", aria-controls="new-multi-question")
+  a.question-btn(onclick='resetQuestionForm("' + survey.id +'");', role='button',data-toggle="collapse", data-target="#new-multi-question", aria-expanded="false", aria-controls="new-multi-question")
     .panel.panel-default.middle(style='width:100px;height:100px;padding:13px;border-radius:15px;')
       .panel-body.middle
         img(src='/images/survey/step-1.png', style='width:45%;')
@@ -137,16 +165,20 @@ mixin multiQuestionBtn()
         img(src='/images/survey/step-2.png', style='width:45%;')
         img(src='/images/survey/step-3.png', style='width:45%;')
         br
-  h5.middle All That Apply
+  h5.middle(style='opacity:0.7;') 
+    small All That Apply
 
 
 mixin newQuestionBtns()
-  #select-question.row.collapse.fade
+  #select-question.row.collapse.in
     script $('#select-question').on('shown.bs.collapse', function() {$('.back-btn').addClass('hide');});
     script $('#select-question').on('shown.bs.collapse', function() {$('.provide-option-question').removeClass('in');});
     script $('#select-question').on('shown.bs.collapse', function() {$('.user-provided-question').removeClass('in');});
     script $('#select-question').on('shown.bs.collapse', function() {$('.opinion-question').removeClass('in');});
     script $('#select-question').on('shown.bs.collapse', function() {$('.question-type-option').removeClass('in');});
+    script $('#select-question').on('shown.bs.collapse', function() {$('.option-list').removeClass('in');});
+    script $('#select-question').on('shown.bs.collapse', function() {$('.option-selection-choices').removeClass('in');});
+    script $('#select-question').on('shown.bs.collapse', function() {$('.option-list').html('');});
     script $('#select-question').on('shown.bs.collapse', function() {$('#my-questions').collapse('show');});
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
       br
@@ -159,7 +191,7 @@ mixin newQuestionBtns()
 
 mixin managerMenu()
   .row(style='margin:0px;padding:0px;opacity:0.3;')
-    #manager-menu.collapse.fade.col-xs-12.col-sm-12.col-md-12.col-lg-12.pull-right(style='margin:0px;padding:0px;')
+    #manager-menu.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12.pull-right(style='margin:0px;padding:0px;')
       ul.nav.nav-pills(style='margin:0px;padding:0px;')
         .hr.vr.pull-left  
         if survey || surveys
@@ -168,29 +200,34 @@ mixin managerMenu()
               li(role='presentation', style='margin:0px;')
                 a.middle(href='', style='font-weight:500;') Begin Conducting   
                   span.glyphicon.glyphicon-expand
-            else 
-              li#preview-survey.disabled(role='presentation', style='margin:0px;')
+              .hr.vr.pull-left  
+              li#preview-survey(role='presentation', style='margin:0px;')
                 a.middle(href='', style='font-weight:500;') Preview   
                   span.glyphicon.glyphicon-eye-open
-              .hr.vr.pull-left  
+            else 
               li#conduct-survey.disabled(role='presentation', style='margin:0px;')
                 a.middle(href='', style='font-weight:500;') Begin Conducting   
                   span.glyphicon.glyphicon-expand
-          else 
-            li#conduct-survey.disabled(role='presentation', style='margin:0px;')
+              .hr.vr.pull-left  
+              li#preview-survey(role='presentation', style='margin:0px;')
+                a.middle(href='', style='font-weight:500;') Preview   
+                  span.glyphicon.glyphicon-eye-open
+          else
+            if surveys 
+            li#conduct-survey(role='presentation', style='margin:0px;')
               a.middle(href='', style='font-weight:500;') Begin Conducting   
                 span.glyphicon.glyphicon-expand
             .hr.vr.pull-left  
-            li#conduct-survey.disabled(role='presentation', style='margin:0px;')
-              a.middle(href='', style='font-weight:500;') Begin Conducting   
-                span.glyphicon.glyphicon-expand
+            li#preview-survey(role='presentation', style='margin:0px;')
+              a.middle(href='', style='font-weight:500;') Preview   
+                span.glyphicon.glyphicon-eye-open
         .hr.vr.pull-left 
         .hr.vr.pull-right 
-        li#save-btn.pull-right.disabled(role='presentation', style='margin:0px;')
-          a(href='', style='font-weight:500;')  
-            span.glyphicon.glyphicon-floppy-disk  
-            |  Save
-        .hr.vr.pull-right
+        //li#save-btn.pull-right.disabled(role='presentation', style='margin:0px;')
+        //  a(href='', style='font-weight:500;')  
+        //    span.glyphicon.glyphicon-floppy-disk  
+        //    |  Save
+        //.hr.vr.pull-right
         li.back-btn.pull-right.hide(role='presentation', style='margin:0px;')
           a(role='button',data-toggle="collapse", data-target="#select-question", aria-expanded="false", aria-controls='select-question', onclick'$("#select-question").collapse();', style='font-weight:500;')   
             span.glyphicon.glyphicon-arrow-left  
