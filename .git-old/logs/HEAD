@@ -1,0 +1,24 @@
+0000000000000000000000000000000000000000 49fd10b9ea53168192a5a8179acbb11a01a93f79 Brandon L. Clark <support@themindspot.com> 1428265952 -0700	clone: from https://github.com/BClark-Grad-Project/site-template.git
+49fd10b9ea53168192a5a8179acbb11a01a93f79 6a40ffc898ba465fec0db50affc2db066844ceff Brandon L. Clark <support@themindspot.com> 1428278624 -0700	commit: init some changes to main settup
+6a40ffc898ba465fec0db50affc2db066844ceff c49b813701b79c448b751f2f413d0742ed3e2bf3 Brandon L. Clark <support@themindspot.com> 1428291808 -0700	pull origin mindproject: Fast-forward
+c49b813701b79c448b751f2f413d0742ed3e2bf3 c9c17dad602e281cc606c945b33db9ac68797667 Brandon L. Clark <support@themindspot.com> 1428298865 -0700	commit: survey route methods
+c9c17dad602e281cc606c945b33db9ac68797667 b2e6720b19a64d922b697d52e75a27066fe729ca Brandon L. Clark <support@themindspot.com> 1428299405 -0700	commit: bug: site-project removed from baseline.
+b2e6720b19a64d922b697d52e75a27066fe729ca 68ca12bce92ceac169b90337e60b4c87a2ce4ccd Brandon L. Clark <support@themindspot.com> 1428375846 -0700	commit: Navbar modification. Front page marketing.
+68ca12bce92ceac169b90337e60b4c87a2ce4ccd 144e63533150ea81ec9767faccc6121c46a18910 Brandon L. Clark <support@themindspot.com> 1428384038 -0700	commit: Front page and user menu and navigation.
+144e63533150ea81ec9767faccc6121c46a18910 55dbf7a815a97efd1979ff41516e3ac05f032f1b Brandon L. Clark <support@themindspot.com> 1428421749 -0700	commit: Design changes.
+55dbf7a815a97efd1979ff41516e3ac05f032f1b 0b49dac2c281008db13367bae1eda32ec7393bc6 Brandon L. Clark <support@themindspot.com> 1428425304 -0700	commit: Design changes.
+0b49dac2c281008db13367bae1eda32ec7393bc6 eac845fbe72bb6655be127d6909881a073c1e162 Brandon L. Clark <support@themindspot.com> 1428450724 -0700	commit: Design alterations
+eac845fbe72bb6655be127d6909881a073c1e162 7c60f0f5f75807be4987963a2db0335a409d6552 Brandon L. Clark <support@themindspot.com> 1428451403 -0700	commit: Footer fix
+7c60f0f5f75807be4987963a2db0335a409d6552 6d3afa51b33dc25f5e66a7bac73ad634be0d6c19 Brandon L. Clark <support@themindspot.com> 1428451540 -0700	commit: Footer fix
+6d3afa51b33dc25f5e66a7bac73ad634be0d6c19 6ace3425e4782401f314978fb60e06d2e70e8502 Brandon L. Clark <support@themindspot.com> 1429044576 -0700	commit: feature pages and links.
+6ace3425e4782401f314978fb60e06d2e70e8502 319027c1ceb72124d00f82a7dca75e8d08d5162b Brandon L. Clark <support@themindspot.com> 1429053371 -0700	commit: Navigation Changes
+319027c1ceb72124d00f82a7dca75e8d08d5162b e2830138fad41c3a962042b5801f27ddc957f55f Brandon L. Clark <support@themindspot.com> 1429053491 -0700	commit: Navigation Changes
+e2830138fad41c3a962042b5801f27ddc957f55f 04498b3092565182f2d021cdcc72c95b34e17262 Brandon L. Clark <support@themindspot.com> 1429053713 -0700	commit: Navigation Changes
+04498b3092565182f2d021cdcc72c95b34e17262 b22f1bbbf05f8db3bdc4d2b943402d3904f38530 Brandon L. Clark <support@themindspot.com> 1429053777 -0700	commit: Navigation Changes
+b22f1bbbf05f8db3bdc4d2b943402d3904f38530 723962cd953ff26ec2b80093101a922c85f07bf1 Brandon L. Clark <support@themindspot.com> 1429240182 -0700	commit: Create survey interface and model integration to controler.
+723962cd953ff26ec2b80093101a922c85f07bf1 d2cbb7f34e1c3c24b76a53e365cdbbc20ebf8605 Brandon L. Clark <support@themindspot.com> 1429298390 -0700	commit: Couple bugs and image component separation. Ready for question creation.
+d2cbb7f34e1c3c24b76a53e365cdbbc20ebf8605 2b8cd35d957ccafb14e6f41b15a5f44ce358b73b Brandon L. Clark <support@themindspot.com> 1429300919 -0700	commit: Couple bugs in update detail.
+2b8cd35d957ccafb14e6f41b15a5f44ce358b73b e56acce7a2c505cfe40a9b5ecc454253d2da256d Brandon L. Clark <support@themindspot.com> 1429515807 -0700	commit: Updates to design and interface for question process. Ready for data.
+e56acce7a2c505cfe40a9b5ecc454253d2da256d d7bab6f83abe3eebba49b49c8d7e8c6739315298 Brandon L. Clark <support@themindspot.com> 1429548846 -0700	commit: Updates to design and interface for question process. Ready for data. 2
+d7bab6f83abe3eebba49b49c8d7e8c6739315298 662c1e1f6b8248d2e650d35458ee595821cb16a1 Brandon L. Clark <support@themindspot.com> 1429572656 -0700	commit: hmmm
+662c1e1f6b8248d2e650d35458ee595821cb16a1 6e4a7a6f70edbc7a0c3ccf0d2b6df3c7b7c58cf4 Brandon L. Clark <support@themindspot.com> 1429719830 -0700	commit: question generation process complete.

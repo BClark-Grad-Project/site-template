@@ -32,6 +32,7 @@ var loadHeaderPreview = function(event) {
 var resetQuestionForm = function(survey){
 	$('#single-question-form').attr("action", "/survey/create/question/add/" + survey );
 	$('#multi-question-form').attr("action", "/survey/create/question/add/" + survey );
+	$('#opinion-question-form').attr("action", "/survey/create/question/add/" + survey );
 	$('textarea[name=question]').text('');
 };
 
@@ -42,30 +43,38 @@ var openQuestion = function(content){
 	} else if(content.type == 'multi'){
 		$('#multi-question-form').attr("action", "/survey/create/question/" + content.survey + "/" + content.id );
 		$('#new-multi-question').collapse('show');
+	} else if(content.type == 'opinion'){
+		$('#opinion-question-form').attr("action", "/survey/create/question/" + content.survey + "/" + content.id );
+		$('#new-opinion-question').collapse('show');
 	}
-    $('.back-btn').removeClass('hide');
-    $('#my-questions').collapse('hide');
-    $('#select-question').collapse('hide');
+    $('.back-btn').removeClass( 'hide');
     $('textarea[name=question]').text(content.question);
-	var table = $('.option-list');
-	
-	if(content.options){
-		for(var i in content.options){
-			var displayVal = '';
-			if(content.options[i].option == 'provide') displayVal = content.options[i].response;
-			if(content.options[i].option == 'open') displayVal = '<i>User will provide ' + content.options[i].label + ' answer.</i>';
-			if(content.options[i].option == 'opinion') displayVal = '<i>User Opinion Response</i>';
-            var pos = i;
-            pos++;
-			table.append('<tr>');
-			table.append('<th style="width:3%;"><small style="opacity:0.5;">' + pos + '</small></th>');
-			table.append('<td style="width:77%;">' + displayVal + '</td>');
-			table.append('<td style="width:20%;"><ul class="nav nav-pills"><li class="pull-right" role="presentation"><a href="/survey/create/question/delete/' + content.survey + '/' + content.id + '/' + content.options[i].id + '" class="btn-sm">Delete</a></li></ul></td>');
-			table.append('</tr>');
+	$('#my-questions').collapse('hide');
+	$('#select-question').collapse('hide');
+    if(content.type == 'opinion'){
+    	$('.opinion-question').collapse('show');
+    }
+    if(content.type != 'opinion'){
+		var table = $('.option-list');
+		
+		if(content.options){
+			for(var i in content.options){
+				var displayVal = '';
+				if(content.options[i].option == 'provide') displayVal = content.options[i].response;
+				if(content.options[i].option == 'open') displayVal = '<i>User will provide ' + content.options[i].label + ' answer.</i>';
+				if(content.options[i].option == 'opinion') displayVal = '<i>User Opinion Response</i>';
+	            var pos = i;
+	            pos++;
+				table.append('<tr>');
+				table.append('<th style="width:3%;"><small style="opacity:0.5;">' + pos + '</small></th>');
+				table.append('<td style="width:77%;">' + displayVal + '</td>');
+				table.append('<td style="width:20%;"><ul class="nav nav-pills"><li class="pull-right" role="presentation"><a href="/survey/create/question/delete/' + content.survey + '/' + content.id + '/' + content.options[i].id + '" class="btn-sm">Delete</a></li></ul></td>');
+				table.append('</tr>');
+			}
+			$('.option-selection-choices').collapse('show');
+			$('.option-list').collapse('show');
 		}
-		$('.option-selection-choices').collapse('show');
-		$('.option-list').collapse('show');
-	}
+    }
 };
 
 var loadQuestion = function(question, survey){

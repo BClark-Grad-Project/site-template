@@ -1,0 +1,31 @@
+extends ../layout
+
+include ./mixins/index.jade
+
+//-HTML content to display.
+block content
+  if survey.header
+    #main.jumbotron(style='background-image:url("'+ survey.header + '");background-attachment:fixed;background-size:cover;margin-bottom:0px;')
+    script $('nav.navbar.navbar-inverse div').css('background-image', 'url("'+ survey.header + '")');
+  else
+    #main.jumbotron(style='background-image:url("/images/survey/analysis-bg.jpg");background-attachment:fixed;background-size:cover;margin-bottom:0px;')
+      .container
+        .row
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12
+            h1(style='color=green;') Completed
+            h4 #{survey.name}
+            p Follow the results at 
+              a(href='/survey/result/' + survey.id) themindspot.com/survey/result/#{survey.id}
+  section#survey.container
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        br
+        h2 Thank you!
+        if survey.response
+          p #{survey.response}
+        else 
+         p Thank you for participating in the "#{survey.name}" questionnaire conducted by #{survey.conductor}.
+         p Please learn more about the tools used to create, conduct, and analyze this questionnaire at 
+           a(href='/') themindspot.com
+           | .
+         

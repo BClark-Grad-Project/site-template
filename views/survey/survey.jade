@@ -1,0 +1,97 @@
+extends ../layout
+
+include ./mixins/index.jade
+
+//-HTML content to display.
+block content
+  if survey.header
+    #main.jumbotron(style='background-image:url("'+ survey.header + '");background-attachment:fixed;background-size:cover;margin-bottom:0px;')
+    script $('nav.navbar.navbar-inverse div').css('background-image', 'url("'+ survey.header + '")');
+  else
+    #main.jumbotron(style='background-image:url("/images/survey/analysis-bg.jpg");background-attachment:fixed;background-size:cover;margin-bottom:0px;')
+      .container
+        .row
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12
+            h2 #{survey.name}
+            small.pull-left(style='opacity:0.8;') Conducted by: #{survey.conductor}
+            if survey.website
+              small.pull-left(style='opacity:0.5;margin-left:40px;') #{survey.website}
+            if survey.email
+              small.pull-left(style='margin-left:40px;') #{survey.email}
+            p #{survey.detail}
+  section#survey.container
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        br
+        p Please answer the following:
+        br
+        br
+        form#survey-form(method='POST', action='/survey')
+          input(type='hidden', name='survey', value=survey.id)
+          if request
+            input(type='hidden', name='request', value=request)
+          - var questionPos = 1;
+          for i in survey.questions
+            - var questionID = i.id;
+            .collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12(id=questionID, style='margin:0px;padding:0px;')
+              .col-xs-1.col-sm-1.col-md-1.col-lg-1(style='margin:0px;padding:0px;')
+                b(style='opacity:0.8;') Q
+                  small #{questionPos}
+              .col-xs-11.col-sm-11.col-md-11.col-lg-11(style='margin:0px;padding:0px;')
+                p(style='margin-bottom: 0px;padding-bottom: 0px;') #{i.question}
+                if i.type == 'single'
+                  small(style='opacity:0.5;') 
+                    i Choose One
+                else if i.type == 'multi'
+                  small(style='opacity:0.5;') 
+                    i Select all that apply.
+                else if i.type == 'opinion'
+                  small(style='opacity:0.5;')
+                    i Please provide your response.
+                br
+                br
+                input(type='hidden', name='question', value=i.id)
+                fieldset.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin-bottom:30px;')
+                  for n in i.options
+                    if n.option != 'opinion'
+                      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin-top:0px;padding-top:0px;margin-bottom:0px;padding-bottom:0px;')
+                        if i.type == 'single'
+                          label.radio(for=n.id + '_checked', style='margin:0px;vertical-align: middle;padding-top:0px;')
+                            input(type='radio', name=i.id + '_checked', value=n.id, id=n.id + '_checked')
+                            if n.option == 'provide'
+                              p #{n.response}
+                            else if n.option == 'open'
+                              p #{n.label}  
+                                input.form-control.pull-right(type='text', name=n.id + '_response', style='width:80%;', placeholder='Answer here')
+                          br
+                        else if i.type == 'multi'
+                          label.checkbox(for=n.id + '_checked', style='margin:0px;vertical-align:middle;padding-top:0px;')
+                            input(type='checkbox', name=i.id + '_checked', value=n.id, id=n.id + '_checked')
+                            if n.option == 'provide'
+                              p #{n.response}
+                            else if n.option == 'open'
+                              .col-xs-2.col-sm-2.col-md-2.col-lg-2(style='margin:0px;padding:0px;')
+                                p #{n.label}  
+                              .col-xs-10.col-sm-10.col-md-10.col-lg-10(style='margin:0px;padding:0px;')
+                                input.form-control(type='text', name=n.id + '_response', placeholder='Answer here')
+                          br                            
+                    if n.option == 'opinion'
+                      input(type='hidden', name=i.id + '_checked', value=n.id)
+                      textarea.form-control(name=n.id + '_response', style='height:150px', placeholder='Provide your response here.')
+                      br
+                br
+                br
+                    
+            - questionPos++;
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+            hr
+          .col-xs-0.col-sm-6.col-md-8.col-lg-9
+          .col-xs-12.col-sm-6.col-md-4.col-lg-3
+            br
+            button.btn.btn-lg.btn-block.btn-default(type='submit') Finish
+            br
+            br
+            br
+            br
+          
+          

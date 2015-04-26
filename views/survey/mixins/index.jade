@@ -18,6 +18,17 @@ mixin newMultiQuestion()
       small(style='opacity:0.4;') Multiple Answer Response
       form#multi-question-form(action='/survey/create/question/add/' + survey.id, method='POST')
         +questionForm('multi')
+    
+    
+mixin newOpinionQuestion()
+  .row#new-opinion-question.collapse
+    script $('#new-opinion-question').on('shown.bs.collapse', function() {$('.back-btn').removeClass('hide');});
+    script $('#select-question').on('show.bs.collapse', function() {$('#new-opinion-question').removeClass('in');$('.back-btn').addClass('hide');});
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      br
+      small(style='opacity:0.4;') Opinion / Feedback Answer Response
+      form#opinion-question-form(action='/survey/create/question/add/' + survey.id, method='POST')
+        +questionForm('opinion')
         
 
 mixin submitQuestionBtns()
@@ -59,14 +70,20 @@ mixin openQuestion()
     +submitQuestionBtns()
 
 
-mixin opinionQuestion()
+mixin opinionQuestion(alt)
   .opinion-question.collapse.pull-right.col-xs-12.col-sm-12.col-md-12.col-lg-12
-    script $('.opinion-question').on('show.bs.collapse', function() {$('.question-type-option').removeClass('in');})
+    script $('.opinion-question').on('show.bs.collapse', function() {$("input[name=option]").val("opinion");$('.question-type-option').removeClass('in');})
     br
     label(for='placeholder') User Written Response
     textarea.form-control.disabled(name='placeholder', style='height:150px;', placeholder='User provides response here.', disabled)
     br
-    +submitQuestionBtns()
+    if alt == 'true'
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+        br
+        br
+        button.btn.btn-md.btn-default.pull-right(type='submit') Add
+    else
+      +submitQuestionBtns()
 
     
 mixin questionForm(type)
@@ -77,39 +94,43 @@ mixin questionForm(type)
   br
   br
   hr.hide-sm(style='margin:0px;padding:0px;')
-  .col-xs-12.col-sm-3.col-md-3.col-lg-2(style='margin:0px;padding:0px;')
-    a.btn.btn-md.btn-inverse.add-new-btn(style='color:white;margin-top:3px;margin-right:5px;',role='button', data-toggle="collapse", data-target=".question-type-option", aria-expanded="false", aria-controls="question-type-option") + Add Option
-    br
-    br
+  if type != 'opinion' 
+    .col-xs-12.col-sm-3.col-md-3.col-lg-2(style='margin:0px;padding:0px;')
+      a.btn.btn-md.btn-inverse.add-new-btn(style='color:white;margin-top:3px;margin-right:5px;',role='button', data-toggle="collapse", data-target=".question-type-option", aria-expanded="false", aria-controls="question-type-option") + Add Option
+      br
+      br
   .question-type-option.collapse.col-xs-12.col-sm-9.col-md-9.col-lg-10(style='margin:0px;padding:0px;')
     hr.show-sm(style='margin:0px;padding:0px;')
     input.questionOption.form-control(type='hidden', name='option')
-    script $('.question-type-option').on('show.bs.collapse', function() {$('.option-selection-choices').collapse('show');$('.opinion-question').removeClass('in');$('.user-provided-question').removeClass('in');$('.provide-option-question').removeClass('in');})
-    ul.nav.nav-pills(style='margin:0px;padding:0px;max-height:40px;height:40px;min-height:40px;overflow:hidden;opacity:0.5;')
-      li(role='presentation', style='margin:0px;')
-        a.middle(onclick='$(".questionOption").val("provide")', style='font-weight:500;',role='button', data-toggle="collapse", data-target=".provide-option-question", aria-expanded="false", aria-controls="provide-option-question") Provide Option 
-      li(role='presentation', style='margin:0px;')
-        a.middle(onclick='$(".questionOption").val("open")', style='font-weight:500;', role='button', data-toggle="collapse", data-target=".user-provided-question", aria-expanded="false", aria-controls="user-provided-question") User Provided 
-      if type == 'single'
+    if type != 'opinion' 
+      script $('.question-type-option').on('shown.bs.collapse', function() {$('.option-selection-choices').collapse('show');$('.user-provided-question').removeClass('in');$('.provide-option-question').removeClass('in');})
+      ul.nav.nav-pills(style='margin:0px;padding:0px;max-height:40px;height:40px;min-height:40px;overflow:hidden;opacity:0.5;')
         li(role='presentation', style='margin:0px;')
-          a.middle(onclick='$(".questionOption").val("opinion")', style='font-weight:500;', role='button', data-toggle="collapse", data-target=".opinion-question", aria-expanded="false", aria-controls="opinion-question") Opinion 
-    script $('.question-type-option > ul > li > a').on('click', function(){$('.option-selection-choices').collapse('hide');});
+          a.middle(onclick='$(".questionOption").val("provide");', style='font-weight:500;',role='button', data-toggle="collapse", data-target=".provide-option-question", aria-expanded="false", aria-controls="provide-option-question") Provide Option 
+        li(role='presentation', style='margin:0px;')
+          a.middle(onclick='$(".questionOption").val("open");', style='font-weight:500;', role='button', data-toggle="collapse", data-target=".user-provided-question", aria-expanded="false", aria-controls="user-provided-question") User Provided 
+      
+      script $('.question-type-option > ul > li > a').on('click', function(){$('.option-selection-choices').removeClass('in');});
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     br
     +provideQuestion()
     +openQuestion()
-    +opinionQuestion()
-  .option-selection-choices.collapse.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='opacity:0.7;margin:0px;padding:0px;')
-    script $('.add-new-btn').on('click', function(){$('.option-selection-choices').removeClass('in');});
-    br
-    small(style='opacity:0.5;') User Response Choices
-    br
-    br
-    table.col-xs-12.col-sm-12.col-md-12.col-lg-12
-      tbody.option-list.collapse
+    if type == 'opinion'
+      +opinionQuestion('true')
+      script $('#new-opinion-question').on('show.bs.collapse', function() {$('form#opinion-question-form > .col-xs-12.col-sm-12.col-md-12.col-lg-12 > .opinion-question').addClass('in');});
+    else
+      +opinionQuestion('false')
+  if type != 'opinion'
+    .option-selection-choices.collapse.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='opacity:0.7;margin:0px;padding:0px;')
+      //script $('.add-new-btn').on('click', function(){$('.option-selection-choices').removeClass('in');});
+      br
+      small(style='opacity:0.5;') User Response Choices
+      br
+      br
+      table.col-xs-12.col-sm-12.col-md-12.col-lg-12
+        tbody.option-list.collapse
       
-
-
+      
 mixin myQuestions()
   #my-questions.collapse.in.row
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
@@ -136,6 +157,8 @@ mixin myQuestions()
                     img(src='/images/survey/icon-single.png', style='width:10px;opacity:0.3;')
                   if n.type == 'multi'
                     img(src='/images/survey/icon-multi.png', style='width:20px;opacity:0.3;')
+                  if n.type == 'opinion'
+                    img(src='/images/survey/icon-opinion.png', style='width:12px;opacity:0.3;')
                 td(style='width:66%;') 
                   p(style='white-space:nowrap;overflow:hidden') #{n.question}
                 td(style='width:30%;padding:0px;') 
@@ -169,6 +192,15 @@ mixin multiQuestionBtn()
     small All That Apply
 
 
+mixin opinionQuestionBtn()
+  a.question-btn(onclick='resetQuestionForm("' + survey.id +'");$("input[name=option]").val("opinion");', role='button',data-toggle="collapse", data-target="#new-opinion-question", aria-expanded="false", aria-controls="new-opinion-question")
+    .panel.panel-default.middle(style='width:100px;height:100px;border-radius:15px;padding-left: 10px;padding-top:21px;')
+      .panel-body.middle
+        img(src='/images/survey/step-q.png', style='width:35%;')
+  h5.middle(style='opacity:0.7;') 
+    small Opinion / Feedback
+  
+
 mixin newQuestionBtns()
   #select-question.row.collapse.in
     script $('#select-question').on('shown.bs.collapse', function() {$('.back-btn').addClass('hide');});
@@ -182,10 +214,12 @@ mixin newQuestionBtns()
     script $('#select-question').on('shown.bs.collapse', function() {$('#my-questions').collapse('show');});
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
       br
-      .col-xs-6.col-sm-4.col-md-3.col-lg-2
+      .col-xs-4.col-sm-4.col-md-3.col-lg-2
         +singleQuestionBtn()
-      .col-xs-6.col-sm-4.col-md-3.col-lg-2
+      .col-xs-4.col-sm-4.col-md-3.col-lg-2
         +multiQuestionBtn()
+      .col-xs-4.col-sm-4.col-md-3.col-lg-2
+        +opinionQuestionBtn()
     script $('.question-btn').on('click', function() {$('#select-question').collapse('hide');$('#my-questions').collapse('hide');});
 
 
@@ -193,34 +227,32 @@ mixin managerMenu()
   .row(style='margin:0px;padding:0px;opacity:0.3;')
     #manager-menu.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12.pull-right(style='margin:0px;padding:0px;')
       ul.nav.nav-pills(style='margin:0px;padding:0px;')
-        .hr.vr.pull-left  
-        if survey || surveys
+        -console.log(surveys);
+        if survey || surveys[0]
           if survey
             if survey.questions
+              .hr.vr.pull-left  
               li(role='presentation', style='margin:0px;')
-                a.middle(href='', style='font-weight:500;') Begin Conducting   
+                a.middle(href='/survey/conduct/begin/'+ survey.id, style='font-weight:500;') Begin Conducting   
                   span.glyphicon.glyphicon-expand
-              .hr.vr.pull-left  
-              li#preview-survey(role='presentation', style='margin:0px;')
-                a.middle(href='', style='font-weight:500;') Preview   
-                  span.glyphicon.glyphicon-eye-open
+              //.hr.vr.pull-left  
+              //li#preview-survey(role='presentation', style='margin:0px;')
+              //  a.middle(href='', style='font-weight:500;') Preview   
+              //    span.glyphicon.glyphicon-eye-open
             else 
-              li#conduct-survey.disabled(role='presentation', style='margin:0px;')
-                a.middle(href='', style='font-weight:500;') Begin Conducting   
-                  span.glyphicon.glyphicon-expand
               .hr.vr.pull-left  
-              li#preview-survey(role='presentation', style='margin:0px;')
-                a.middle(href='', style='font-weight:500;') Preview   
-                  span.glyphicon.glyphicon-eye-open
+              li#conduct-survey.disabled(role='presentation', style='margin:0px;')
+                a.middle(href='#', style='font-weight:500;') Begin Conducting   
+                  span.glyphicon.glyphicon-expand
+              //.hr.vr.pull-left  
+              //li#preview-survey(role='presentation', style='margin:0px;')
+              //  a.middle(href='', style='font-weight:500;') Preview   
+              //    span.glyphicon.glyphicon-eye-open
           else
-            if surveys 
-            li#conduct-survey(role='presentation', style='margin:0px;')
-              a.middle(href='', style='font-weight:500;') Begin Conducting   
-                span.glyphicon.glyphicon-expand
-            .hr.vr.pull-left  
-            li#preview-survey(role='presentation', style='margin:0px;')
-              a.middle(href='', style='font-weight:500;') Preview   
-                span.glyphicon.glyphicon-eye-open
+            //.hr.vr.pull-left  
+            //li#preview-survey(role='presentation', style='margin:0px;')
+            //  a.middle(href='', style='font-weight:500;') Preview   
+            //    span.glyphicon.glyphicon-eye-open
         .hr.vr.pull-left 
         .hr.vr.pull-right 
         //li#save-btn.pull-right.disabled(role='presentation', style='margin:0px;')
@@ -236,7 +268,7 @@ mixin managerMenu()
       hr(style='margin:0px;padding:0px;')
 
 
-mixin newSurvey()
+mixin newSurvey() 
   small.pull-right(style='opacity:0.5;') Required Fields
   hr(style='opacity:0.5;')
   br

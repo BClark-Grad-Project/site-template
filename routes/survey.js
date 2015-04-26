@@ -9,7 +9,17 @@ module.exports = function (data) {
 	 * these sections.  If time permits try and make the page dynamic in its presentation*/
 	router.get('/', function(req, res, next) {
 		res.render('survey/index', {title:req.app.locals.service_name, user: req.session.user });
-	});
+	}).post('/', function(req, res, next) { // Complete survey
+		var form = surveyObjs.getSurveyResponse(req);
+		
+		data.survey.C.respond(form);
+		data.survey.R.surveyForm({id: req.body.survey}, function(err, survey){
+			if(err) {
+				console.log('');
+				next();
+			} else res.render('survey/thankyou', {title:req.app.locals.service_name, user: req.session.user, survey:survey });
+		});
+	});	
 	router.get('/open', function(req, res, next) {
 		res.render('survey/index', {title:req.app.locals.service_name, user: req.session.user });
 	});
@@ -41,7 +51,7 @@ module.exports = function (data) {
 	});
 	router.get('/create/question/:id', function(req, res, next) { // GET Create Question
 		var id = req.params.id;
-		data.survey.read({id:id}, function(err, survey){
+		data.survey.read({id:id, state:0}, function(err, survey){
 			console.log(survey);
 			if(err){
 				console.log('getting question error: ', err);
@@ -128,12 +138,35 @@ module.exports = function (data) {
 			} else res.redirect('/survey/create/question/' + id + '/' + question);
 		});
 	});
-	
+
+	/*
+	 * CONDUCTING OPERATIONS
+	 * */
 	router.get('/conduct', function(req, res, next) { // GET Conduct
-		res.render('survey/conduct', {title:req.app.locals.service_name, user: req.session.user });
-	}).post('/conduct', function(req, res, next) {    // POST Conduct
+		data.survey.read({user:req.session.user.id, state:1}, function(err, surveys){
+			if(err) res.redirect('/survey/conduct');
+			else res.render('survey/conduct', {title:req.app.locals.service_name, user: req.session.user, surveys:surveys });			
+		});
+	});
+	
+	router.get('/conduct/:id', function(req, res, next) { // GET Conduct
+		var id = req.params.id;		
+		data.survey.read({id:id, state:1}, function(err, survey){	
+			if(err) res.redirect('/survey/conduct');
+			else res.render('survey/manageconduct', {title:req.app.locals.service_name, user: req.session.user, survey: survey[0] });
+		});
+	}).post('/conduct/:id', function(req, res, next) {    // POST Conduct
 		res.render('survey/conduct', {title:req.app.locals.service_name, user: req.session.user });
 	});
+	
+	router.get('/conduct/begin/:id', function(req, res, next) { // GET Conduct
+		var id = req.params.id;
+		data.survey.update({ id:id, state:1 }, function(err, response){
+			if(err) res.redirect('/survey/conduct');
+			else res.redirect('/survey/conduct/' + id);
+		});
+	});
+	
 	router.get('/analyze', function(req, res, next) { //Analyze
 		res.render('survey/analyze', {title:req.app.locals.service_name, user: req.session.user });
 	});
@@ -153,6 +186,7 @@ module.exports = function (data) {
 	});
 	router.get('/delete/:id', function(req, res, next) { // Delete survey.
 		var id = req.params.id;
+		
 		data.survey.remove({id:id}, function(err, response){
 			if(err){
 				console.log(err);
@@ -170,6 +204,31 @@ module.exports = function (data) {
 	});	
 	router.get('/closed/user', function(req, res, next) { // Closed
 		res.render('survey/manageclosed', {title:req.app.locals.service_name, user: req.session.user });
+	});	  
+
+	router.get('/sorry', function(req, res, next) { // Closed
+		res.render('survey/sorry', {title:req.app.locals.service_name, user: req.session.user });
+	});	 
+	
+	router.get('/:id', function(req, res, next) { // Get survey
+		var id = req.params.id;
+		data.survey.R.surveyForm({id:id}, function(err, survey){
+			if(err) {
+				console.log('');
+				res.redirect('/survey/sorry');
+			} else res.render('survey/survey', {title:req.app.locals.service_name, user: req.session.user, survey:survey });
+		});
+	});
+
+	router.get('/:id/:request', function(req, res, next) { // get survey for requested user
+		var id = req.params.id;
+		var request = req.params.request;
+		data.survey.R.surveyForm({id:id}, function(err, survey){
+			if(err) {
+				console.log('');
+				res.redirect('/survey/sorry');
+			} else res.render('survey/survey', {title:req.app.locals.service_name, user: req.session.user, survey:survey, request: request });
+		});
 	});	
 	
 	return router;

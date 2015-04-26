@@ -1,0 +1,43 @@
+mixin managerConductMenu()
+  .row(style='margin:0px;padding:0px;opacity:0.3;')
+    #manager-menu.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12.pull-right(style='margin:0px;padding:0px;')
+      ul.nav.nav-pills(style='margin:0px;padding:0px;')
+        -console.log(surveys);
+        if survey || surveys[0]
+          if survey
+            if survey.questions
+              .hr.vr.pull-left  
+              li(role='presentation', style='margin:0px;')
+                a.middle(href='/survey/conduct/begin/'+ survey.id, style='font-weight:500;') Begin Conducting   
+                  span.glyphicon.glyphicon-expand
+              .hr.vr.pull-left  
+              li#preview-survey(role='presentation', style='margin:0px;')
+                a.middle(href='', style='font-weight:500;') Preview   
+                  span.glyphicon.glyphicon-eye-open
+            else 
+              .hr.vr.pull-left  
+              li#conduct-survey.disabled(role='presentation', style='margin:0px;')
+                a.middle(href='#', style='font-weight:500;') Begin Conducting   
+                  span.glyphicon.glyphicon-expand
+              .hr.vr.pull-left  
+              li#preview-survey(role='presentation', style='margin:0px;')
+                a.middle(href='', style='font-weight:500;') Preview   
+                  span.glyphicon.glyphicon-eye-open
+          else
+            .hr.vr.pull-left  
+            li#preview-survey(role='presentation', style='margin:0px;')
+              a.middle(href='', style='font-weight:500;') Preview   
+                span.glyphicon.glyphicon-eye-open
+        .hr.vr.pull-left 
+        .hr.vr.pull-right 
+        //li#save-btn.pull-right.disabled(role='presentation', style='margin:0px;')
+        //  a(href='', style='font-weight:500;')  
+        //    span.glyphicon.glyphicon-floppy-disk  
+        //    |  Save
+        //.hr.vr.pull-right
+        li.back-btn.pull-right.hide(role='presentation', style='margin:0px;')
+          a(role='button',data-toggle="collapse", data-target="#select-question", aria-expanded="false", aria-controls='select-question', onclick'$("#select-question").collapse();', style='font-weight:500;')   
+            span.glyphicon.glyphicon-arrow-left  
+            |  Back
+        .back-btn.hr.vr.pull-right.hide
+      hr(style='margin:0px;padding:0px;')
