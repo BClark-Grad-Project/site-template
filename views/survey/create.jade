@@ -57,20 +57,21 @@ block content
               span.glyphicon.glyphicon-briefcase   
             br
             br
-            table.table
-              thead
-                tr
-                  th Questionnaire Name 
-                  th Options 
+            table.table.table-striped(style='opacity:0.7;')
               tbody
                 for n in surveys
-                  tr(style='padding-top:20px;padding-bottom:20px;')
-                    th(style='padding-top:20px;padding-bottom:20px;')
-                      p #{n.name}
-                    td(style='padding-top:20px;padding-bottom:20px;')
-                      a.btn.btn-md.btn-inverse(role='button', style='width:30%;margin-right:10px;color:white;', href='/survey/delete/' + n.id) Delete 
-                      a.btn.btn-md.btn-default(role='button', style='width:30%;margin-right:10px;', onclick= 'setFormDetails(' + JSON.stringify(n) + ');', data-toggle="collapse", data-target="#add-detail", aria-expanded="false", aria-controls="add-detail") Detail
-                      a.btn.btn-md.btn-default(role='button', style='width:30%;', href='/survey/create/question/' + n.id) Questions 
+                  tr(style='border-radius: 10px; padding:17px;')
+                    td(style='padding:15px;width:60%;border-bottom-left-radius: 10px;border-top-left-radius: 10px;')
+                      small
+                        b #{n.name}
+                    td(style='width:40%;border-bottom-right-radius: 10px;border-top-right-radius: 10px;')
+                      ul.nav.nav-pills.nav-justified(style='margin:0px;padding:0px;')
+                        li(role='presentation', style='margin:0px;')
+                          a.btn-sm.middle(role='button', style='white-space:nowrap;', href='/survey/create/question/' + n.id) Add Questions 
+                        li(role='presentation', style='margin:0px;')
+                          a.btn-sm.middle(role='button', style='', onclick= 'setFormDetails(' + JSON.stringify(n) + ');', data-toggle="collapse", data-target="#add-detail", aria-expanded="false", aria-controls="add-detail") Detail 
+                        li(role='presentation', style='margin:0px;')
+                          a.btn-sm.middle(role='button', style='color:red;', href='/survey/delete/' + n.id) Delete 
             br
             br
             br

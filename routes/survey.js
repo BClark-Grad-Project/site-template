@@ -149,21 +149,35 @@ module.exports = function (data) {
 		});
 	});
 	
-	router.get('/conduct/:id', function(req, res, next) { // GET Conduct
+	router.get('/conduct/response/:id', function(req, res, next) { // GET Conduct
 		var id = req.params.id;		
 		data.survey.read({id:id, state:1}, function(err, survey){	
 			if(err) res.redirect('/survey/conduct');
-			else res.render('survey/manageconduct', {title:req.app.locals.service_name, user: req.session.user, survey: survey[0] });
+			else res.render('survey/response', {title:req.app.locals.service_name, user: req.session.user, survey: survey[0] });
 		});
-	}).post('/conduct/:id', function(req, res, next) {    // POST Conduct
+	}).post('/conduct/response/:id', function(req, res, next) {    // POST Conduct
 		res.render('survey/conduct', {title:req.app.locals.service_name, user: req.session.user });
 	});
-	
+
 	router.get('/conduct/begin/:id', function(req, res, next) { // GET Conduct
 		var id = req.params.id;
 		data.survey.update({ id:id, state:1 }, function(err, response){
 			if(err) res.redirect('/survey/conduct');
-			else res.redirect('/survey/conduct/' + id);
+			else res.redirect('/survey/conduct/response/' + id);
+		});
+	});
+	router.get('/conduct/stop/:id', function(req, res, next) { // GET Conduct
+		var id = req.params.id;
+		data.survey.update({ id:id, state:0 }, function(err, response){
+			if(err) res.redirect('/survey/conduct');
+			else res.redirect('/survey/create/question/' + id);
+		});
+	});
+	router.get('/conduct/finished/:id', function(req, res, next) { // GET Conduct
+		var id = req.params.id;
+		data.survey.update({ id:id, state:3 }, function(err, response){
+			if(err) res.redirect('/survey/conduct');
+			else res.redirect('/survey/results/' + id);
 		});
 	});
 	

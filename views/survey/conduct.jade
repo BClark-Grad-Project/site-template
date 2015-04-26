@@ -8,9 +8,39 @@ block content
     .container
       .row
         .col-xs-12.col-sm-12.col-md-12.col-lg-12
-          h2 Conduct Questionnaire Activity
+          h2 Conducting Activity
           p Questionnares in circulation.  
           a.btn.btn-default.btn-md(href="/guide",role="button") Guide Me »            
   section#conduct.container
     .row
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        br
+        p Questionnaires listed here can be shared with the public with web link or you can request response from selected individuals.  All results can now be viewed in your 
+          a(href='/survey/analyze') analyse  
+          | manager.
+        br
+        br
+        small(style='opacity:0.3') Actively Conducting
+        hr(style='margin:0px;padding:0px;opacity:0.3;')
+        br
+        br
+        table.table.table-striped(style='opacity:0.7;')
+          tbody
+            if surveys[0]
+              for i in surveys
+                tr(style='border-radius: 10px;padding:17px;')
+                  td(style='padding-left:15px;border-bottom-left-radius: 10px;border-top-left-radius: 10px;width:60%;') 
+                    small 
+                      b #{i.name}
+                    br
+                    small(style='opacity:0.4;') Share link:  
+                      a(href='/survey/' + i.id) themindspot.com/survey/#{i.id}
+                  td(style='border-bottom-right-radius: 10px;border-top-right-radius: 10px;width:40%;') 
+                    ul.nav.nav-pills.nav-justified(style='margin:0px;padding:0px;')
+                      li(role='presentation', style='margin:0px;')
+                        a.middle.btn-sm(href='/survey/conduct/response/' + i.id, style='font-weight:500;white-space:nowrap;') Response Request
+                      li(role='presentation', style='margin:0px;')
+                        a.middle.btn-sm(href='/survey/conduct/finish/' + i.id, style='font-weight:500;color:green;') Conclude 
+                      li(role='presentation', style='margin:0px;')
+                        a.middle.btn-sm(href='/survey/conduct/stop/' + i.id, style='font-weight:500;color:red;') Stop
+                -qPos++;     

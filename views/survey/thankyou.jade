@@ -12,16 +12,15 @@ block content
       .container
         .row
           .col-xs-12.col-sm-12.col-md-12.col-lg-12
-            h1(style='color=green;') Completed
-            h4 #{survey.name}
-            p Follow the results at 
+            h2(style='margin-bottom:0px;padding-bottom:0px;') #{survey.name}
+            small(style='opacity:0.5;color:green;margin-top:0px;padding-top:0px;')  See the results at  
               a(href='/survey/result/' + survey.id) themindspot.com/survey/result/#{survey.id}
   section#survey.container
     .row
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
         br
-        h2 Thank you!
-        if survey.response
+        h4 Thank you!
+        if survey.response != ' ' 
           p #{survey.response}
         else 
          p Thank you for participating in the "#{survey.name}" questionnaire conducted by #{survey.conductor}.
