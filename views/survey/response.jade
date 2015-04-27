@@ -1,7 +1,7 @@
 extends ../layout
 
 include ./mixins/index.jade
-include ./mixins/conduct.jade
+include ./mixins/analyze.jade
 
 //-HTML content to display.
 block content
@@ -9,10 +9,33 @@ block content
     .container
       .row
         .col-xs-12.col-sm-12.col-md-12.col-lg-12
-          h2 Request Response
-          p Tools to reach your audience!
-          a.btn.btn-inverse.btn-md(href="/guide",role="button", style='color:white;') Guide Me » 
-          
-  section#create.container
+          h4 Response Results For
+          h2 #{survey.name}
+          p What did they say?
+          a.btn.btn-inverse.btn-md(href="/guide",role="button", style='color:white;') Guide Me »           
+  section#response.container
     .row
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        h3 Responses : #{responses.length}  
+          .btn-group.pull-right
+            button.btn.btn-default.btn-xs.dropdown-toggle.disabled(type="button", data-toggle="dropdown", aria-expanded="false") Sort
+              span.caret
+            ul.dropdown-menu(role="menu")
+              li(role="presentation")
+               a(href='#', role="menuitem", tabindex="-1") By Response
+              li(role="presentation")
+               a(href='#', role="menuitem", tabindex="-1") By Question
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='opacity:0.8;')
+        //- console.log(responses);
+        - var pos = 1;
+        br
+        if !responses.length
+          p There have been no responses to this questionnaire.
+        .panel-group(role="tablist", aria-multiselectable="true", id=respont)
+          for i in responses
+            - var respont = '';
+            - var respontItem = '';
+            - respont = i[0].respondant;
+            - respontItem = i;
+            +userEntry(pos, respont, respontItem)
+            - pos++;

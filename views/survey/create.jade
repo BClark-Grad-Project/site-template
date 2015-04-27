@@ -8,8 +8,8 @@ block content
     .container
       .row
         .col-xs-12.col-sm-12.col-md-12.col-lg-12
-          h2 Create Questionnaire Content
-          p Create a questionnaire, give it content and prefferences. 
+          h2 Create Questionnaire
+          p Content and prefferences. 
           a.btn.btn-default.btn-md(href="/guide",role="button") Guide Me »            
   section#create.container
     +managerMenu()
@@ -67,11 +67,11 @@ block content
                     td(style='width:40%;border-bottom-right-radius: 10px;border-top-right-radius: 10px;')
                       ul.nav.nav-pills.nav-justified(style='margin:0px;padding:0px;')
                         li(role='presentation', style='margin:0px;')
-                          a.btn-sm.middle(role='button', style='white-space:nowrap;', href='/survey/create/question/' + n.id) Add Questions 
+                          a.btn-sm.middle(role='button', style='white-space:nowrap;font-weight:500;', href='/survey/create/question/' + n.id) Questions 
                         li(role='presentation', style='margin:0px;')
-                          a.btn-sm.middle(role='button', style='', onclick= 'setFormDetails(' + JSON.stringify(n) + ');', data-toggle="collapse", data-target="#add-detail", aria-expanded="false", aria-controls="add-detail") Detail 
+                          a.btn-sm.middle(role='button', style='font-weight:500;', onclick= 'setFormDetails(' + JSON.stringify(n) + ');', data-toggle="collapse", data-target="#add-detail", aria-expanded="false", aria-controls="add-detail") Detail 
                         li(role='presentation', style='margin:0px;')
-                          a.btn-sm.middle(role='button', style='color:red;', href='/survey/delete/' + n.id) Delete 
+                          a.btn-sm.middle(role='button', style='font-weight:900;', href='/survey/delete/' + n.id) Delete 
             br
             br
             br

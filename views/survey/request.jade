@@ -1,0 +1,18 @@
+extends ../layout
+
+include ./mixins/index.jade
+include ./mixins/conduct.jade
+
+//-HTML content to display.
+block content
+  #main.jumbotron(style='background-image:url("/images/survey/analysis-bg.jpg");background-attachment:fixed;background-size:cover;')
+    .container
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          h2 Request Response
+          p Tools to reach your audience!
+          a.btn.btn-inverse.btn-md(href="/guide",role="button", style='color:white;') Guide Me » 
+          
+  section#create.container
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12

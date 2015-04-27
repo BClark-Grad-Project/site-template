@@ -9,9 +9,70 @@ block content
       .row
         .col-xs-12.col-sm-12.col-md-12.col-lg-12
           h2 Analyze Response Data
-          p Review realtime generated analysis sheets, create custom analysis formulas, or get developer access.  
+          p Get the most from your data.  
           a.btn.btn-default.btn-md(href="/guide",role="button") Guide Me »  
           
   section#analyze.container
     .row
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        br
+        p Review collected survey data and the cumalated results of your questionnaire conducting activities .
+    .row
+      #concluded.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12        
+        br
+        small(style='opacity:0.3') Concluded Questionnaire Research
+        hr(style='margin:0px;padding:0px;opacity:0.3;')
+        br
+        table.table.table-striped(style='opacity:0.8;')
+          tbody
+            if surveys[0]
+              - var concludedCount = 0;
+              for i in surveys
+                if i.state == 2
+                  - concludedCount++;
+                  tr(style='border-radius: 10px;padding:17px;')
+                    td(style='padding-left:15px;border-bottom-left-radius: 10px;border-top-left-radius: 10px;width:75%;') 
+                      small 
+                        b #{i.name}
+                      br
+                      small(style='opacity:0.4;') Results:  
+                        a(href='/survey/result/' + i.id, style='font-weight:300;') themindspot.com/survey/result/#{i.id}
+                    td(style='border-bottom-right-radius: 10px;border-top-right-radius: 10px;width:25%;') 
+                      ul.nav.nav-pills.nav-justified(style='margin:0px;padding:0px;')
+                        li(role='presentation', style='margin:0px;')
+                          a.middle.btn-sm(href='/survey/analyze/stat/' + i.id, style='font-weight:500;white-space:nowrap;') Statistics
+                        li(role='presentation', style='margin:0px;')
+                          a.middle.btn-sm(href='/survey/analyze/response/' + i.id, style='font-weight:500;white-space:nowrap;') Responses
+                        li.disabled(role='presentation', style='margin:0px;')
+                          a.middle.btn-sm(href='/survey/analyze', style='font-weight:700;white-space:nowrap;') Delete
+              if concludedCount == 0
+                script $('#concluded').removeClass('in')
+    .row
+      #conducting.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12        
+        br
+        small(style='opacity:0.3') Actively Conducting
+        hr(style='margin:0px;padding:0px;opacity:0.3;')
+        br
+        table.table(style='opacity:0.7;')
+          tbody
+            if surveys[0]
+              - var conductCount = 0;
+              for i in surveys
+                if i.state == 1
+                  - conductCount++;
+                  tr(style='border-radius: 10px;padding:17px;')
+                    td(style='padding-left:15px;border-bottom-left-radius: 10px;border-top-left-radius: 10px;width:80%;') 
+                      small 
+                        b #{i.name}
+                      br
+                      small(style='opacity:0.4;') Results:  
+                        a(href='/survey/result/' + i.id, style='font-weight:300;') themindspot.com/survey/result/#{i.id}
+                    td(style='border-bottom-right-radius: 10px;border-top-right-radius: 10px;width:20%;') 
+                      ul.nav.nav-pills.nav-justified(style='margin:0px;padding:0px;')
+                        li(role='presentation', style='margin:0px;')
+                          a.middle.btn-sm(href='/survey/analyze/stat/' + i.id, style='font-weight:500;white-space:nowrap;') Statistics
+                        li(role='presentation', style='margin:0px;')
+                          a.middle.btn-sm(href='/survey/analyze/response/' + i.id, style='font-weight:500;white-space:nowrap;') Responses
+              if conductCount  == 0
+                script $('#conducting').removeClass('in');
+              

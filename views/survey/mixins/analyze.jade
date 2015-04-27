@@ -1,0 +1,68 @@
+mixin analyzeManagerBar()
+  small
+  
+mixin responseOption(question, Obj)
+  - var findOption = function(key){
+  -   for(var i in question.options){
+  -     if(key.toString() == question.options[i].id.toString()) return i;
+  -   }
+  - };
+  - var optionObj = question.options[findOption(Obj.option)];
+  -console.log('getoption', question,Obj, optionObj);
+  if optionObj.option == 'provide'
+    tr
+      th.middle(style='width:3%;')
+        small(style='opacity:0.3;') A 
+      td(style='width:97%;opacity:0.3;', colspan=2) #{optionObj.response} 
+  else if optionObj.option == 'open'
+    tr
+      th.middle(style='width:3%;')
+        small(style='opacity:0.3;') A 
+      td(style='width:97%;opacity:0.3;', colspan=2) 
+        .col-xs-1.col-sm-1.col-md-1.col-lg-1(style='margin:0px;padding:0px;')
+          | #{optionObj.label} 
+        .col-xs-11.col-sm-11.col-md-11.col-lg-11(style='margin:0px;padding:0px;')    
+          i #{Obj.response}       
+  else if optionObj.option == 'opinion'
+    tr
+      th.middle(style='width:3%;')
+        small(style='opacity:0.3;') A 
+      td(style='width:97%;opacity:0.3;', colspan=2) 
+        i #{Obj.response} 
+
+mixin userEntry(pos, id, Obj)
+  .panel
+    .panel-heading(role="tab", id=id + "_head")
+      a.collapsed(data-toggle="collapse", data-parent="#" + id, href="#" + id + "_body", aria-expanded="false", aria-controls=id + "_body")  Response #{pos}
+    .panel-collapse.collapse(id=id + "_body", role="tabpanel", aria-labelledby=id + "_head")
+      .panel-body(style='margin:0px;padding:0px;') 
+        table.table.table-hover(style='margin:0px;padding:0px;')
+          tbody(style='margin:0px;padding:0px;')
+            - var findQuestion = function(key){
+            -   for(var i in survey.questions){
+            -     if(survey.questions[i].id.toString() == key.toString()) return i;
+            -   }
+            - };
+            - var prevVal;
+            - var thisVal = '';
+            for i in Obj
+              - thisVal = i.question.toString();
+              if thisVal === prevVal
+                +responseOption(survey.questions[findQuestion(i.question)], i)
+              else
+                - var question = survey.questions[findQuestion(i.question)];
+                tr.bg-warning(style='margin:0px;padding:0px;')
+                  th(style='width:3%;')
+                    small(style='opacity:0.7;font-weight:600;margin:0px;padding:0px;') Q 
+                  td(style='width:96%;') 
+                    p(style='opacity:0.8;margin:0px;padding:0px;')
+                      b(style='margin:0px;padding:0px;') #{question.question}
+                  td(style='width:1%;') 
+                    if question.type == 'single'
+                      img(src='/images/survey/icon-single.png', style='width:10px;opacity:0.3;')
+                    if question.type == 'multi'
+                      img(src='/images/survey/icon-multi.png', style='width:20px;opacity:0.3;')
+                    if question.type == 'opinion'
+                      img(src='/images/survey/icon-opinion.png', style='width:12px;opacity:0.3;')
+                +responseOption(question, i)
+              - prevVal = i.question.toString();

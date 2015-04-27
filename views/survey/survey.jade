@@ -6,19 +6,41 @@ include ./mixins/index.jade
 block content
   if survey.header
     #main.jumbotron(style='background-image:url("'+ survey.header + '");background-attachment:fixed;background-size:cover;margin-bottom:0px;')
-    script $('nav.navbar.navbar-inverse div').css('background-image', 'url("'+ survey.header + '")');
+      script $('nav.navbar.navbar-inverse div').css('background-image', 'url("'+ survey.header + '")');
+      .container
+        .row
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding:50px;opacity:0.8;background-color:white;border-radius:10px;')
+            h2 #{survey.name}
+            small(style='opacity:0.8;') Conducted by: #{survey.conductor}  
+            if survey.email
+              small(style='') (
+                i  #{survey.email}  
+                | )
+              br
+            if survey.website
+              small(style='opacity:0.5;') #{survey.website}
+              br
+            br
+            br
+            p #{survey.description}
   else
     #main.jumbotron(style='background-image:url("/images/survey/analysis-bg.jpg");background-attachment:fixed;background-size:cover;margin-bottom:0px;')
       .container
         .row
           .col-xs-12.col-sm-12.col-md-12.col-lg-12
             h2 #{survey.name}
-            small.pull-left(style='opacity:0.8;') Conducted by: #{survey.conductor}
-            if survey.website
-              small.pull-left(style='opacity:0.5;margin-left:40px;') #{survey.website}
+            small(style='opacity:0.8;') Conducted by: #{survey.conductor}  
             if survey.email
-              small.pull-left(style='margin-left:40px;') #{survey.email}
-            p #{survey.detail}
+              small(style='') (
+                i  #{survey.email}  
+                | )
+              br
+            if survey.website
+              small(style='opacity:0.5;') #{survey.website}
+              br
+            br
+            br
+            p #{survey.description}
   section#survey.container
     .row
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
