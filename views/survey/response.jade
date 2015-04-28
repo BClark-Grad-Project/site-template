@@ -31,7 +31,7 @@ block content
         br
         if !responses.length
           p There have been no responses to this questionnaire.
-        .panel-group(role="tablist", aria-multiselectable="true", id=respont)
+        .panel-group(role="tablist", aria-multiselectable="true", id=respont, style='box-shadow: 0 0 2px rgba(0, 0, 0, .2);border-radius:10px;')
           for i in responses
             - var respont = '';
             - var respontItem = '';
