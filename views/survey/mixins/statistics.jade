@@ -1,0 +1,123 @@
+// Chart mixins
+mixin questionPieChart(Obj)
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12.middle(id='pie_chart_' + Obj.id, style='margin:0px;padding:0px;')
+    - var graphCol = [];
+    - var total = {};
+    - var pos = 1; 
+    for i in Obj.options
+      - total['A' + pos ] = [pos, pos + 10];
+      - pos++;
+    script var pie = c3.generate({bindto: '#pie_chart_#{Obj.id}',data: {json: !{JSON.stringify(total)}}, size:{height:230}}).transform('donut');
+
+
+mixin questionBarChart(Obj)
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12.middle(id='bar_graph_' + Obj.id, style='margin:0px;padding:0px;')
+    - var graphCol = [];
+    - var total = {};
+    - var pos = 1; 
+    for i in Obj.options
+      - total['A' + pos ] = [pos];
+      - pos++;
+    script c3.generate({bindto: '#bar_graph_#{Obj.id}',data: {json: !{JSON.stringify(total)}, type : 'bar'}, size:{height:230}}).transform('bar', 'A1').transform('bar', 'A2').transform('bar', 'A3').transform('bar', 'A3').transform('bar', 'A4').transform('bar', 'A5').transform('bar', 'A6').transform('bar', 'A7').transform('bar', 'A8').transform('bar', 'A9').transform('bar', 'A10');
+    
+
+
+mixin questionScatterChart(Obj)
+  small(style='opacity:0.3;') 
+
+
+mixin questionBellCurve(Obj)
+  small(style='opacity:0.3;') 
+ 
+ 
+// Stat mixins
+mixin respondantAverages(Obj)
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+    small(style='opacity:0.3;') Respondant Averages
+
+    
+  
+mixin questionTotals(Obj)
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;margin-top:10px;padding:0px;')
+    //small(style='opacity:0.3;margin:0px;padding:0px;') Selection Average
+    br
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:10px;padding:0px;')
+      - var pos = 1;
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding-left:0px;opacity:0.7;')
+        .list-group
+          for i in Obj.options
+            a.list-group-item(href='#!')
+              span.badge 0000
+              h5(style='margin:0px;padding:0px;') A
+                small #{pos} ) 
+                |    
+                if i.option != 'open' 
+                  small #{i.response}
+                else
+                  small #{i.label}
+            - pos++;
+  
+  
+// Question Result Components
+mixin questionChart(Obj)
+  .row
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      .tabbable.tabs-left
+        ul.nav.nav-tabs(style='opacity:0.5;')
+          li
+            a(href='#pie_' + Obj.id.toString(), data-toggle="tab") Pie Chart
+          li.active
+            a(href='#bar_' + Obj.id.toString(), data-toggle="tab") Bar Graph
+            //          li
+            //            a(href='#sca_' + Obj.id.toString(), data-toggle="tab") Scatter Plot
+        .tab-content(style='width:230px;padding-left:115px;')
+          .tab-pane.middle(id='pie_' + Obj.id.toString(), style='width:230px;')
+            +questionPieChart(Obj)
+          .tab-pane.middle.active(id='bar_' + Obj.id.toString(), style='width:230px;')
+            +questionBarChart(Obj)
+//          .tab-pane(id='sca_' + Obj.id.toString())
+//            +questionScatterChart(Obj)
+            
+ 
+mixin questionStats(Obj)
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+      br
+      +questionTotals(Obj)
+//    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+//      +respondantAverages(Obj)
+  
+  
+mixin questionHeader(pos, Obj)
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+    .col-xs-1.col-sm-1.col-md-1.col-lg-1(style='margin:0px;padding-left:10px;')
+      h2(style='opacity:0.6;') Q
+        small #{pos}
+    .col-xs-10.col-sm-10.col-md-10.col-lg-10(style='margin:0px;padding-top:20px;')
+      h4(style='opacity:0.6;font-weight:700;') #{Obj.question}
+    .col-xs-1.col-sm-1.col-md-1.col-lg-1(style='margin:0px;padding-top:30px;')
+      if Obj.type == 'single'
+        img.pull-right(src='/images/survey/icon-single.png', style='opacity:0.3;')
+      if Obj.type == 'multi'
+        img.pull-right(src='/images/survey/icon-multi.png', style='opacity:0.3;')
+      if Obj.type == 'opinion'
+        img.pull-right(src='/images/survey/icon-opinion.png', style='opacity:0.3;')
+//      button.close(type='button')
+//        span.glyphicon.glyphicon-modal-window(aria-hidden='true', style='opacity:0.6;')
+//        span.sr-only Close
+
+mixin questionResult(pos, Obj)
+  .row
+    br
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='border-radius:20px; box-shadow: 0 0 2px rgba(0,0,0,0.2);')
+      +questionHeader(pos, Obj)
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:10px 0px;padding:0px;width:100%;')
+        hr(style='margin:0px;padding:0px;width:100%;')
+      br
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px inherit;padding:0px;')
+        .col-xs-12.col-sm-6.col-md-5.col-lg-4(style='margin:0px;padding:0px;')   
+          +questionChart(Obj)
+          br
+        .col-xs-12.col-sm-6.col-md-7.col-lg-8(style='margin:0px;padding:0px;')
+          +questionStats(Obj)
+    

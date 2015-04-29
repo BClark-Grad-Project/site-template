@@ -1,18 +1,26 @@
 extends ../layout
 
 include ./mixins/index.jade
+include ./mixins/statistics.jade
+
+block css
+  link(rel='stylesheet', href='/css/d3/c3.css')
+
+block js-top
+  script(src='/js/d3/d3.min.js')
+  script(src='/js/d3/c3.min.js')
 
 //-HTML content to display.m
 block content
   if survey.header
-    #main.jumbotron(style='background-image:url("'+ survey.header + '");background-attachment:fixed;background-size:cover;margin-bottom:0px;')
-      script $('nav.navbar.navbar-inverse div').css('background-image', 'url("'+ survey.header + '")');
+    #main.jumbotron(style='background-image:url(' + survey.header + ');background-attachment:fixed;background-size:cover;margin-bottom:0px;')
+      //script $('nav.navbar.navbar-inverse div').css('background-image', 'url(#{survey.header})');
       .container
         .row
           .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='padding:50px;opacity:0.8;background-color:white;border-radius:10px;')
             small(style='margin-bottom:0px;padding-bottom:0px;') Results for
             h2(style='margin-top:0px;padding-top:0px;') #{survey.name}
-            small(style='opacity:0.8;') Conducted by: #{survey.conductor}  
+            small(style='opacity:0.9;') Conducted by: #{survey.conductor}  
             if survey.email
               small(style='') (
                 i  #{survey.email}  
@@ -42,6 +50,19 @@ block content
             br
             br
             p #{survey.description}
+  - var pos = 1;
   section#survey.container
-    .row
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    br
+    br
+    small(style='opacity:0.3;') Cumalitive
+    br
+    br
+    p Comming
+    br
+    br
+    small(style='opacity:0.3;') Individual
+    for i in survey.questions
+      +questionResult(pos, i)
+      - pos++;
+    br
+    br
