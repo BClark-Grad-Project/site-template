@@ -5,7 +5,7 @@ mixin questionPieChart(Obj)
     - var total = {};
     - var pos = 1; 
     for i in Obj.options
-      - total['A' + pos ] = [pos, pos + 10];
+      - total['A' + pos ] = [i.selected];
       - pos++;
     script var pie = c3.generate({bindto: '#pie_chart_#{Obj.id}',data: {json: !{JSON.stringify(total)}}, size:{height:230}}).transform('donut');
 
@@ -16,16 +16,18 @@ mixin questionBarChart(Obj)
     - var total = {};
     - var pos = 1; 
     for i in Obj.options
-      - total['A' + pos ] = [pos];
+      - total['A' + pos ] = [i.selected];
       - pos++;
-    script c3.generate({bindto: '#bar_graph_#{Obj.id}',data: {json: !{JSON.stringify(total)}, type : 'bar'}, size:{height:230}}).transform('bar', 'A1').transform('bar', 'A2').transform('bar', 'A3').transform('bar', 'A3').transform('bar', 'A4').transform('bar', 'A5').transform('bar', 'A6').transform('bar', 'A7').transform('bar', 'A8').transform('bar', 'A9').transform('bar', 'A10');
+    script c3.generate({bindto: '#bar_graph_#{Obj.id}',data: {json: !{JSON.stringify(total)}, type : 'bar'}, size:{height:230}}).transform('bar');
     
 
+mixin questionResponseRate(Obj) 
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12.middle(id='rrate_guage_' + Obj.id, style='margin:0px;padding:0px;')
+    script c3.generate({bindto: '#rrate_guage_#{Obj.id}',data: {columns: [['data', !{(Obj.selected/survey.responded) * 100}]],type: 'gauge'},color: {pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'],threshold: {values: [30, 60, 90, 100]}},size: {width: 230}});
 
 mixin questionScatterChart(Obj)
-  small(style='opacity:0.3;') 
-
-
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12.middle(id='sca_plot_' + Obj.id, style='margin:0px;padding:0px;')
+  
 mixin questionBellCurve(Obj)
   small(style='opacity:0.3;') 
  
@@ -42,20 +44,33 @@ mixin questionTotals(Obj)
     //small(style='opacity:0.3;margin:0px;padding:0px;') Selection Average
     br
     .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:10px;padding:0px;')
-      - var pos = 1;
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding-left:0px;opacity:0.7;')
-        .list-group
-          for i in Obj.options
-            a.list-group-item(href='#!')
-              span.badge 0000
-              h5(style='margin:0px;padding:0px;') A
-                small #{pos} ) 
-                |    
-                if i.option != 'open' 
-                  small #{i.response}
+      if Obj.type !== 'opinion'
+        - var pos = 1;
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding-left:0px;opacity:0.7;')
+          .list-group
+            for i in Obj.options
+              a.list-group-item(href='#!')
+                if i.selected
+                  span.badge #{i.selected}
                 else
-                  small #{i.label}
-            - pos++;
+                  span.badge 0
+                h5(style='margin:0px;padding:0px;') A
+                  small #{pos} ) 
+                  |    
+                  if i.option != 'open' 
+                    small #{i.response}
+                  else
+                    small #{i.label}
+              - pos++;
+      else
+        small(style='opacity:0.3;') Sentiment
+        br
+        p The sentiment of people who gave feedback to this question was:
+        - var cumalitive = Obj.options[0].score;
+        - cumalitive.shift();
+        br
+        h1.middle(id='sent_#{Obj.id.toString()}')
+        script var cumalitive = d3.mean([!{cumalitive}]);var $sentCumalitive = $('#sent_#{Obj.id.toString()}'); console.log($sentCumalitive, cumalitive);if(cumalitive > 7) $sentCumalitive.html('Very High'); else if(cumalitive > 3) $sentCumalitive.html('High'); else if(cumalitive > 0) $sentCumalitive.html('Slightly Nuetral'); else if(cumalitive = 0) $sentCumalitive.html('Nuetral'); else if(cumalitive < 0) $sentCumalitive.html('Almost Nuetral'); else if(cumalitive < -3) $sentCumalitive.html('Low'); else if(cumalitive < -7) $sentCumalitive.html('Very Low');
   
   
 // Question Result Components
@@ -64,25 +79,44 @@ mixin questionChart(Obj)
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
       .tabbable.tabs-left
         ul.nav.nav-tabs(style='opacity:0.5;')
+          if Obj.type == 'single'
+            li.active
+              a(href='#pie_' + Obj.id.toString(), data-toggle="tab") Pie Chart
+            li
+              a(href='#bar_' + Obj.id.toString(), data-toggle="tab") Bar Graph
+          if Obj.type == 'multi'
+            li.active
+              a(href='#bar_' + Obj.id.toString(), data-toggle="tab") Bar Graph
+            li
+              a(href='#pie_' + Obj.id.toString(), data-toggle="tab") Pie Chart
+          if Obj.type == 'opinion'
+            li.active
+              a(href='#sca_' + Obj.id.toString(), data-toggle="tab") Sentiment
           li
-            a(href='#pie_' + Obj.id.toString(), data-toggle="tab") Pie Chart
-          li.active
-            a(href='#bar_' + Obj.id.toString(), data-toggle="tab") Bar Graph
-            //          li
-            //            a(href='#sca_' + Obj.id.toString(), data-toggle="tab") Scatter Plot
+            a(href='#rrate_' + Obj.id.toString(), data-toggle="tab") Response
         .tab-content(style='width:230px;padding-left:115px;')
-          .tab-pane.middle(id='pie_' + Obj.id.toString(), style='width:230px;')
-            +questionPieChart(Obj)
-          .tab-pane.middle.active(id='bar_' + Obj.id.toString(), style='width:230px;')
-            +questionBarChart(Obj)
-//          .tab-pane(id='sca_' + Obj.id.toString())
-//            +questionScatterChart(Obj)
+          if Obj.type == 'single'
+            .tab-pane.middle.active(id='pie_' + Obj.id.toString(), style='width:230px;')
+              +questionPieChart(Obj)
+            .tab-pane.middle(id='bar_' + Obj.id.toString(), style='width:230px;')
+              +questionBarChart(Obj)
+          else if Obj.type == 'multi'
+            .tab-pane.middle.active(id='bar_' + Obj.id.toString(), style='width:230px;')
+              +questionBarChart(Obj)
+            .tab-pane.middle(id='pie_' + Obj.id.toString(), style='width:230px;')
+              +questionPieChart(Obj)
+          else if Obj.type == 'opinion'
+            .tab-pane.middle.active(id='sca_' + Obj.id.toString(), style='width:230px;')
+              +questionScatterChart(Obj)
+              - console.log(Obj);
+              script c3.generate({bindto: '#sca_plot_#{Obj.id}',data:{xs:{Relevance: 'Score',},columns:[!{JSON.stringify(Obj.options[0].score)},!{JSON.stringify(Obj.options[0].comparative)}],type:'scatter'},axis:{x:{max:10,min:-10,label:'SCORE',tick:{fit:false}},y:{max:1,min:0,show:false}},grid:{x:{lines:[{value: 0, text: 'Relavance', position: 'middle'}]}},legend:{show: false},size: {width: 230, height:160}});
+          .tab-pane.middle(id='rrate_' + Obj.id.toString(), style='width:230px;')
+            +questionResponseRate(Obj)
             
  
 mixin questionStats(Obj)
   .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
     .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
-      br
       +questionTotals(Obj)
 //    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
 //      +respondantAverages(Obj)

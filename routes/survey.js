@@ -28,8 +28,7 @@ module.exports = function (data) {
 	});
 	router.get('/result/:id', function(req, res, next) { // Delete survey.
 		var id = req.params.id;
-		
-		data.survey.R.surveyForm({id:id}, function(err, survey){
+		data.survey.R.surveyResult({id:id}, function(err, survey){
 			if(err){
 				console.log(err);
 				res.redirect('/survey/analyze');

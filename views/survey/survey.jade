@@ -22,7 +22,9 @@ block content
               br
             br
             br
-            p #{survey.description}
+            h5 
+              a(role='button', data-toggle="collapse", data-target="#description-notification", aria-expanded="false", aria-controls="description-notification") About Questionnaire »
+            p#description-notification.collapse #{survey.description}
   else
     #main.jumbotron(style='background-image:url("/images/survey/analysis-bg.jpg");background-attachment:fixed;background-size:cover;margin-bottom:0px;')
       .container
@@ -40,7 +42,9 @@ block content
               br
             br
             br
-            p #{survey.description}
+            h5 
+              a(role='button', data-toggle="collapse", data-target="#description-notification", aria-expanded="false", aria-controls="description-notification") About Questionnaire »
+            p#description-notification.collapse #{survey.description}
   section#survey.container
     .row
       .col-xs-12.col-sm-12.col-md-12.col-lg-12

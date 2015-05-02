@@ -30,8 +30,12 @@ block content
               small(style='opacity:0.5;') #{survey.website}
               br
             br
+            font(style='color: green;') #{survey.responded} Responses
             br
-            p #{survey.description}
+            br
+            h5 
+              a(role='button', data-toggle="collapse", data-target="#description-notification", aria-expanded="false", aria-controls="description-notification") About Questionnaire »
+            p#description-notification.collapse #{survey.description}
   else
     #main.jumbotron(style='background-image:url("/images/survey/analysis-bg.jpg");background-attachment:fixed;background-size:cover;margin-bottom:0px;')
       .container
@@ -48,19 +52,17 @@ block content
               small(style='opacity:0.5;') #{survey.website}
               br
             br
+            font(style='color: green;') #{survey.responded} Responses
             br
-            p #{survey.description}
+            br
+            h5 
+              a(role='button', data-toggle="collapse", data-target="#description-notification", aria-expanded="false", aria-controls="description-notification") About Questionnaire »
+            p#description-notification.collapse #{survey.description}
   - var pos = 1;
   section#survey.container
     br
     br
-    small(style='opacity:0.3;') Cumalitive
-    br
-    br
-    p Comming
-    br
-    br
-    small(style='opacity:0.3;') Individual
+    small(style='opacity:0.3;') Questions
     for i in survey.questions
       +questionResult(pos, i)
       - pos++;
