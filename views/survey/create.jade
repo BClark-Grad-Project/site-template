@@ -13,7 +13,8 @@ block content
           p Content and prefferences. 
           a.btn.btn-default.btn-md(href="/guide",role="button") Guide Me »            
   section#create.container
-    if user.type != 'guest'
+    if user.credentials.alias != 'Guest'
+      -console.log(user);
       +managerMenu()
       .row
         .col-xs-12.col-sm-12.col-md-12.col-lg-12
