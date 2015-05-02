@@ -1,0 +1,138 @@
+
+mixin newSurvey() 
+  small.pull-right(style='opacity:0.5;') Required Fields
+  hr(style='opacity:0.5;')
+  br
+  form#form-survey-detail(action='/survey/create', method='POST', role='form', enctype="multipart/form-data")
+    .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='margin:0px;padding:0px;')
+      label(for='name') Name
+      input.form-control(type='text', name='name', required)
+      br
+    .col-xs-0.col-sm-1.col-md-1.col-lg-1.hide-sm(style='margin:0px;padding:0px;')
+      |  
+    .col-xs-12.col-sm-5.col-md-5.col-lg-5(style='margin:0px;padding:0px;')
+      label(for='catagory') Catagory
+      select.form-control(type='text', name='catagory')
+        - var cats = ['Generic','Food','Business','Academic','Economic','Science','News','Retail', 'Romance','Music','Television','Opinion','World'];
+        for z in cats
+          option(value=z).active #{z}
+      br
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+      label(for='description') Short Description
+      textarea.form-control(type='textarea', name='description', required, style='height:100px;') 
+      br
+      br
+    #more-detail.collapse.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+      small.pull-right(style='opacity:0.5;') Optional Fields
+      hr(style='opacity:0.5;')
+      br
+      .col-xs-12.col-sm-4.col-md-4.col-lg-4(style='margin:0px;padding:0px;')
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+          small.pull-left(style='opacity:0.5;') Conductor Information
+          hr(style='opacity:0.5;')
+        label(for='conductor') Name
+        input.form-control(type='text', name='conductor')
+        br
+        label(for='website') Web Site
+        input.form-control(type='text', name='website')
+        br
+        label(for='email') Email
+        input.form-control(type='text', name='email')
+        br
+        br
+      .col-xs-0.col-sm-1.col-md-1.col-lg-1.hide-sm(style='margin:0px;padding:0px;')
+        |  
+      .col-xs-12.col-sm-7.col-md-7.col-lg-7(style='margin:0px;padding:0px;')
+        .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='margin:0px;padding:0px;')
+          br
+          br
+          label(for='end') End Date
+          #endDate.input-group.date
+            input.form-control(type="text", name='end')
+            span.input-group-addon
+              i.glyphicon.glyphicon-th
+          small.pull-right Default 4 weeks from start.
+          br
+        .col-xs-0.col-sm-1.col-md-1.col-lg-1.hide-sm(style='margin:0px;padding:0px;')
+          |   
+        .col-xs-12.col-sm-5.col-md-5.col-lg-5(style='margin:0px;padding:0px;position:relative;')
+          #header-preview.img-rounded(style='background-size:cover;float:right;width:100%;height:105px;margin:0px;padding:0px 5px;')
+            br
+            br
+            label(for='header') Header Image 
+            input.form-control(type='file', name='header',accept='image/*', onchange='loadHeaderPreview(event)') 
+            br
+        br
+        label(for='response') Finished Response 
+        textarea.form-control(type='textarea', name='response', style='height:120px;') 
+        br
+        br
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+      hr(style='opacity:0.5;')
+      br     
+      .col-xs-0.col-sm-2.col-md-3.col-lg-6.hide-sm(style='margin:0px;padding:0px;')
+        |  
+      .col-xs-0.col-sm-1.col-md-1.col-lg-1.hide-sm(style='margin:0px;padding:0px;')
+        |  
+      .col-xs-12.col-sm-9.col-md-8.col-lg-5(style='margin:0px;padding:0px;')              
+        button.btn.btn-md.btn-default.pull-right(type='submit', style='width:30%;') Questions
+        button.btn.btn-md.btn-inverse.pull-right(type='button', data-toggle="collapse", data-target="#more-detail", aria-expanded="false", aria-controls="more-detail", style='width:30%;margin-right:10px;') More Detail
+        br
+        
+mixin addSurveyDetail()
+  #add-detail.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+    script $('#add-detail').on('shown.bs.collapse', function() {$('#what-to-do').collapse('hide');});
+    br
+    h3 Lets get started!
+    p Start with giving your questionnaire some detail.
+    br
+    +newSurvey()
+
+mixin whatToDo()
+  #what-to-do.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+    br
+    h3 Welcome Back!
+    p What would you like to do?
+    hr
+    br
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+      .col-xs-9.col-sm-8.col-md-5.col-lg-5(style='margin:0px;padding:0px;')
+        p(style='padding: 10px 0px;text-indent:20px;') 
+          b Start new questionnaire.
+        br
+      .col-xs-3.col-sm-4.col-md-7.col-lg-7(style='margin:0px;padding:0px;')
+        button.btn.btn-md.btn-default(type='button', data-toggle="collapse", data-target="#add-detail", aria-expanded="false", aria-controls="add-detail") Start Creating » 
+        br
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+      .col-xs-9.col-sm-8.col-md-5.col-lg-5(style='margin:0px;padding:0px;')
+        p(style='padding: 10px 0px;text-indent:20px;') 
+          b Continue working on a previous questionnaire.
+        br
+      .col-xs-3.col-sm-4.col-md-7.col-lg-7(style='margin:0px;padding:0px;')
+        a.btn.btn-md.btn-default(type='button', data-toggle="collapse", data-target="#select-detail", aria-expanded="false", aria-controls="select-detail") Continue Work » 
+        br
+                
+                
+mixin selectSurveyDetail()
+  #select-detail.collapse.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+    script $('#select-detail').on('shown.bs.collapse', function() {$('#what-to-do').collapse();});
+    br
+    h2 Still Working    
+    span.glyphicon.glyphicon-briefcase   
+    br
+    br
+    table.table.table-striped(style='opacity:0.7;')
+      tbody
+        for n in surveys
+          tr(style='border-radius: 10px; padding:17px;')
+            td(style='padding:15px;width:60%;border-bottom-left-radius: 10px;border-top-left-radius: 10px;')
+              small
+                 b #{n.name}
+            td(style='width:40%;border-bottom-right-radius: 10px;border-top-right-radius: 10px;')
+              ul.nav.nav-pills.nav-justified(style='margin:0px;padding:0px;')
+                li(role='presentation', style='margin:0px;')
+                  a.btn-sm.middle(role='button', style='white-space:nowrap;font-weight:500;', href='/survey/create/question/' + n.id) Questions 
+                li(role='presentation', style='margin:0px;')
+                  a.btn-sm.middle(role='button', style='font-weight:500;', onclick= 'setFormDetails(' + JSON.stringify(n) + ');', data-toggle="collapse", data-target="#add-detail", aria-expanded="false", aria-controls="add-detail") Detail 
+                li(role='presentation', style='margin:0px;')
+                  a.btn-sm.middle(role='button', style='font-weight:900;', href='/survey/delete/' + n.id) Delete 

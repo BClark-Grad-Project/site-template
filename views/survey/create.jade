@@ -1,6 +1,7 @@
 extends ../layout
 
 include ./mixins/index.jade
+include ./mixins/create.jade
 
 //-HTML content to display.
 block content
@@ -12,67 +13,38 @@ block content
           p Content and prefferences. 
           a.btn.btn-default.btn-md(href="/guide",role="button") Guide Me »            
   section#create.container
-    +managerMenu()
-    .row
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        #add-detail.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
-          script $('#add-detail').on('shown.bs.collapse', function() {$('#what-to-do').collapse('hide');});
+    if user.type != 'guest'
+      +managerMenu()
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          +addSurveyDetail()
+          if surveys.length
+            script $('#add-detail').collapse();
+            +whatToDo()
+            +selectSurveyDetail()
+    else 
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
           br
-          h3 Lets get started!
-          p Start with giving your questionnaire some detail.
           br
-          +newSurvey()
-        if surveys.length
-          script $('#add-detail').collapse();
-          #what-to-do.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
-            br
-            h3 Welcome Back!
-            p What would you like to do?
-            hr
-            br
-            .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
-              .col-xs-9.col-sm-8.col-md-5.col-lg-5(style='margin:0px;padding:0px;')
-                p(style='padding: 10px 0px;text-indent:20px;') 
-                  b Start new questionnaire.
-                br
-              .col-xs-3.col-sm-4.col-md-7.col-lg-7(style='margin:0px;padding:0px;')
-                button.btn.btn-md.btn-default(type='button', data-toggle="collapse", data-target="#add-detail", aria-expanded="false", aria-controls="add-detail") Start Creating » 
-                br
-            .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
-              .col-xs-9.col-sm-8.col-md-5.col-lg-5(style='margin:0px;padding:0px;')
-                p(style='padding: 10px 0px;text-indent:20px;') 
-                  b Continue working on a previous questionnaire.
-                br
-              .col-xs-3.col-sm-4.col-md-7.col-lg-7(style='margin:0px;padding:0px;')
-                a.btn.btn-md.btn-default(type='button', data-toggle="collapse", data-target="#select-detail", aria-expanded="false", aria-controls="select-detail") Continue Work » 
-                br
-              br
-              br
-              br
-              br
-          #select-detail.collapse.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
-            script $('#select-detail').on('shown.bs.collapse', function() {$('#what-to-do').collapse();});
-            br
-            h2 Still Working    
-              span.glyphicon.glyphicon-briefcase   
-            br
-            br
-            table.table.table-striped(style='opacity:0.7;')
-              tbody
-                for n in surveys
-                  tr(style='border-radius: 10px; padding:17px;')
-                    td(style='padding:15px;width:60%;border-bottom-left-radius: 10px;border-top-left-radius: 10px;')
-                      small
-                        b #{n.name}
-                    td(style='width:40%;border-bottom-right-radius: 10px;border-top-right-radius: 10px;')
-                      ul.nav.nav-pills.nav-justified(style='margin:0px;padding:0px;')
-                        li(role='presentation', style='margin:0px;')
-                          a.btn-sm.middle(role='button', style='white-space:nowrap;font-weight:500;', href='/survey/create/question/' + n.id) Questions 
-                        li(role='presentation', style='margin:0px;')
-                          a.btn-sm.middle(role='button', style='font-weight:500;', onclick= 'setFormDetails(' + JSON.stringify(n) + ');', data-toggle="collapse", data-target="#add-detail", aria-expanded="false", aria-controls="add-detail") Detail 
-                        li(role='presentation', style='margin:0px;')
-                          a.btn-sm.middle(role='button', style='font-weight:900;', href='/survey/delete/' + n.id) Delete 
-            br
-            br
-            br
-            br
+          p.middle You are not signed in.  If you already have an account 
+            +signIn()  
+            |   or if not   
+            +register()  
+            | .
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      br
+      br
+      br
+      br
+      br
+      br
+      br
+      br
+      br
+      br
+      br
+      br
+      br
+      br
+      br

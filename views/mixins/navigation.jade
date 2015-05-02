@@ -345,11 +345,9 @@ mixin navUser()
         +userOptions()
     if userType(user.authorizations) === 'guest'   
       li(style='margin:0px;padding:0px;')
-        a.pull-right(data-toggle='modal', data-target='#login-form-modal') 
-          b Sign in   
+        a.pull-right(data-toggle='modal', data-target='#login-form-modal') Sign in   
       li(style='margin:0px;')
-        a.pull-right(data-toggle='modal', data-target='#register-form-modal') 
-          b Sign up  
+        a.pull-right(data-toggle='modal', data-target='#register-form-modal') Sign up  
       //li.navbar-right(style='float:right;margin:0px;padding:0px;padding-top:8px;')
       //  form.navbar-form.hide-md(role='form', method='POST', action='/authentication', style='margin:0px;padding:0px;')
       //    input.form-control(name='user', type='input', placeholder='user', style='margin:0px;width:125px;')

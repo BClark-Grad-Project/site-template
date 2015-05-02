@@ -60,7 +60,7 @@ module.exports = function (data) {
 			if(err){
 				console.log('Creating questionnaire detail error: ', err);
 				res.render('survey/create', {title:req.app.locals.service_name, user: req.session.user, survey: form });
-			} else res.redirect('/survey/create/question/' + survey.id);			
+			} else res.redirect('/survey/create/question/' + survey.id + '#create');			
 		});
 	});
 	router.get('/create/question/:id', function(req, res, next) { // GET Create Question
@@ -80,7 +80,7 @@ module.exports = function (data) {
 			if(err) {
 				console.log('error creating new question.', err);
 				res.redirect('/survey/create/question/' + id);
-			} else res.redirect('/survey/create/question/' + id);
+			} else res.redirect('/survey/create/question/' + id + '#create');
 		});
 	});
 
@@ -93,8 +93,8 @@ module.exports = function (data) {
 		data.survey.create({question:form}, function(err, question){
 			if(err) {
 				console.log('error creating new question.', err);
-				res.redirect('/survey/create/question/' + id );
-			} else res.redirect('/survey/create/question/' + id + '/' + question.id);
+				res.redirect('/survey/create/question/' + id  + '#create');
+			} else res.redirect('/survey/create/question/' + id + '/' + question.id + '#create');
 		});
 	});
 
@@ -104,8 +104,8 @@ module.exports = function (data) {
 		data.survey.remove({question:question}, function(err, response){
 			if(err) {
 				console.log('error deleting question.', err);
-				res.redirect('/survey/create/question/' + id );
-			} else res.redirect('/survey/create/question/' + id );
+				res.redirect('/survey/create/question/' + id  + '#create');
+			} else res.redirect('/survey/create/question/' + id  + '#create');
 		});
 	});
 
@@ -118,8 +118,8 @@ module.exports = function (data) {
 		data.survey.remove({option:option}, function(err, survey){
 			if(err){
 				console.log('Deleting option error: ', err);
-				res.redirect('/survey/create/question/' + id + '/' + question);
-			} else res.redirect('/survey/create/question/' + id + '/' + question);
+				res.redirect('/survey/create/question/' + id + '/' + question + '#create');
+			} else res.redirect('/survey/create/question/' + id + '/' + question + '#create');
 		});
 	});
 	
@@ -131,7 +131,7 @@ module.exports = function (data) {
 		data.survey.read({id:id}, function(err, survey){
 			if(err){
 				console.log('Adding question error: ', err);
-				res.redirect('/survey/create/question/' + id);
+				res.redirect('/survey/create/question/' + id + '#create');
 			} else res.render('survey/questions', {title:req.app.locals.service_name, user: req.session.user, survey: survey[0], question: question });			
 		});
 	});
@@ -148,8 +148,8 @@ module.exports = function (data) {
 		data.survey.update({question:form}, function(err, questionObj){
 			if(err) {
 				console.log('error creating new question.', err);
-				res.redirect('/survey/create/question/' + id + '/' + question);
-			} else res.redirect('/survey/create/question/' + id + '/' + question);
+				res.redirect('/survey/create/question/' + id + '/' + question + '#create');
+			} else res.redirect('/survey/create/question/' + id + '/' + question + '#create');
 		});
 	});
 	
@@ -164,7 +164,7 @@ module.exports = function (data) {
 			if(err){
 				console.log(err);
 				res.redirect('/survey/create/');
-			} else res.redirect('/survey/create/question/' + req.params.id);	
+			} else res.redirect('/survey/create/question/' + req.params.id + '#create');	
 		});
 	});
 	router.get('/delete/:id', function(req, res, next) { // Delete survey.
@@ -179,9 +179,6 @@ module.exports = function (data) {
 	});
 	
 	
-	
-	
-
 	/*
 	 * CONDUCTING OPERATIONS
 	 * */
@@ -220,7 +217,7 @@ module.exports = function (data) {
 		var id = req.params.id;
 		data.survey.update({ id:id, state:2 }, function(err, response){
 			if(err) res.redirect('/survey/conduct');
-			else res.redirect('/survey/results/' + id);
+			else res.redirect('/survey/anlayze');
 		});
 	});
 	

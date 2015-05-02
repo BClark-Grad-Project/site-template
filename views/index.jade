@@ -12,7 +12,7 @@ block content
           br
           h1 Giving you the egde on consumer information the way you need it!  
           .col-xs-12.col-sm-12.col-md-12.col-lg-12
-            p.pull-right(style='text-align:right;') Mind Research Questionnaire Analysis Tools   
+            p.pull-right(style='text-align:right;') Mind Research Questionnaire Tools   
               a.btn.btn-lg.btn-success(href="/survey/create",role="button") Get Started »  
           br
           
@@ -23,14 +23,14 @@ block content
         .col-xs-6.col-sm-6.col-md-4.col-lg-4.middle
           img(src='/images/survey/create-growth.png', style='width:200px;')
           hr
-          small Create a questionnaire for the topic of your choice with questions that have meaning to your organization.
+          p(style='padding: 0px 10px;') Easy questionnaire generation so you can begin to seed and feed your question data.
           br
           br
           br
         .col-xs-6.col-sm-6.col-md-4.col-lg-4.middle
           img(src='/images/survey/conduct-growth.png', style='width:200px;')
           hr          
-          small Get consumer response by conducting questionnaire request with email, text and social platforms.
+          p(style='padding: 0px 10px;') Request others to respond to questionnaires to facilitate the growth of data.
           br
           br
           br
@@ -38,7 +38,7 @@ block content
         .col-xs-6.col-sm-6.col-md-4.col-lg-4.middle
           img(src='/images/survey/analyze-growth.png', style='width:200px;')
           hr
-          small Wait for consumers to respond to your request and make your numbers valuable to your organization with Mind Research tools.
+          p(style='padding: 0px 10px;') Review questionnaires and enjoy the data you have grown.
           br
           br
           br
@@ -51,32 +51,33 @@ block content
         .col-xs-12.col-sm-12.col-md-12.col-lg-12   
           .col-xs-12.col-sm-8.col-md-8.col-lg-8
             br
-            h4 Recent Questionnaire's
+            h4 
+              a(href='/survey') Recent Questionnaire's
             br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
-            br
+            if surveys.length
+              for i in surveys
+                .col-xs-10.col-sm-9.col-md-10.col-lg-10  
+                  p 
+                   b #{i.name}   
+                .col-xs-2.col-sm-3.col-md-2.col-lg-2
+                  if i.state == 1
+                    a(href='/survey/' + i.id)
+                      span.badge.btn-success Conducting
+                  else if i.state == 2
+                    a(href='/survey/result/' + i.id)
+                      span.badge.btn-warning Concluded
           .col-xs-12.col-sm-4.col-md-4.col-lg-4
             br
-            h4 Mind Research Update's
+            h4(style='text-align:center;') Mind Research Update's
             br
-            if blog != undefined
-              small No updates...
-            else
-              ul.nav.nav-pills.nav-stacked
+            if blog.length
+              ul.list-group
                 for j in blog
-                  li(role="presentation") 
+                  li.list-group-item(role="presentation") 
                     small
-                      a(href='/blog/'+j.id) #{j.title}
+                      a(href='/blog/' + j.id ) #{j.article.title}
+            else
+              small No updates...
           .col-xs-12.col-sm-12.col-md-12.col-lg-12.middle
             br
             h5 

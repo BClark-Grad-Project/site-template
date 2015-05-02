@@ -66,12 +66,12 @@ mixin questionTotals(Obj)
         small(style='opacity:0.3;') Sentiment
         br
         if Obj.options[0].score
-          p The cumalitive sentiment of people who gave feedback to this question was:
+          p(style='padding-right:15px;opacity:0.7;') The cumalitive sentiment of people who gave feedback to this question was:
           - var cumalitive = Obj.options[0].score;
           - cumalitive.shift();
           br
-          h1.middle(id='sent_#{Obj.id.toString()}')
-          script var cumalitive = d3.mean([!{cumalitive}]);console.log(cumalitive);if(cumalitive > 7) $('#sent_#{Obj.id.toString()}').html('Very High'); else if(cumalitive > 3) $('#sent_#{Obj.id.toString()}').html('High'); else if(cumalitive > 1) $('#sent_#{Obj.id.toString()}').html('Slightly Neutral'); else if(cumalitive > -1) $('#sent_#{Obj.id.toString()}').html('Neutral'); else if(cumalitive > -3) $('#sent_#{Obj.id.toString()}').html('Almost Neutral'); else if(cumalitive > -4) $('#sent_#{Obj.id.toString()}').html('Low'); else if(cumalitive > -8) $('#sent_#{Obj.id.toString()}').html('Very Low');
+          h1.middle(id='sent_#{Obj.id.toString()}', style='opacity:0.7;')
+          script var cumalitive = d3.mean([!{cumalitive}]);console.log(cumalitive);if(cumalitive > 7) $('#sent_#{Obj.id.toString()}').html('Very Positive'); else if(cumalitive > 5) $('#sent_#{Obj.id.toString()}').html('Positive'); else if(cumalitive > 3) $('#sent_#{Obj.id.toString()}').html('Slightly Positive'); else if(cumalitive > 1) $('#sent_#{Obj.id.toString()}').html('Slightly Neutral'); else if(cumalitive > -1) $('#sent_#{Obj.id.toString()}').html('Neutral'); else if(cumalitive > -3) $('#sent_#{Obj.id.toString()}').html('Almost Neutral'); else if(cumalitive > -4) $('#sent_#{Obj.id.toString()}').html('Slightly Negative'); else if(cumalitive > -6) $('#sent_#{Obj.id.toString()}').html('Negative'); else if(cumalitive > -8) $('#sent_#{Obj.id.toString()}').html('Very Negative');
         else
           p There has been no response to place analysis on.
   
