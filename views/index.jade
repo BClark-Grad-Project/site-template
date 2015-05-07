@@ -8,12 +8,15 @@ block content
   #main.jumbotron(style='background-image:url("/images/survey/analysis-bg.jpg");background-attachment:fixed;background-size:cover;')
     .container
       .row
-        .col-xs-12.col-sm-12.col-md-12.col-lg-12
-          br
-          h1 Giving you the egde on consumer information the way you need it!  
+        .col-xs-12.col-sm-12.col-md-6.col-lg-6
+          br.hide-md
+          br.hide-md
+          h1.pull-left(style='font-size:50px;') Giving you the egde on consumer information the way you need it!  
+        .col-xs-12.col-sm-12.col-md-6.col-lg-6
+          img.pull-right(src='/images/survey/ptd.png', style='width:100%;')
           .col-xs-12.col-sm-12.col-md-12.col-lg-12
-            p.pull-right(style='text-align:right;') Mind Research Questionnaire Tools   
-              a.btn.btn-lg.btn-success(href="/survey/create",role="button") Get Started »  
+            p.pull-left(style='text-align:right;padding-top:20px;') Mind Research Questionnaire Tools   
+            a.btn.btn-lg.btn-success.pull-right(href="/survey/create",role="button",style='margin-top:10px;') Get Started »  
           br
           
   section#how-it-works.container
