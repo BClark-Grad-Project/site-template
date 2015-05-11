@@ -93,6 +93,24 @@ var responseQuestionnaireForm = function(req){
 	return form;
 };
 
+var requestForm = function(req){
+	var form = [];
+	var id = req.body.id;
+	if(req.body.name){
+		form.push({email:req.body.email,name:req.body.name,survey:id});
+	} else {
+		if(req.body.email[0]){
+			for(var i in req.body.email){
+				var email = req.body.email[i];
+				var name = req.body[email];
+				form.push({email:email,name:name,survey:id});
+			}
+		}
+	}
+	
+	return form;
+};
+
 module.exports.getNewSurvey = function(req){
 	var formContent = newQuestionnaireForm(req); 
 	
@@ -113,6 +131,13 @@ module.exports.getUpdatedQuestion = function(req){
 
 module.exports.getSurveyResponse = function(req, survey){
 	var form = responseQuestionnaireForm(req);
+	
+	
+	return form;
+};
+
+module.exports.getNewRequest = function(req, survey){
+	var form = requestForm(req);
 	
 	
 	return form;

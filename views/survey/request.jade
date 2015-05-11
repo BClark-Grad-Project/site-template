@@ -5,7 +5,7 @@ include ./mixins/conduct.jade
 
 //-HTML content to display.
 block content
-  #main.jumbotron(style='background-image:url("/images/survey/analysis-bg.jpg");background-attachment:fixed;background-size:cover;')
+  #main.jumbotron(style='background-image:url("/images/survey/analysis-bg.jpg");background-attachment:fixed;background-size:cover;margin-bottom:0px;')
     .container
       .row
         .col-xs-12.col-sm-12.col-md-12.col-lg-12
@@ -14,5 +14,40 @@ block content
           a.btn.btn-inverse.btn-md(href="/guide",role="button", style='color:white;') Guide Me » 
           
   section#create.container
-    .row
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    +managerConductMenu()
+    +newRespondantsBtns()
+    +addEmailContact()
+    row.col-xs-12.col-sm-12.col-md-12.col-lg-12
+      #select-gmail.collapse.col-xs-12.col-sm-12.col-md-12.col-lg-12
+        br
+        br
+        small(style='opacity:0.5;margin:0px;padding:0px;') Select Contacts 
+        hr(style='opacity:0.5;margin:0px;padding:0px;')
+        br
+        br
+        form(method='POST', action='/survey/conduct/request/add')
+          input(type='hidden', name='id', value=survey.id)
+          fieldset#respondant-choices.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin-bottom:30px;')
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12
+            hr(style='opacity:0.5;')
+            br
+          button.btn.btn-md.btn-default.pull-right(type='submit') Make Request          
+      if survey.responses
+        #responses.collapse.col-xs-12.col-sm-12.col-md-12.col-lg-12
+          p reponses present!
+      else
+        #responses-none.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='opacity:0.5;')
+          br
+          br
+          p Begin requesting responses with the above options.
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      br
+      br
+      br
+      br
+      br
+      br
+      br
+      br
+      br
+      br

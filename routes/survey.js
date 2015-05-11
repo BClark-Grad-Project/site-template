@@ -195,8 +195,10 @@ module.exports = function (data) {
 			if(err) res.redirect('/survey/conduct');
 			else res.render('survey/request', {title:req.app.locals.service_name, user: req.session.user, survey: survey[0] });
 		});
-	}).post('/conduct/request/:id', function(req, res, next) {    // POST Conduct
-		res.render('survey/conduct', {title:req.app.locals.service_name, user: req.session.user });
+	}).post('/conduct/request/add', function(req, res, next) {    // POST Conduct
+		var form = surveyObjs.getNewRequest(req);
+		console.log(form);
+		res.render('survey/request', {title:req.app.locals.service_name, user: req.session.user, survey:{} });
 	});
 
 	router.get('/conduct/begin/:id', function(req, res, next) { // GET Conduct

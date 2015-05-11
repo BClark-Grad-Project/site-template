@@ -50,6 +50,7 @@ var setLoginForm = function(Obj){
 	form.submit();
 };
 
+
 // Registration Form
 var setRegistrationForm = function(Obj){
 	var form = document.createElement('form');
@@ -203,7 +204,6 @@ var setLinkedInFields = function(Obj){
 };
 
 var setGPlusFields = function(Obj){
-	console.log(JSON.stringify(Obj)); 
 	var detail = {};
 	var auth = {};
 	var gplus = {};
@@ -239,7 +239,6 @@ var setGPlusFields = function(Obj){
 };
 
 var setFacebookFields = function(Obj){
-	console.log(JSON.stringify(Obj));
 	var detail = {};
 	var auth = {};
 	var facebook = {};
@@ -273,3 +272,40 @@ var setFacebookFields = function(Obj){
 			facebook: facebook}
 		};
 }; 
+
+var addContactChoices = function(contacts){
+	var form = document.getElementById('respondant-choices');
+	form.innerHTML = ' ';
+	for(var i in contacts){
+		if(contacts[i].emails[0]){
+
+			var row = document.createElement('label');
+			var label = document.createElement('label');
+			var input = document.createElement('input');
+			var input2 = document.createElement('input');
+			var paragraph = document.createElement('p');
+			paragraph.innerHTML = contacts[i].name;
+			
+			row.setAttribute("class", "col-xs-12 col-sm-12 col-md-6 col-lg-6");
+			row.style.cssText = 'margin:0px; padding:0px;';
+			label.style.cssText = 'margin:0px; padding:0px;';
+			label.setAttribute('for', contacts[i].emails[0]);
+			label.setAttribute('class', 'checkbox');
+            input.setAttribute('name', 'email');
+            input.setAttribute('type', 'checkbox');
+            input.setAttribute('id', contacts[i].emails[0]);
+            input.setAttribute('value', contacts[i].emails[0]);
+            input.checked = true;
+            input2.setAttribute('name', contacts[i].emails[0]);
+            input2.setAttribute('type', 'hidden');
+            input2.setAttribute('value', contacts[i].name);
+
+			label.appendChild(input);
+			label.appendChild(input2);
+			label.appendChild(paragraph);
+			row.appendChild(label);
+			form.appendChild(row);
+		}
+	}
+	//$('#select-gmail').collapse();
+};

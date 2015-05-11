@@ -1,4 +1,17 @@
-
+mixin managerCreateMenu()
+  .row(style='margin:0px;padding:0px;opacity:0.3;')
+    if survey || surveys[0]
+      #manager-menu.collapse.col-xs-12.col-sm-12.col-md-12.col-lg-12.pull-right(style='margin:0px;padding:0px;')
+        ul.nav.nav-pills(style='margin:0px;padding:0px;')
+          .hr.vr.pull-left 
+          .hr.vr.pull-right 
+          li.back-btn.pull-right(role='presentation', style='margin:0px;')
+            a(role='button',data-toggle="collapse", data-target="#what-to-do", aria-expanded="false", aria-controls='what-to-do', style='font-weight:500;')   
+              span.glyphicon.glyphicon-arrow-left  
+              |  Back
+          .back-btn.hr.vr.pull-right.hide
+        hr(style='margin:0px;padding:0px;')
+      
 mixin newSurvey() 
   small.pull-right(style='opacity:0.5;') Required Fields
   hr(style='opacity:0.5;')
@@ -81,15 +94,20 @@ mixin newSurvey()
         
 mixin addSurveyDetail()
   #add-detail.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
-    script $('#add-detail').on('shown.bs.collapse', function() {$('#what-to-do').collapse('hide');});
+    script $('#add-detail').on('show.bs.collapse', function() {$('#what-to-do').removeClass('in');});
     br
-    h3 Lets get started!
-    p Start with giving your questionnaire some detail.
+    #get-started.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+      h3 Lets get started!
+      p Start with giving your questionnaire some detail.
     br
     +newSurvey()
 
 mixin whatToDo()
   #what-to-do.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
+    script $('#what-to-do').on('show.bs.collapse', function() {$('#manager-menu').collapse('hide');});
+    script $('#what-to-do').on('show.bs.collapse', function() {$('#add-detail').removeClass('in');});
+    script $('#what-to-do').on('show.bs.collapse', function() {$('#select-detail').removeClass('in');});
+    script $('#what-to-do').on('show.bs.collapse', function() {$('#get-started').addClass('in');});
     br
     h3 Welcome Back!
     p What would you like to do?
@@ -101,7 +119,7 @@ mixin whatToDo()
           b Start new questionnaire.
         br
       .col-xs-3.col-sm-4.col-md-7.col-lg-7(style='margin:0px;padding:0px;')
-        button.btn.btn-md.btn-default(type='button', data-toggle="collapse", data-target="#add-detail", aria-expanded="false", aria-controls="add-detail") Start Creating » 
+        button.btn.btn-md.btn-default(onclick='$("#manager-menu").collapse("show");', type='button', data-toggle="collapse", data-target="#add-detail", aria-expanded="false", aria-controls="add-detail") Start Creating » 
         br
     .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
       .col-xs-9.col-sm-8.col-md-5.col-lg-5(style='margin:0px;padding:0px;')
@@ -109,13 +127,14 @@ mixin whatToDo()
           b Continue working on a previous questionnaire.
         br
       .col-xs-3.col-sm-4.col-md-7.col-lg-7(style='margin:0px;padding:0px;')
-        a.btn.btn-md.btn-default(type='button', data-toggle="collapse", data-target="#select-detail", aria-expanded="false", aria-controls="select-detail") Continue Work » 
+        a.btn.btn-md.btn-default(onclick='$("#manager-menu").collapse("show");', type='button', data-toggle="collapse", data-target="#select-detail", aria-expanded="false", aria-controls="select-detail") Continue Work » 
         br
                 
                 
 mixin selectSurveyDetail()
   #select-detail.collapse.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
-    script $('#select-detail').on('shown.bs.collapse', function() {$('#what-to-do').collapse();});
+    script $('#select-detail').on('show.bs.collapse', function() {$('#what-to-do').removeClass('in');});
+    script $('#select-detail').on('show.bs.collapse', function() {$('#get-started').removeClass('in');});
     br
     h2 Still Working    
     span.glyphicon.glyphicon-briefcase   
@@ -131,8 +150,8 @@ mixin selectSurveyDetail()
             td(style='width:40%;border-bottom-right-radius: 10px;border-top-right-radius: 10px;')
               ul.nav.nav-pills.nav-justified(style='margin:0px;padding:0px;')
                 li(role='presentation', style='margin:0px;')
-                  a.btn-sm.middle(role='button', style='white-space:nowrap;font-weight:500;', href='/survey/create/question/' + n.id) Questions 
-                li(role='presentation', style='margin:0px;')
                   a.btn-sm.middle(role='button', style='font-weight:500;', onclick= 'setFormDetails(' + JSON.stringify(n) + ');', data-toggle="collapse", data-target="#add-detail", aria-expanded="false", aria-controls="add-detail") Detail 
+                li(role='presentation', style='margin:0px;')
+                  a.btn-sm.middle(role='button', style='white-space:nowrap;font-weight:500;', href='/survey/create/question/' + n.id) Questions 
                 li(role='presentation', style='margin:0px;')
                   a.btn-sm.middle(role='button', style='font-weight:900;', href='/survey/delete/' + n.id) Delete 
