@@ -14,32 +14,57 @@ block content
           a.btn.btn-inverse.btn-md(href="/guide",role="button", style='color:white;') Guide Me » 
           
   section#create.container
-    +managerConductMenu()
-    +newRespondantsBtns()
-    +addEmailContact()
-    row.col-xs-12.col-sm-12.col-md-12.col-lg-12
-      #select-gmail.collapse.col-xs-12.col-sm-12.col-md-12.col-lg-12
-        br
-        br
-        small(style='opacity:0.5;margin:0px;padding:0px;') Select Contacts 
-        hr(style='opacity:0.5;margin:0px;padding:0px;')
-        br
-        br
-        form(method='POST', action='/survey/conduct/request/add')
-          input(type='hidden', name='id', value=survey.id)
-          fieldset#respondant-choices.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin-bottom:30px;')
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12
-            hr(style='opacity:0.5;')
-            br
-          button.btn.btn-md.btn-default.pull-right(type='submit') Make Request          
+    if user.credentials.alias != 'Guest'
+      +managerConductMenu()
+      +newRespondantsBtns()
+      +addEmailContact()
+      row.col-xs-12.col-sm-12.col-md-12.col-lg-12
+        #select-gmail.collapse.col-xs-12.col-sm-12.col-md-12.col-lg-12
+          br
+          br
+          small(style='opacity:0.5;margin:0px;padding:0px;') Select Contacts 
+          hr(style='opacity:0.5;margin:0px;padding:0px;')
+          br
+          br
+          form(method='POST', action='/survey/conduct/request/add')
+            input(type='hidden', name='id', value=survey.id)
+            fieldset#respondant-choices.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin-bottom:30px;')
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12
+              hr(style='opacity:0.5;')
+              br
+            button.btn.btn-md.btn-default.pull-right(type='submit') Make Request          
       if survey.responses
-        #responses.collapse.col-xs-12.col-sm-12.col-md-12.col-lg-12
-          p reponses present!
+        #responses.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12
+          br
+          br
+          small(style='opacity:0.5;margin:0px;padding:0px;') Sent Request
+          hr(style='opacity:0.5;margin:0px;padding:0px;')
+          br
+          br
+          for i in survey.responses
+            .col-xs-12.col-sm-12.col-md-6.col-lg-6
+              .col-xs-2.col-sm-1.col-md-1.col-lg-1
+                if i.status == false
+                  span.glyphicon.glyphicon-envelope
+                else
+                  span.glyphicon.glyphicon-ok
+              .col-xs-10.col-sm-11.col-md-11.col-lg-11
+                p #{i.name}
       else
         #responses-none.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='opacity:0.5;')
           br
           br
           p Begin requesting responses with the above options.
+    else 
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          br
+          br
+          p.middle You are not signed in.  If you already have an account 
+            +signIn()  
+            |   or if not   
+            +register()  
+            | .
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
       br
       br

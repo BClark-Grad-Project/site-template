@@ -14,28 +14,39 @@ block content
           p What did they say?
           a.btn.btn-inverse.btn-md(href="/guide",role="button", style='color:white;') Guide Me »           
   section#response.container
-    .row
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        h3 Responses : #{responses.length}  
-          .btn-group.pull-right
-            button.btn.btn-default.btn-xs.dropdown-toggle.disabled(type="button", data-toggle="dropdown", aria-expanded="false") Sort
-              span.caret
-            ul.dropdown-menu(role="menu")
-              li(role="presentation")
-               a(href='#', role="menuitem", tabindex="-1") By Response
-              li(role="presentation")
-               a(href='#', role="menuitem", tabindex="-1") By Question
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='opacity:0.8;')
-        //- console.log(responses);
-        - var pos = 1;
-        br
-        if !responses.length
-          p There have been no responses to this questionnaire.
-        .panel-group(role="tablist", aria-multiselectable="true", id=respont, style='box-shadow: 0 0 2px rgba(0, 0, 0, .2);border-radius:10px;')
-          for i in responses
-            - var respont = '';
-            - var respontItem = '';
-            - respont = i[0].respondant;
-            - respontItem = i;
-            +userEntry(pos, respont, respontItem)
-            - pos++;
+    if user.credentials.alias != 'Guest'
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          h3 Responses : #{responses.length}  
+            .btn-group.pull-right
+              button.btn.btn-default.btn-xs.dropdown-toggle.disabled(type="button", data-toggle="dropdown", aria-expanded="false") Sort
+                span.caret
+              ul.dropdown-menu(role="menu")
+                li(role="presentation")
+                 a(href='#', role="menuitem", tabindex="-1") By Response
+                li(role="presentation")
+                 a(href='#', role="menuitem", tabindex="-1") By Question
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='opacity:0.8;')
+          //- console.log(responses);
+          - var pos = 1;
+          br
+          if !responses.length
+            p There have been no responses to this questionnaire.
+          .panel-group(role="tablist", aria-multiselectable="true", id=respont, style='box-shadow: 0 0 2px rgba(0, 0, 0, .2);border-radius:10px;')
+            for i in responses
+              - var respont = '';
+              - var respontItem = '';
+              - respont = i[0].respondant;
+              - respontItem = i;
+              +userEntry(pos, respont, respontItem)
+              - pos++;
+    else 
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          br
+          br
+          p.middle You are not signed in.  If you already have an account 
+            +signIn()  
+            |   or if not   
+            +register()  
+            | .

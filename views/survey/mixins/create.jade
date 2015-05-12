@@ -13,8 +13,10 @@ mixin managerCreateMenu()
         hr(style='margin:0px;padding:0px;')
       
 mixin newSurvey() 
+  br
   small.pull-right(style='opacity:0.5;') Required Fields
   hr(style='opacity:0.5;')
+  br
   br
   form#form-survey-detail(action='/survey/create', method='POST', role='form', enctype="multipart/form-data")
     .col-xs-12.col-sm-6.col-md-6.col-lg-6(style='margin:0px;padding:0px;')
@@ -43,8 +45,11 @@ mixin newSurvey()
         .col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0px;padding:0px;')
           small.pull-left(style='opacity:0.5;') Conductor Information
           hr(style='opacity:0.5;')
+        - var fname = user.detail.first ? user.detail.first : '';
+        - var lname = user.detail.last ? user.detail.last : '';
+        - var myname = fname + ' ' + lname;
         label(for='conductor') Name
-        input.form-control(type='text', name='conductor')
+        input.form-control(type='text', name='conductor', value=myname)
         br
         label(for='website') Web Site
         input.form-control(type='text', name='website')
@@ -64,8 +69,6 @@ mixin newSurvey()
             input.form-control(type="text", name='end')
             span.input-group-addon
               i.glyphicon.glyphicon-th
-          small.pull-right Default 4 weeks from start.
-          br
         .col-xs-0.col-sm-1.col-md-1.col-lg-1.hide-sm(style='margin:0px;padding:0px;')
           |   
         .col-xs-12.col-sm-5.col-md-5.col-lg-5(style='margin:0px;padding:0px;position:relative;')
@@ -75,6 +78,7 @@ mixin newSurvey()
             label(for='header') Header Image 
             input.form-control(type='file', name='header',accept='image/*', onchange='loadHeaderPreview(event)') 
             br
+        br
         br
         label(for='response') Finished Response 
         textarea.form-control(type='textarea', name='response', style='height:120px;') 

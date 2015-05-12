@@ -58,27 +58,37 @@ block content
               a(href='/survey') Recent Questionnaire's
             br
             if surveys.length
-              for i in surveys
-                .col-xs-10.col-sm-9.col-md-10.col-lg-10  
-                  p 
-                   b #{i.name}   
-                .col-xs-2.col-sm-3.col-md-2.col-lg-2
-                  if i.state == 1
-                    a(href='/survey/' + i.id)
-                      span.badge.btn-success Conducting
-                  else if i.state == 2
-                    a(href='/survey/result/' + i.id)
-                      span.badge.btn-warning Concluded
+              ul.list-group
+                for i in surveys
+                  li.list-group-item
+                    .col-xs-10.col-sm-9.col-md-10.col-lg-10  
+                      p 
+                        b 
+                          if i.state != 2
+                            a(href='/survey/' + i.id) #{i.name}
+                          else 
+                            a(href='/survey/result/' + i.id) #{i.name} 
+                    .col-xs-2.col-sm-3.col-md-2.col-lg-2
+                      if i.state == 1
+                        a(href='/survey/result/' + i.id)
+                          span.badge.btn-success Conducting
+                      else if i.state == 2
+                        a(href='/survey/result/' + i.id)
+                          span.badge.btn-warning Concluded
+                    br
           .col-xs-12.col-sm-4.col-md-4.col-lg-4
             br
-            h4(style='text-align:center;') Mind Research Update's
+            h4.pull-right Mind Research Update's
             br
             if blog.length
+              br
               ul.list-group
+                br
                 for j in blog
                   li.list-group-item(role="presentation") 
-                    small
+                    small.pull-right
                       a(href='/blog/' + j.id ) #{j.article.title}
+                    br
             else
               small No updates...
           .col-xs-12.col-sm-12.col-md-12.col-lg-12.middle

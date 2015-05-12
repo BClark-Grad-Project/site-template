@@ -12,58 +12,63 @@ block content
           p Questionnares in circulation.  
           a.btn.btn-default.btn-md(href="/guide",role="button") Guide Me »            
   section#conduct.container
-    .row
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        br
-        p Questionnaires listed here can be shared with the public.  Share it yourself or use the tools we provide!
-        p All results can be viewed in the 
-          a(href='/survey/analyze') analyse  
-          | manager.
-        br
-    .row
-      #inactive-conduct.collapse.col-xs-12.col-sm-12.col-md-12.col-lg-12
-        hr
-        br
-        p To begin 
-          a(href='/survey/create') Create 
-          | a questionnaire that can be distributed.  When finished generating a questionnaire press "Begin Conducting".
-          p If you already have completed a questionnaire study the results can be viewed in the 
-            a(href='/survey/analyze') Analyze 
+    if user.credentials.alias != 'Guest'
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          br
+          p Questionnaires listed here can be shared with the public.  Share it yourself or use the tools we provide!
+          p All results can be viewed in the 
+            a(href='/survey/analyze') analyse  
             | manager.
-      
-    .row
-      #active-conduct.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12
-        small(style='opacity:0.3') Actively Conducting
-        hr(style='margin:0px;padding:0px;opacity:0.3;')
-        br
-        br
-        table.table.table-striped(style='opacity:0.7;')
-          tbody
-            if surveys.length
-              for i in surveys
-                tr(style='border-radius: 10px;padding:17px;')
-                  td(style='padding-left:15px;border-bottom-left-radius: 10px;border-top-left-radius: 10px;width:60%;') 
-                    small 
-                      b #{i.name}
-                    br
-                    small(style='opacity:0.4;') Share link:  
-                      a(href='/survey/' + i.id, style='font-weight:300;') themindspot.com/survey/#{i.id}
-                  td(style='border-bottom-right-radius: 10px;border-top-right-radius: 10px;width:40%;') 
-                    ul.nav.nav-pills.nav-justified(style='margin:0px;padding:0px;')
-                      li(role='presentation', style='margin:0px;')
-                        a.middle.btn-sm(href='/survey/conduct/request/' + i.id, style='font-weight:500;white-space:nowrap;') Request
-                      li(role='presentation', style='margin:0px;')
-                        a.middle.btn-sm(href='/survey/conduct/finish/' + i.id, style='font-weight:500;') Conclude 
-                      li(role='presentation', style='margin:0px;')
-                        a.middle.btn-sm(href='/survey/conduct/stop/' + i.id, style='font-weight:900;;') Pause
-            else
-              script $('#active-conduct').collapse();$('#inactive-conduct').collapse();
-
+          br
+      .row
+        #inactive-conduct.collapse.col-xs-12.col-sm-12.col-md-12.col-lg-12
+          hr
+          br
+          p To begin 
+            a(href='/survey/create') Create 
+            | a questionnaire that can be distributed.  When finished generating a questionnaire press "Begin Conducting".
+            p If you already have completed a questionnaire study the results can be viewed in the 
+              a(href='/survey/analyze') Analyze 
+              | manager.      
+      .row
+        #active-conduct.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12
+          small(style='opacity:0.3') Actively Conducting
+          hr(style='margin:0px;padding:0px;opacity:0.3;')
+          br
+          br
+          table.table.table-striped(style='opacity:0.7;')
+            tbody
+              if surveys.length
+                for i in surveys
+                  tr(style='border-radius: 10px;padding:17px;')
+                    td(style='padding-left:15px;border-bottom-left-radius: 10px;border-top-left-radius: 10px;width:60%;') 
+                      small 
+                        b #{i.name}
+                      br
+                      small(style='opacity:0.5;') Share link:  
+                        a(href='/survey/' + i.id, style='font-weight:300;') themindspot.com/survey/#{i.id}
+                    td(style='border-bottom-right-radius: 10px;border-top-right-radius: 10px;width:40%;') 
+                      ul.nav.nav-pills.nav-justified(style='margin:0px;padding:0px;')
+                        li(role='presentation', style='margin:0px;')
+                          a.middle.btn-sm(href='/survey/conduct/stop/' + i.id, style='font-weight:500;') Pause
+                        li(role='presentation', style='margin:0px;')
+                          a.middle.btn-sm(href='/survey/conduct/request/' + i.id, style='font-weight:500;white-space:nowrap;') Request
+                        li(role='presentation', style='margin:0px;')
+                          a.middle.btn-sm(href='/survey/conduct/finish/' + i.id, style='font-weight:900;') Conclude 
+              else
+                script $('#active-conduct').collapse();$('#inactive-conduct').collapse();
+    else 
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          br
+          br
+          p.middle You are not signed in.  If you already have an account 
+            +signIn()  
+            |   or if not   
+            +register()  
+            | .
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
-      br
-      br
-      br
-      br
       br
       br
       br

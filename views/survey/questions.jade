@@ -14,22 +14,33 @@ block content
           p Add questions to my questionnaire.
           a.btn.btn-default.btn-md(href="/guide",role="button") Guide Me »            
   section#create.container
-    +managerMenu()
-    +newQuestionBtns()
-    .col-xs-12.col-sm-12.col-md-12.col-lg-12
-      +newSingleQuestion()
-      +newMultiQuestion()
-      +newOpinionQuestion()
-    if survey.questions
+    if user.credentials.alias != 'Guest'
+      +managerMenu()
+      +newQuestionBtns()
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        +myQuestions()
-    else
-      #my-questions.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='opacity:0.5;')
-        br
-        br
-        p Start adding questions your your questionnaire with one of the above reponse options.
-    if question
-      script loadQuestion(!{JSON.stringify(question)}, !{JSON.stringify(survey)});
+        +newSingleQuestion()
+        +newMultiQuestion()
+        +newOpinionQuestion()
+      if survey.questions
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          +myQuestions()
+      else
+        #my-questions.collapse.in.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='opacity:0.5;')
+          br
+          br
+          p Start adding questions your your questionnaire with one of the above reponse options.
+      if question
+        script loadQuestion(!{JSON.stringify(question)}, !{JSON.stringify(survey)});
+    else 
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          br
+          br
+          p.middle You are not signed in.  If you already have an account 
+            +signIn()  
+            |   or if not   
+            +register()  
+            | .
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
       br
       br

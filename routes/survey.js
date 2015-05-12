@@ -11,7 +11,7 @@ module.exports = function (data) {
 		res.render('survey/index', {title:req.app.locals.service_name, user: req.session.user });
 	}).post('/', function(req, res, next) { // Complete survey
 		var form = surveyObjs.getSurveyResponse(req);
-		
+		if(req.body.request) data.survey.U.requestReturn({_id:req.body.request});
 		data.survey.C.respond(form);
 		data.survey.R.surveyForm({id: req.body.survey}, function(err, survey){
 			if(err) {
@@ -191,14 +191,29 @@ module.exports = function (data) {
 	
 	router.get('/conduct/request/:id', function(req, res, next) { // GET Conduct
 		var id = req.params.id;		
-		data.survey.read({id:id, state:1}, function(err, survey){	
+		data.survey.R.requestedResponse({survey:id}, function(err, responses){
 			if(err) res.redirect('/survey/conduct');
-			else res.render('survey/request', {title:req.app.locals.service_name, user: req.session.user, survey: survey[0] });
+			else data.survey.read({id:id, state:1}, function(err, survey){
+				if(err) res.redirect('/survey/conduct');
+				else {
+					survey.responses = responses;
+					res.render('survey/request', {title:req.app.locals.service_name, user: req.session.user, survey:survey });
+				}
+			});
 		});
 	}).post('/conduct/request/add', function(req, res, next) {    // POST Conduct
 		var form = surveyObjs.getNewRequest(req);
-		console.log(form);
-		res.render('survey/request', {title:req.app.locals.service_name, user: req.session.user, survey:{} });
+		data.survey.C.requestResponse(form);
+		data.survey.R.requestedResponse({survey:req.body.id}, function(err, responses){
+			if(err) res.redirect('/survey/conduct');
+			else data.survey.read({id:req.body.id, state:1}, function(err, survey){
+				if(err) res.redirect('/survey/conduct');
+				else {
+					survey.responses = responses;
+					res.render('survey/request', {title:req.app.locals.service_name, user: req.session.user, survey:survey });
+				}
+			});
+		});
 	});
 
 	router.get('/conduct/begin/:id', function(req, res, next) { // GET Conduct
@@ -281,13 +296,12 @@ module.exports = function (data) {
 	router.get('/:id/:request', function(req, res, next) { // get survey for requested user
 		var id = req.params.id;
 		var request = req.params.request;
+		
 		data.survey.R.surveyForm({id:id}, function(err, survey){
-			if(err) {
-				console.log('');
-				res.redirect('/survey/sorry');
-			} else res.render('survey/survey', {title:req.app.locals.service_name, user: req.session.user, survey:survey, request: request });
+			if(err) res.redirect('/survey/sorry');
+			else res.render('survey/survey', {title:req.app.locals.service_name, user: req.session.user, survey:survey, request: request });
 		});
-	});	
+	});
 	
 	return router;
 };   

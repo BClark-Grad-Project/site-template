@@ -79,17 +79,48 @@ var responseItem = function(pos, req, pos2){
 
 var responseQuestionnaireForm = function(req){
 	var form = [];
-	
-	for(var i in req.body.question){
-		var current = req.body[req.body.question[i] + '_checked'];
+	if(typeof req.body.question != 'string'){
+		for(var i in req.body.question){
+			var current = req.body[req.body.question[i] + '_checked'];
+			if(current){
+				if(Array.isArray(current)){
+					for(var n = 0; n < current.length; n++) form.push(responseItem(i, req, n));
+				} else form.push(responseItem(i, req));			
+			}
+		}
+	} else {
+		var current = req.body[req.body.question + '_checked'];
 		if(current){
 			if(Array.isArray(current)){
-				for(var n = 0; n < current.length; n++) form.push(responseItem(i, req, n));
-			} else form.push(responseItem(i, req));			
+				for(var n = 0; n < current.length; n++) {
+					var response = {};
+					response.survey   = req.body.survey;
+					response.question = req.body.question;
+					response.date     = new Date;
+					
+					if(req.body.request) response.request = req.body.request;
+					if(req.session.user.id)	response.user = req.session.user.id;
+					response.option = current[n];
+					if(req.body[current[n] + '_response']){
+						response.response = req.body[current[n] + '_response'];
+					}
+					form.push(response);
+				}
+			} else {
+				var response = {};
+				response.survey   = req.body.survey;
+				response.question = req.body.question;
+				response.date     = new Date;
+				
+				if(req.body.request) response.request = req.body.request;
+				if(req.session.user.id)	response.user = req.session.user.id;
+				response.option = current;
+				response.response = req.body[current + '_response'];
+				form.push(response);
+			}		
 		}
 	}
 	console.log(form);
-	
 	return form;
 };
 
