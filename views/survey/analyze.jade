@@ -32,18 +32,18 @@ block content
                   if i.state == 2
                     - concludedCount++;
                     tr(style='border-radius: 10px;padding:17px;')
-                      td(style='padding-left:15px;border-bottom-left-radius: 10px;border-top-left-radius: 10px;width:75%;') 
+                      td(style='padding-left:15px;border-bottom-left-radius: 10px;border-top-left-radius: 10px;width:80%;') 
                         small 
                           b #{i.name}
                         br
                         small(style='opacity:0.4;') Results:  
                           a(href='/survey/result/' + i.id, style='font-weight:300;') themindspot.com/survey/result/#{i.id}
-                      td(style='border-bottom-right-radius: 10px;border-top-right-radius: 10px;width:25%;') 
+                      td(style='border-bottom-right-radius: 10px;border-top-right-radius: 10px;width:20%;') 
                         ul.nav.nav-pills.nav-justified(style='margin:0px;padding:0px;')
                           li(role='presentation', style='margin:0px;')
-                            a.middle.btn-sm(href='/survey/result/' + i.id, style='font-weight:500;white-space:nowrap;') Result
+                            a.middle.btn-sm(href='/survey/analyze/response/' + i.id, style='font-weight:500;white-space:nowrap;') Responses
                           li(role='presentation', style='margin:0px;')
-                            a.middle.btn-sm(href='/survey/analyze/response/' + i.id, style='font-weight:500;white-space:nowrap;') Response
+                            a.middle.btn-sm(href='/survey/result/' + i.id, style='font-weight:900;white-space:nowrap;') Result
                           //li.disabled(role='presentation', style='margin:0px;')
                           //  a.middle.btn-sm(href='/survey/analyze', style='font-weight:700;white-space:nowrap;') Delete
                 if concludedCount == 0
@@ -71,9 +71,9 @@ block content
                       td(style='border-bottom-right-radius: 10px;border-top-right-radius: 10px;width:20%;') 
                         ul.nav.nav-pills.nav-justified(style='margin:0px;padding:0px;')
                           li(role='presentation', style='margin:0px;')
-                            a.middle.btn-sm(href='/survey/analyze/stat/' + i.id, style='font-weight:500;white-space:nowrap;') Statistics
-                          li(role='presentation', style='margin:0px;')
                             a.middle.btn-sm(href='/survey/analyze/response/' + i.id, style='font-weight:500;white-space:nowrap;') Responses
+                          li(role='presentation', style='margin:0px;')
+                            a.middle.btn-sm(href='/survey/analyze/stat/' + i.id, style='font-weight:900;white-space:nowrap;') Statistics
                 if conductCount  == 0
                   script $('#conducting').removeClass('in');
     else 
