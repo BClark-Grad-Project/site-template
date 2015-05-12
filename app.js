@@ -20,6 +20,7 @@ module.exports = function (data) {
 	var routeAcct    = require('./routes/account')(data);
 	var routeBlog    = require('./routes/blog')(data);
 	var routeApp    = require('./routes/app')(data);
+	var routeRead    = require('./routes/read')(data);
 	
 	// view engine setup
 	app.set('views', path.join(__dirname, 'views'));
@@ -55,6 +56,7 @@ module.exports = function (data) {
 	app.use('/account', routeAcct);
 	app.use('/blog', routeBlog);
 	app.use('/app', routeApp);
+	app.use('/r', routeRead);
 	
 	
 	// catch 404 and forward to error handler

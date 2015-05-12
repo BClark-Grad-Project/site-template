@@ -51,21 +51,16 @@ block content
           br
           .panel.panel-default
             .panel-body
-              | Request can be made of HTTPS using both GET and POST methods.          
+              | Request are made over HTTPS using both GET.          
           br
           h5
-            b My Questionnaire Id's
+            b Questionnaire Conducting and Conducted Id's
           pre(style='padding: 0px 30px;') 
             code
               .panel.panel-default
                 .panel-body
                   i https://api.themindspot.com/r/*AccessKey*
               p
-                b returns  
-                |  [{
-              p(style='text-indent:20px;') id : String, 
-              p(style='text-indent:20px;') name : String 
-              | }]
               br
               br
           h5 Example
@@ -75,55 +70,51 @@ block content
           br
           br
           h5
-            b Questionnaire Information
+            b Questionnaire Form
           pre(style='padding: 0px 30px;') 
-            code 
+            code
               .panel.panel-default
                 .panel-body
-                  i https://api.themindspot.com/r/*QuestionnaireId*/*AccessKey*
+                  i https://api.themindspot.com/r/*AccessKey*/*QuestionnaireId*
               p
-                b returns  
-                |  {
-              p(style='text-indent:20px;') id : String, name : String, 
-              p(style='text-indent:20px;') description : String, 
-              p(style='text-indent:20px;') questionnaire : Object, 
-              p(style='text-indent:20px;') responseNumber : Integer, 
-              p(style='text-indent:20px;') active : Boolean 
-              | }
               br
               br
           h5 Example
           .panel.panel-default(style='padding: 0px 30px;') 
             .panel-body
-              i GET https://api.themindspot.com/r/response/5521559bdb41e8b51b21e96e/dc06376e-d658-4d27-bff7-ae04733fe412
+              i GET https://api.themindspot.com/r/dc06376e-d658-4d27-bff7-ae04733fe412/5521559bdb41e8b51b21e96e
           br
           br
           h5
-            b Response Facts
+            b Questionnaire Response Data
           pre(style='padding: 0px 30px;') 
             code 
               .panel.panel-default
                 .panel-body
-                  i https://api.themindspot.com/r/response/*start*/*end*/*QuestionnaireId*/*AccessKey*
-              small Responses can only be gathered in batches of 
-                i  50
-                | .
-              br
-              br
+                  i https://api.themindspot.com/r/*AccessKey*/responses/*QuestionnaireId*
               p
-                b returns  
-                |  {
-              p(style='text-indent:20px;') id : String,
-              p(style='text-indent:20px;') userInfo : Object,
-              p(style='text-indent:20px;') response : Object,
-              p(style='text-indent:20px;') responded : Date 
-              | }
               br
               br
           h5 Example
           .panel.panel-default(style='padding: 0px 30px;') 
             .panel-body
-              i GET https://api.themindspot.com/r/response/0/49/5521559bdb41e8b51b21e96e/dc06376e-d658-4d27-bff7-ae04733fe412
+              i GET https://api.themindspot.com/r/dc06376e-d658-4d27-bff7-ae04733fe412/responses/5521559bdb41e8b51b21e96e
+          br
+          br
+          h5
+            b Questionnaire Response Statistics
+          pre(style='padding: 0px 30px;') 
+            code 
+              .panel.panel-default
+                .panel-body
+                  i https://api.themindspot.com/r/*AccessKey*/stats/*QuestionnaireId*
+              p
+              br
+              br
+          h5 Example
+          .panel.panel-default(style='padding: 0px 30px;') 
+            .panel-body
+              i GET https://api.themindspot.com/r//dc06376e-d658-4d27-bff7-ae04733fe412/stats/5521559bdb41e8b51b21e96e
           br
           br
           br
