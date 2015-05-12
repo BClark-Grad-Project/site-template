@@ -196,8 +196,8 @@ module.exports = function (data) {
 			else data.survey.read({id:id, state:1}, function(err, survey){
 				if(err) res.redirect('/survey/conduct');
 				else {
-					survey.responses = responses;
-					res.render('survey/request', {title:req.app.locals.service_name, user: req.session.user, survey:survey });
+					survey[0].responses = responses;
+					res.render('survey/request', {title:req.app.locals.service_name, user: req.session.user, survey:survey[0] });
 				}
 			});
 		});
@@ -209,8 +209,8 @@ module.exports = function (data) {
 			else data.survey.read({id:req.body.id, state:1}, function(err, survey){
 				if(err) res.redirect('/survey/conduct');
 				else {
-					survey.responses = responses;
-					res.render('survey/request', {title:req.app.locals.service_name, user: req.session.user, survey:survey });
+					survey[0].responses = responses;
+					res.render('survey/request', {title:req.app.locals.service_name, user: req.session.user, survey:survey[0] });
 				}
 			});
 		});

@@ -127,6 +127,7 @@ var responseQuestionnaireForm = function(req){
 var requestForm = function(req){
 	var form = [];
 	var id = req.body.id;
+	console.log(req.body);
 	if(req.body.name){
 		form.push({email:req.body.email,name:req.body.name,survey:id});
 	} else {
@@ -170,6 +171,7 @@ module.exports.getSurveyResponse = function(req, survey){
 module.exports.getNewRequest = function(req, survey){
 	var form = requestForm(req);
 	
+	//console.log(form);
 	
 	return form;
 };

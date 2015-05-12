@@ -43,7 +43,7 @@ block content
                           li(role='presentation', style='margin:0px;')
                             a.middle.btn-sm(href='/survey/analyze/response/' + i.id, style='font-weight:500;white-space:nowrap;') Responses
                           li(role='presentation', style='margin:0px;')
-                            a.middle.btn-sm(href='/survey/result/' + i.id, style='font-weight:900;white-space:nowrap;') Result
+                            a.middle.btn-sm(href='/survey/result/' + i.id, style='font-weight:900;white-space:nowrap;') Statistics
                           //li.disabled(role='presentation', style='margin:0px;')
                           //  a.middle.btn-sm(href='/survey/analyze', style='font-weight:700;white-space:nowrap;') Delete
                 if concludedCount == 0
@@ -73,7 +73,7 @@ block content
                           li(role='presentation', style='margin:0px;')
                             a.middle.btn-sm(href='/survey/analyze/response/' + i.id, style='font-weight:500;white-space:nowrap;') Responses
                           li(role='presentation', style='margin:0px;')
-                            a.middle.btn-sm(href='/survey/analyze/stat/' + i.id, style='font-weight:900;white-space:nowrap;') Statistics
+                            a.middle.btn-sm(href='/survey/result/' + i.id, style='font-weight:900;white-space:nowrap;') Statistics
                 if conductCount  == 0
                   script $('#conducting').removeClass('in');
     else 
