@@ -232,9 +232,11 @@ module.exports = function (data) {
 	});
 	router.get('/conduct/finish/:id', function(req, res, next) { // GET Conduct
 		var id = req.params.id;
-		data.survey.update({ id:id, state:2 }, function(err, response){
-			if(err) res.redirect('/survey/conduct');
-			else res.redirect('/survey/anlayze');
+		data.survey.update({id:id, state:2}, function(err, response){
+			if(err){
+				console.log(err);
+				res.redirect('/survey/conduct');
+			} else res.redirect('/survey/analayze');
 		});
 	});
 	
