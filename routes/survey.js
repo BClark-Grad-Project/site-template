@@ -236,7 +236,7 @@ module.exports = function (data) {
 			if(err){
 				console.log(err);
 				res.redirect('/survey/conduct');
-			} else res.redirect('/survey/analayze');
+			} else res.redirect('/survey/analyze');
 		});
 	});
 	
