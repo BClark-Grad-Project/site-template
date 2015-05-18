@@ -3,7 +3,7 @@
  */
 window.fbAsyncInit = function() {
   FB.init({
-      appId      : '884951464905706', // <-- Test App ID, replace with "'868098053257714'," on go live
+      appId      : '884951464905706', 
 	  xfbml      : true,
 	  oauth      : true,
 	  status     : true, // check login status
@@ -37,7 +37,7 @@ function fbAuth(){
 	      });
       }
   }, {
-      scope: 'publish_stream,email'
+      scope: 'email'
   });
 }
 
@@ -56,6 +56,6 @@ function fbLogin(){
 	      setLoginForm(fieldObj);
       }
   }, {
-      scope: 'publish_stream,email'
+      scope: 'email'
   });
 }
